@@ -1,7 +1,7 @@
 from datetime import datetime
 
 
-# VALIDATOR CLASS
+# VALIDATOR CLAS
 class Validator:
     # NAME
     def is_valid_name():
