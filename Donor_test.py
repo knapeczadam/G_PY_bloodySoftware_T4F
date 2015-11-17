@@ -1,5 +1,5 @@
 from datetime import datetime
-from Donor import DonorData
+from Donor2 import DonorData
 
 import unittest
 
