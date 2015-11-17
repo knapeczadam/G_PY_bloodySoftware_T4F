@@ -14,7 +14,7 @@ class Validator:
     # WEIGHT
     def is_valid_weight():
         return True
-
+#donor
     # DATE
     def is_valid_date(date):
         try:
