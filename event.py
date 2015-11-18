@@ -10,11 +10,23 @@ DONATION_TIME = 30
 class EventValidator:
     # Date validation imported from donor.py, call it as DonorValidator.is_valid_date()
 
-    def is_valid_time():
-        return True
+    def is_valid_time(TIME):
+        try:
+            datetime.strptime(TIME, "%H:%M")
+            return True
+        except:
+            return False
 
-    def is_valid_zip_code():
-        return True
+    def is_valid_zip_code(ZIP):
+        if str(ZIP).isdigit() and len(ZIP) == 4:
+            if ZIP[0] != "0":
+                return True
+            else:
+                print(ZIP, "is not vaild! 1. number must not be 0!")
+                return False
+        else:
+            print("ZIP must be 4 DIGITS!")
+            return False
 
     def is_valid_city(city):
         cities = ["Miskolc", "Sarospatak", "Szerencs", "Kazincbarcika"]
@@ -43,9 +55,15 @@ class EventInputHelper:
         return start_time
 
     def get_end_time():
+        end_time = input("Enter your donation end:")
+        while EventValidator.is_valid_time(end_time) is False:
+            print("Is NOT a vaild TIME")
         return end_time
 
     def get_zip_code():
+        zip_code = input("Enter your zip:")
+        while EventValidator.is_valid_zip_code(zip_code) is False:
+            print("You no ZIP")
         return zip_code
 
     def get_city():
