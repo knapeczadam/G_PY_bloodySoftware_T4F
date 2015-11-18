@@ -15,12 +15,12 @@ class Validator:
 
     # WEIGHT
     def is_valid_weight(self):
-        return str(self).isdigit() or str(self) == ""
+        return str(self).isdigit()
 #donor
     # DATE
     def is_valid_date(date):
         try:
-            valid_date = datetime.strptime(date, "%Y.%m.%d")
+            datetime.strptime(date, "%Y.%m.%d")
             return True
         except:
             return False
@@ -38,25 +38,13 @@ class Validator:
         if str(self)[:6].isdigit() and str(self)[6:].isalpha():
             print("Your ID number is recorded.")
             return True
-        elif str(self)[:6].isalpha() and str(self)[6:].isdigit():
+        elif str(self)[:2].isalpha() and str(self)[2:].isdigit():
             print("Your passport number is recorded.")
             return True
         else:
             print("Not ID or Pass, But recorded.")
             return True
 
-
-    # ID EXPIRATION DATE
-    def is_valid_exp_date(self):
-        while True:
-            try:
-                date_of_exp = datetime.strptime(str(self), "%Y.%m.%d")  # Only let the data pass if it matches this format.
-                if date_of_exp > datetime.now():
-                    return True
-                elif date_of_exp < datetime.now():
-                    return False
-            except:
-                print("Wrong format. Please try again in the following format, 2000.12.31: ")
 
     # BLOOD TYPE
     def is_valid_blood_type(self):
@@ -72,8 +60,10 @@ class Validator:
 
         if not contains_at_sign:
             print("Please add an '@' sign in your address!")
+            return False
         if not ending_is_valid:
             print("Please specify where your email provider is ('.com' or '.hu')!")
+            return False
         return True
 
     # MOBILE NUMBER
@@ -128,7 +118,7 @@ class InputHelper:
     # DATE OF BIRTH
     def get_date_of_birth():
         print("Please enter the donor's date of birth in the following format, 2000.12.31: ")
-        while not Validator.is_valid_date(InputHelper.Input()) is False:
+        while Validator.is_valid_date(InputHelper.Input()) is False:
             print("Wrong format. Try again...")
         return Input
 
@@ -157,8 +147,6 @@ class InputHelper:
         print("Enter your id exp date")
         while Validator.is_valid_date(InputHelper.Input()) is False:
             print("DATE IS NOT GOOD")
-        if Validator.is_valid_exp_date(Input) is False:
-            print("Lejart")
         return Input
 
     # BLOOD TYPE
@@ -182,13 +170,4 @@ class InputHelper:
             print("M-O-B-I-L-E NUMBER PLS")
         return Input
 
-Adat1 = []
-
-
-Adat1.append(InputHelper.get_blood_type())
-
-
-Adat1.append(InputHelper.get_id_number())
-
-print(Adat1)
 
