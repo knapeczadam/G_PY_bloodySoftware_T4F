@@ -11,8 +11,8 @@ class MyTestCase(unittest.TestCase):
     def test_betu_FALSE(self):
         self.assertFalse(Validator.is_valid_weight("kk"))
 
-    def test_semmi_TRUE(self):
-        self.assertTrue(Validator.is_valid_weight(""))
+    def test_semmi_FALSE(self):
+        self.assertFalse(Validator.is_valid_weight(""))
 
     def test_name_reTRUE(self):
         self.assertTrue(Validator.is_valid_name("Timko And"))
@@ -72,10 +72,10 @@ class MyTestCase(unittest.TestCase):
         self.assertTrue(Validator.is_valid_email_address("aaandris@gmail.com"))
 
     def email_test_reFALSE(self):
-        self.assertTrue(Validator.is_valid_email_address("aaandris@gmail"))
+        self.assertFalse(Validator.is_valid_email_address("aaandris@gmail"))
 
     def email_test_reFALSE2(self):
-        self.assertTrue(Validator.is_valid_email_address("aaandris.hu"))
+        self.assertFalse(Validator.is_valid_email_address("aaandris.hu"))
 
     def id_test_reTRUE(self):
         self.assertTrue(Validator.is_valid_id_number("201001AA"))
@@ -89,8 +89,3 @@ class MyTestCase(unittest.TestCase):
     def id_test_reFALSE(self):
         self.assertFalse(Validator.is_valid_id_number("XXXXXXX"))
 
-    def exp_test_reTRUE(self):
-        self.assertTrue(Validator.is_valid_exp_date("2015.12.25"))
-
-    def exp_test_reFALSE(self):
-        self.assertFalse(Validator.is_valid_exp_date("2010.12.25"))
