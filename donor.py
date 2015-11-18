@@ -170,4 +170,3 @@ class InputHelper:
             print("M-O-B-I-L-E NUMBER PLS")
         return Input
 
-

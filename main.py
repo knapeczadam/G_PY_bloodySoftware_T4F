@@ -17,27 +17,27 @@ while d_e_s not in d_e_s_list:
 # DONOR REGISTRATION
 # In case D is entered, calls all the Donor definitions.
 if d_e_s.upper() == "D":
-    # InputHelper.get_name()
-    # InputHelper.get_gender()
+    InputHelper.get_name()
+    InputHelper.get_gender()
     # If the returned number from the def is not greater than 50, the program stops.
-    # if int(InputHelper.get_weight()) <= 50:
-    #     print("\nDonors are only accepted above 50 kgs.")
-    #     print("The program has ended because of not suitable donor.")
-    #     exit()
-    # # If the returned date from the def is within 18 years of the current date, the program stops.
-    # if (datetime.now() - datetime.strptime(InputHelper.get_date_of_birth(), "%Y.%m.%d")).days // 365 < 18:
-    #     print("\nDonors are only accepted above 18 years.")
-    #     print("The program has ended because of not suitable donor.")
-    #     exit()
-    # # If the returned date from the def is within 90 days of the current date, the program stops.
-    # if (datetime.now() - datetime.strptime(InputHelper.get_donation_date(), "%Y.%m.%d")).days <= 90:
-    #     print("\nDonors can only give blood once in every 3 months.")
-    #     print("The program has ended because of not suitable donor.")
-    #     exit()
-    # if InputHelper.get_sickness().lower() == "y":
-    #     print("nu sick")
-    #     print("The program has ended because of not suitable donor.")
-    #     exit()
+    if int(InputHelper.get_weight()) <= 50:
+        print("\nDonors are only accepted above 50 kgs.")
+        print("The program has ended because of not suitable donor.")
+        exit()
+    # If the returned date from the def is within 18 years of the current date, the program stops.
+    if (datetime.now() - datetime.strptime(InputHelper.get_date_of_birth(), "%Y.%m.%d")).days // 365 < 18:
+        print("\nDonors are only accepted above 18 years.")
+        print("The program has ended because of not suitable donor.")
+        exit()
+    # If the returned date from the def is within 90 days of the current date, the program stops.
+    if (datetime.now() - datetime.strptime(InputHelper.get_donation_date(), "%Y.%m.%d")).days <= 90:
+        print("\nDonors can only give blood once in every 3 months.")
+        print("The program has ended because of not suitable donor.")
+        exit()
+    if InputHelper.get_sickness().lower() == "y":
+        print("-----")
+        print("The program has ended because of not suitable donor.")
+        exit()
     InputHelper.get_id_number() #elobb vagy utan
     if datetime.strptime(InputHelper.get_exp_date(),"%Y.%m.%d") < datetime.now():
         print("Lejart")
