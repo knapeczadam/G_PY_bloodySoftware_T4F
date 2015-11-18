@@ -1,5 +1,4 @@
-from datetime import datetime
-from Donor2 import DonorData
+from donor import Validator
 
 import unittest
 
@@ -7,65 +6,91 @@ import unittest
 class MyTestCase(unittest.TestCase):
 
     def test_szam_TRUE(self):
-        self.assertTrue(DonorData.get_weight(1))
+        self.assertTrue(Validator.is_valid_weight(1))
 
     def test_betu_FALSE(self):
-        self.assertFalse(DonorData.get_weight("kk"))
+        self.assertFalse(Validator.is_valid_weight("kk"))
 
     def test_semmi_TRUE(self):
-        self.assertTrue(DonorData.get_weight(""))
+        self.assertTrue(Validator.is_valid_weight(""))
 
     def test_name_reTRUE(self):
-        self.assertTrue(DonorData.get_name("Timko And"))
+        self.assertTrue(Validator.is_valid_name("Timko And"))
 
     def test_name_reFALSE(self):
-        self.assertFalse(DonorData.get_name("CsakEgy"))
+        self.assertFalse(Validator.is_valid_name("CsakEgy"))
 
-    def test_name_reFALSE(self):
-        self.assertFalse(DonorData.get_name(88))
+    def test_name_reFALSE2(self):
+        self.assertFalse(Validator.is_valid_name(88))
 
     def test_date_reTRUE(self):
-        self.assertTrue(DonorData.get_birth("1996.09.25"))
+        self.assertTrue(Validator.is_valid_date("1996.09.25"))
 
     def test_date_reFALSE(self):
-        self.assertFalse(DonorData.get_birth("1996.xx.25"))
+        self.assertFalse(Validator.is_valid_date("1996.xx.25"))
 
     def test_date_don_reTRUE(self):
-        self.assertTrue(DonorData.get_donation("1996.09.25"))
+        self.assertTrue(Validator.is_valid_date("1996.09.25"))
 
     def test_date_don_reFALSE(self):
-        self.assertFalse(DonorData.get_donation("1996.xx.25"))
+        self.assertFalse(Validator.is_valid_date("1996.xx.25"))
 
     def gender_test_reTRUE(self):
-        self.assertTrue(DonorData.get_gender("F"))
+        self.assertTrue(Validator.is_valid_gender("F"))
 
     def gender_test_reFALSE(self):
-        self.assertFalse(DonorData.get_gender("X"))
+        self.assertFalse(Validator.is_valid_gender("X"))
 
     def gender_test_reFALSE2(self):
-        self.assertFalse(DonorData.get_gender(9))
+        self.assertFalse(Validator.is_valid_gender(9))
 
     def sick_test_reTRUE(self):
-        self.assertTrue(DonorData.get_sickness("y"))
+        self.assertTrue(Validator.is_valid_sickness("y"))
 
     def sick_test_reFALSE(self):
-        self.assertFalse(DonorData.get_sickness(9))
+        self.assertFalse(Validator.is_valid_sickness(9))
 
     def blood_test_reTRUE(self):
-        self.assertTrue(DonorData.get_blood("a"))
+        self.assertTrue(Validator.is_valid_blood_type("a"))
 
     def blood_test_reFALSE(self):
-        self.assertFalse(DonorData.get_blood(9))
+        self.assertFalse(Validator.is_valid_blood_type(9))
 
     def mobil_test_reTRUE(self):
-        self.assertTrue(DonorData.get_mobile_number("06202946922"))
+        self.assertTrue(Validator.is_valid_mobile_number("06202946922"))
 
     def mobil_test_reFALSE(self):
-        self.assertFalse(DonorData.get_mobile_number("062029469"))
+        self.assertFalse(Validator.is_valid_mobile_number("062029469"))
 
     def mobil_test_reFALSE2(self):
-        self.assertFalse(DonorData.get_mobile_number("02029469"))
+        self.assertFalse(Validator.is_valid_mobile_number("02029469"))
 
     def mobil_test_reFALSE3(self):
-        self.assertFalse(DonorData.get_mobile_number("065029469"))
+        self.assertFalse(Validator.is_valid_mobile_number("065029469"))
 
+    def email_test_reTRUE(self):
+        self.assertTrue(Validator.is_valid_email_address("aaandris@gmail.com"))
+
+    def email_test_reFALSE(self):
+        self.assertTrue(Validator.is_valid_email_address("aaandris@gmail"))
+
+    def email_test_reFALSE2(self):
+        self.assertTrue(Validator.is_valid_email_address("aaandris.hu"))
+
+    def id_test_reTRUE(self):
+        self.assertTrue(Validator.is_valid_id_number("201001AA"))
+
+    def id_test_reTRUE2(self):
+        self.assertTrue(Validator.is_valid_id_number("AAAAAA22"))
+
+    def id_test_reTRUE3(self):
+        self.assertTrue(Validator.is_valid_id_number("AAAAA322"))
+
+    def id_test_reFALSE(self):
+        self.assertFalse(Validator.is_valid_id_number("XXXXXXX"))
+
+    def exp_test_reTRUE(self):
+        self.assertTrue(Validator.is_valid_exp_date("2015.12.25"))
+
+    def exp_test_reFALSE(self):
+        self.assertFalse(Validator.is_valid_exp_date("2010.12.25"))
