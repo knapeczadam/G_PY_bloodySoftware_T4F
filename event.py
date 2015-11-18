@@ -1,14 +1,14 @@
 from datetime import timedelta
 from datetime import datetime
-from donor import Validator
+from donor import DonorValidator
 
 PREPARATION_TIME = 30
 DONATION_TIME = 30
 
 
 # VALIDATOR CLASS
-class EventDataValidator:
-    # No is_valid_date() here again, call it from donor.py
+class EventValidator:
+    # Date validation imported from donor.py, call it as DonorValidator.is_valid_date()
 
     def is_valid_time():
         return True
@@ -16,29 +16,26 @@ class EventDataValidator:
     def is_valid_zip_code():
         return True
 
-    def is_valid_city():
-        return True
+    def is_valid_city(city):
+        cities = ["Miskolc", "Sarospatak", "Szerencs", "Kazincbarcika"]
+        if city in cities:
+            return True
+        return False
 
-    def is_valid_address():
-        return True
+    def is_valid_address(address):
+        if 0 < len(address) <= 25:
+            return True
+        return False
 
     def is_valid_available_beds():
         return True
 
-    def is_valid_planned_don_num(self):
+    def is_valid_planned_don_num():
         return True
-
-    def is_valid_success_rate(self):
-        return str(self).isdigit()
 
 
 # INPUT HELPER CLASS
 class EventInputHelper:
-    def Input():
-        global Input
-        Input = input("--> ")
-        return Input
-
     def get_date_of_event():
         return date_of_event
 
@@ -52,9 +49,17 @@ class EventInputHelper:
         return zip_code
 
     def get_city():
+        city = input("Please type in where will the event take place; Miskolc, Sarospatak, Szerencs or Kazincbarcika: ")
+        while EventValidator.is_valid_city(city) is False:
+            print("Wrong format. Try again...")
+            city = input("Please type in where will the event take place; Miskolc, Sarospatak, Szerencs or Kazincbarcika: ")
         return city
 
     def get_address():
+        address = input("Please enter in what address will the event take place: ")
+        while EventValidator.is_valid_address(address) is False:
+            print("Wrong format. The address can be 25 characters long at most. Try again...")
+            address = input("Please enter in what address will the event take place: ")
         return address
 
     def get_available_beds():
@@ -62,16 +67,3 @@ class EventInputHelper:
 
     def get_planned_don_num():
         return planned_don_num
-
-    def get_succesfull_donations():
-        print("Please enter how many successfull donations were during donation event (x out of {})".format(planned_donor_number))
-        while Validator.is_valid_succces_rate(EventInputHelper.Input()) is False:
-            print("must be only digits")
-        return Input
-
-    def mock_get_max_donor_number():
-        global max_donor_number
-        event_duration_in_minutes = end_time - start_time
-        event_duration_in_minutes = timedelta.total_seconds(event_duration_in_minutes) // 60
-        max_donor_number = ((event_duration_in_minutes - PREPARATION_TIME) // DONATION_TIME) * int(available_beds)
-        return max_donor_number
