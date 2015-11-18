@@ -18,6 +18,12 @@ class MyTestCase(unittest.TestCase):
     def test_available_beds_False(self):
         self.assertFalse(EventDataValidator.is_valid_available_beds("abc"))
 
+    def test_succes_rate_False(self):
+        self.assertFalse(EventDataValidator.is_valid_success_rate("abc"))
+
+    def test_succes_rate_False(self):
+        self.assertTrue(EventDataValidator.is_valid_success_rate("151"))
+
 
 if __name__ == '__main__':
     unittest.main()
