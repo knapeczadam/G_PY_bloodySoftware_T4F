@@ -181,7 +181,7 @@ class InputHelper:
         while Validator.is_valid_mobile_number(InputHelper.Input()) is False:
             print("M-O-B-I-L-E NUMBER PLS")
         return Input
-
+"""
 Adat1 = []
 
 
@@ -191,4 +191,4 @@ Adat1.append(InputHelper.get_blood_type())
 Adat1.append(InputHelper.get_id_number())
 
 print(Adat1)
-
+"""
