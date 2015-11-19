@@ -10,6 +10,22 @@ DONATION_TIME = 30
 class EventValidator:
     # Date validation imported from donor.py, call it as DonorValidator.is_valid_date()
 
+
+    def valid_donation_start(date):
+        if datetime.strptime(date, "%H:%M"):
+            return True
+        else:
+            print("Incorrect format. Try again.")
+            return False
+
+    def valid_date_of_event(date_text):
+        if datetime.datetime.strptime(date_text, '%Y-%m-%d'):
+            return True
+        else:
+            print("Incorrect data format, should be YYYY-MM-DD")
+            return False
+
+
     def is_valid_time(TIME):
         try:
             datetime.strptime(TIME, "%H:%M")
@@ -39,21 +55,27 @@ class EventValidator:
             return True
         return False
 
-    def is_valid_available_beds(beds):
-         isvalid = str(beds).isdigit()
-         if not isvalid:
-             print("Please enter only numbers!")
-         return isvalid
+    def is_valid_available_beds():
+        return True
 
-    def is_valid_planned_don_num(number):
-        return str(number).isdigit()
-
-    def is_valid_success_rate(number):
-        return str(number).isdigit()
+    def is_valid_planned_don_num():
+        return True
 
 
 # INPUT HELPER CLASS
 class EventInputHelper:
+
+    def date_of_event():
+        date_of_event = input("Enter your event date:")
+        while EventValidator.valid_date_of_event(date_text) is False:
+            print("Is NOT a valid date of event")
+        return date_of_event
+
+    def donation_start():
+        donation_start = input("Enter the start of the donation:")
+        while EventValidator.valid_donation_start(date_text) is False:
+            print("Is NOT a valid time.")
+        return donation_start
 
     def get_date_of_event():
         return date_of_event
@@ -88,32 +110,7 @@ class EventInputHelper:
         return address
 
     def get_available_beds():
-         beds = input("Please enter the number of available beds: ")
-         while EventValidator.is_valid_available_beds(beds) is False:
-             print("Wrong format. Try again...")
-             beds = input("Please enter the number of available beds: ")
-         return beds
+        return available_beds
 
-
-    def get_planned_donor_number():
-        donor_number = input("Please enter the planned donor number: ")
-        while EventValidator.is_valid_planned_donor_number(donor_number) is False:
-            print("Wrong format. Try again...")
-            donor_number = input("Please enter the planned donor number: ")
-        return donor_number
-
-    def get_succesfull_donations():
-         succesfull_donation = input("Please enter how many successfull donations\
-          were during donation event (x out of {})".format(EventInputHelper.planned_don_num))
-         while EventValidator.is_valid_succces_rate(succesfull_donation) is False:
-             print("must be only digits")
-         return succesfull_donation
-
-
-    def calc_max_donor_number():
-         event_duration_in_minutes = datetime.strptime(EventInputHelper.get_end_time(), "%H:%M")\
-                                     - datetime.strptime(EventInputHelper.get_start_time(), "%H:%M")
-         event_duration_in_minutes = timedelta.total_seconds(event_duration_in_minutes) // 60
-         max_donor_number = ((event_duration_in_minutes - PREPARATION_TIME) \
-                             // DONATION_TIME) * int(EventInputHelper.available_beds)
-         return max_donor_number
+    def get_planned_don_num():
+        return planned_don_num
