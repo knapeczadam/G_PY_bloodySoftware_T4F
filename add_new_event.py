@@ -1,5 +1,5 @@
 from event_inputs import EventInputHelper
-from Data import events
+import csv
 
 
 class AddNewEvent:
