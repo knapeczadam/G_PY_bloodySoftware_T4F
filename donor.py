@@ -3,12 +3,11 @@ from datetime import datetime
 
 # VALIDATOR CLASS
 class DonorValidator:
-
     # NAME
     # TDD VAN
     def is_valid_name(self):
-        split_name = str(self).split(" ")
-        return str(self).replace(" ", "").isalpha() and len(split_name) > 1
+        split_Name = str(self).split(" ")
+        return str(self).replace(" ", "").isalpha() and len(split_Name) > 1
 
     # GENDER
     # TDD VAN
@@ -23,9 +22,9 @@ class DonorValidator:
 
     # DATE
     # TDD VAN
-    def is_valid_date(self):
+    def is_valid_date(date):
         try:
-            datetime.strptime(str(self), "%Y.%m.%d")
+            datetime.strptime(date, "%Y.%m.%d")
             return True
         except:
             return False
@@ -43,20 +42,21 @@ class DonorValidator:
         if len(str(self)) != 8 or not str(self).isalnum():
             return False
         if str(self)[:6].isdigit() and str(self)[6:].isalpha():
-            print("The donor's ID number has been recorded.")
+            print("Your ID number is recorded.")
             return True
         elif str(self)[:2].isalpha() and str(self)[2:].isdigit():
-            print("The donor's passport number has been recorded.")
+            print("Your passport number is recorded.")
             return True
         else:
-            print("Not ID or passport, but the given input has been recorded.")
+            print("Not ID or Pass, But recorded.")
             return True
+
 
     # BLOOD TYPE
     # TDD VAN
     def is_valid_blood_type(self):
-        blood_types = ["a", "b", "ab", "0"]
-        return str(self).lower() in blood_types
+        Blood_types = ["a", "b", "ab", "0"]
+        return str(self).lower() in Blood_types
 
     # EMAIL ADDRESS
     # TDD VAN
@@ -67,7 +67,7 @@ class DonorValidator:
         ending_is_valid = email_address_string.endswith(".hu") or email_address_string.endswith(".com")
 
         if not contains_at_sign:
-            print("Please add an '@' sign to your address!")
+            print("Please add an '@' sign in your address!")
             return False
         if not ending_is_valid:
             print("Please specify where your email provider is ('.com' or '.hu')!")
@@ -99,97 +99,82 @@ class DonorValidator:
 
 # INPUT HELPER CLASS
 class DonorInputHelper:
-
-    @staticmethod
     def Input():
         global Input
         Input = input("--->")
         return Input
-
     # NAME
-    @staticmethod
     def get_name():
-        print("Enter the donor's name (eg.: John Doe):")
+        print("Please enter your name:")
         while DonorValidator.is_valid_name(DonorInputHelper.Input()) is False:
-            print("Please reenter the name in a valid format (eg.: John Doe):")
+            print("Try again!:")
         return Input
 
     # GENDER
-    @staticmethod
     def get_gender():
-        print("Enter the donor's gender (F/M):")
+        print("Please enter an 'F' if your are a Female or an 'M' if you are a Male:")
         while DonorValidator.is_valid_gender(DonorInputHelper.Input()) is False:
-            print("Please enter the donor's gender in a valid format (F/M):")
+            print("Try again!:")
         return Input
 
     # WEIGHT
-    @staticmethod
     def get_weight():
-        print("Enter the donor's weight:")
+        print("Please enter your weight:")
         while DonorValidator.is_valid_weight(DonorInputHelper.Input()) is False:
-            print("Please enter only numbers:")
+            print("Try again!:")
         return Input
 
     # DATE OF BIRTH
-    @staticmethod
     def get_date_of_birth():
-        print("Enter the donor's date of birth in the following format, YYYY.MM.DD:")
+        print("Please enter the donor's date of birth in the following format, 2000.12.31: ")
         while DonorValidator.is_valid_date(DonorInputHelper.Input()) is False:
-            print("Please enter the date in a valid format (YYYY.MM.DD):")
+            print("Wrong format. Try again...")
         return Input
 
-    # DONATION DATE
-    @staticmethod
     def get_donation_date():
-        print("Enter the donor's last donation date in the following format, YYYY.MM.DD: ")
+        print("Please enter the donor's last donation date in the following format, 2000.12.31: ")
         while DonorValidator.is_valid_date(DonorInputHelper.Input()) is False:
-            print("Please enter the date in a valid format (YYYY.MM.DD):")
+            print("Wrong format. Try again...")
         return Input
 
     # SICKNESS
-    @staticmethod
     def get_sickness():
-        print("Was the donor sick in last month? Y/N")
+        print("Were you sick at last month('Y' for yes, 'N' for no)?:")
         while DonorValidator.is_valid_sickness(DonorInputHelper.Input()) is False:
-            print("Please enter a valid input (Y or N only):")
+            print("Try again!:")
         return Input
 
     # ID NUMBER
-    @staticmethod
     def get_id_number():
-        print("Enter the donor's ID or passport number (eight characters):")
+        print("Please enter your ID:")
         while DonorValidator.is_valid_id_number(DonorInputHelper.Input()) is False:
-            print("Please reenter the ID or passport number in a valid form (eight characters):")
+            print("Try again!:")
         return Input
 
     # ID EXPIRATION DATE
-    @staticmethod
     def get_exp_date():
-        print("Enter the donor's ID expiration date")
+        print("Please enter your ID experiment date:")
         while DonorValidator.is_valid_date(DonorInputHelper.Input()) is False:
-            print("Please enter the date in a valid format (YYYY.MM.DD):")
+            print("Try again!:")
         return Input
 
     # BLOOD TYPE
-    @staticmethod
     def get_blood_type():
-        print("Enter the donor's blood type (the valid inputs are a, b, ab, 0):")
+        print("Please enter your type of blood:")
         while DonorValidator.is_valid_blood_type(DonorInputHelper.Input()) is False:
-            print("Please enter the blood type in a valid format (a, b, ab, 0):")
+            print("Try again!:")
         return Input
 
     # EMAIL ADDRESS
-    @staticmethod
     def get_email_address():
-        print("Enter the donor's email address (only .hu or .com)")
+        print("Please enter your email:")
         while DonorValidator.is_valid_email_address(DonorInputHelper.Input()) is False:
-            print("Please enter the email address in a valid form (eg.: johndoe@gmail.com)")
+            print("Try again!:")
         return Input
 
     # MOBILE NUMBER
-    @staticmethod
     def get_mobile_number():
-        print("Enter the donor's mobile number (valid country '+36/06', valid providers '20/30/70'):")
+        print("Please enter your mobile number:")
         while DonorValidator.is_valid_mobile_number(DonorInputHelper.Input()) is False:
-            print("Please enter the mobile number in a valid form (eg.: 06301234567):")
+            print("Try again!:")
         return Input
