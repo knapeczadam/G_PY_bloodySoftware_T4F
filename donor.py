@@ -139,7 +139,7 @@ class DonorInputHelper:
 
     # SICKNESS
     def get_sickness():
-        print("Were you sick in last month('Y' for yes, 'N' for no)?:")
+        print("Were you sick at last month('Y' for yes, 'N' for no)?:")
         while DonorValidator.is_valid_sickness(DonorInputHelper.Input()) is False:
             print("Try again!:")
         return Input
