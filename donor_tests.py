@@ -1,4 +1,4 @@
-from donor import DonorValidator
+from donor_inputs import DonorValidator
 
 import unittest
 

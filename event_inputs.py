@@ -1,6 +1,6 @@
 from datetime import timedelta
 from datetime import datetime
-from donor import DonorValidator
+from donor_inputs import DonorValidator
 
 PREPARATION_TIME = 30
 DONATION_TIME = 30
@@ -8,7 +8,7 @@ DONATION_TIME = 30
 
 # VALIDATOR CLASS
 class EventValidator:
-    # Date validation imported from donor.py, call it as DonorValidator.is_valid_date()
+    # Date validation imported from donor_inputs.py, call it as DonorValidator.is_valid_date()
     # TDD VAN
     def is_valid_date(event_date):
         try:

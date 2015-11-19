@@ -1,0 +1,2 @@
+class AddNewEvent:
+    pass

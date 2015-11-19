@@ -1,4 +1,4 @@
-from event import EventValidator
+from event_inputs import EventValidator
 import unittest
 
 
