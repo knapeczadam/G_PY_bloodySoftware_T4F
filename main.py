@@ -1,29 +1,37 @@
-# Main menu options come here shortly - by calling classes from the freshly separated files.
+from add_new_donor import AddNewDonor
+from add_new_event import AddNewEvent
+from delete_donor import DeleteDonor
+from delete_event import DeleteEvent
+from list_data import ListData
+from search_data import SearchData
 
-Event_data = []
-
-# Welcomes to the program and starts an option.
-print("Welcome to the blood donation program.\n")
-d_e_s = ""
-d_e_s_list = ["D", "E", "S", "d", "e", "s"]
-# Keeps asking the user which program option to run till one of the above listed letters is chosen.
-while d_e_s not in d_e_s_list:
-    d_e_s = input("To start a Donor registration press D; \
-                    \nTo start an Event registration press E; \
-                    \nTo Stop the program press S: ")
-
-# DONOR REGISTRATION
-# In case D is entered, calls all the Donor definitions.
-if d_e_s.upper() == "D":    # add_new_donor.py function calls will be here
-    pass
-
-# EVENT REGISTRATION
-# In case E is entered, calls all the Event definitions.
-elif d_e_s.upper() == "E":  # add_new_event.py function calls will be here
-    pass
-
-# In case S is entered, the program stops.
-elif d_e_s.upper() == "S":
-    print("The program ended normally.")
+print("----------------------------------------------------------------------- \
+      \n--- Welcome to the coolest donor and donation event managing system --- \
+      \n-----------------------------------------------------------------------")
+print("Main menu")
+print("\t 1. Add new donor \
+    \n \t 2. Add new donation event \
+    \n \t 3. Delete donor \
+    \n \t 4. Delete donation event \
+    \n \t 5. List donors or donation events \
+    \n \t 6. Search \
+    \n \t 7. Exit")
+actions = (1, 2, 3, 4, 5, 6, 7)
+action = input("Please choose your action: ")
+while action not in actions:
+    print("To exit press 7, otherwise enter a number from 1 to 6.")
+    action = input("Please choose your action: ")
+if action == "1":
+    AddNewDonor()
+elif action == "2":
+    AddNewEvent()
+elif action == "3":
+    DeleteDonor()
+elif action == "4":
+    DeleteEvent()
+elif action == "5":
+    ListData()
+elif action == "6":
+    SearchData()
+elif action == "7":
     exit()
-
