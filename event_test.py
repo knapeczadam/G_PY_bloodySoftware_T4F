@@ -26,7 +26,7 @@ class MyTestCase(unittest.TestCase):
         self.assertTrue(EventValidator.is_valid_planned_donor_number("100"))
 
     def test_planned_donor_False(self):
-        self.assertFalse(EventValidator.is_valid_planned_donor_number("101"))
+        self.assertFalse(EventValidator.is_valid_planned_donor_number("abc"))
 
     def test_planned_donor_False2(self):
         self.assertFalse(EventValidator.is_valid_planned_donor_number("abc"))

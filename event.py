@@ -45,7 +45,7 @@ class EventValidator:
              print("Please enter only numbers!")
          return isvalid
 
-    def is_valid_planned_don_num(number):
+    def is_valid_planned_donor_number(number):
         return str(number).isdigit()
 
     def is_valid_success_rate(number):
