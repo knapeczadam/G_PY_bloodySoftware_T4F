@@ -4,6 +4,7 @@ from donor import DonorInputHelper
 from event import EventInputHelper
 from datetime import datetime
 
+Event_data = []
 # Welcomes to the program and starts an option.
 print("Welcome to the blood donation program.\n")
 d_e_s = ""
@@ -17,35 +18,43 @@ while d_e_s not in d_e_s_list:
 # DONOR REGISTRATION
 # In case D is entered, calls all the Donor definitions.
 if d_e_s.upper() == "D":
-    DonorInputHelper.get_name()
-    DonorInputHelper.get_gender()
+    name = DonorInputHelper.get_name()
+    gender = DonorInputHelper.get_gender()
     # If the returned number from the def is not greater than 50, the program stops.
-    if int(DonorInputHelper.get_weight()) <= 50:
+    weight = DonorInputHelper.get_weight()
+    if int(weight) <= 50:
         print("\nDonors are only accepted above 50 kgs.")
         print("The program has ended because of not suitable donor.")
         exit()
     # If the returned date from the def is within 18 years of the current date, the program stops.
-    if (datetime.now() - datetime.strptime(DonorInputHelper.get_date_of_birth(), "%Y.%m.%d")).days // 365 < 18:
+    age = DonorInputHelper.get_date_of_birth()
+    if (datetime.now() - datetime.strptime(age, "%Y.%m.%d")).days // 365 < 18:
         print("\nDonors are only accepted above 18 years.")
         print("The program has ended because of not suitable donor.")
         exit()
     # If the returned date from the def is within 90 days of the current date, the program stops.
-    if (datetime.now() - datetime.strptime(DonorInputHelper.get_donation_date(), "%Y.%m.%d")).days <= 90:
+    last_don = DonorInputHelper.get_donation_date()
+    if (datetime.now() - datetime.strptime(last_don, "%Y.%m.%d")).days <= 90:
         print("\nDonors can only give blood once in every 3 months.")
         print("The program has ended because of not suitable donor.")
         exit()
-    if DonorInputHelper.get_sickness().lower() == "y":
+    sick = DonorInputHelper.get_sickness()
+    if sick.lower() == "y":
         print("-----")
         print("The program has ended because of not suitable donor.")
         exit()
-    DonorInputHelper.get_id_number() #elobb vagy utan
-    if datetime.strptime(DonorInputHelper.get_exp_date(), "%Y.%m.%d") < datetime.now():
+    id_code = DonorInputHelper.get_id_number()
+    #elobb vagy utan
+    exp_date = DonorInputHelper.get_exp_date()
+    if datetime.strptime(exp_date, "%Y.%m.%d") < datetime.now():
         print("Lejart")
         exit()
-    DonorInputHelper.get_blood_type()
-    DonorInputHelper.get_email_address()
-    DonorInputHelper.get_mobile_number()
+    blood = DonorInputHelper.get_blood_type()
+    email = DonorInputHelper.get_email_address()
+    mobile = DonorInputHelper.get_mobile_number()
     print("The donor's data is recorded.")
+    Donor_data = [name, gender, weight, age, last_don, sick, id_code, exp_date, blood, email, mobile]
+    print(Donor_data)
 
 # EVENT REGISTRATION
 # In case E is entered, calls all the Event definitions.
