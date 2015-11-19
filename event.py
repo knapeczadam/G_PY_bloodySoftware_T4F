@@ -46,7 +46,7 @@ class EventValidator:
 		return isvalid
 
 	def is_valid_planned_donor_number(number):
-		return str(number).isdigit()
+		return str(number).isdigit() and int(number) <= max_donor_number
 
 	def is_valid_success_rate(number):
 		return str(number).isdigit()
@@ -58,24 +58,30 @@ class EventInputHelper:
         date_of_event = input("Enter your event date:")
         while DonorValidator.is_valid_date(date_of_event) is False:
             print("Is NOT a valid date of event")
+            date_of_event = input("Enter your event date:")
         return date_of_event
 
     def get_start_time():
-        donation_start = input("Enter the start of the donation:")
-        while EventValidator.is_valid_time(donation_start) is False:
+        global start_time
+        start_time = input("Enter the start of the donation:")
+        while EventValidator.is_valid_time(start_time) is False:
             print("Is NOT a valid time.")
-        return donation_start
+            start_time = input("Enter the start of the donation:")
+        return start_time
 
     def get_end_time():
+        global end_time
         end_time = input("Enter your donation end:")
         while EventValidator.is_valid_time(end_time) is False:
             print("Is NOT a vaild TIME")
+            end_time = input("Enter your donation end:")
         return end_time
 
     def get_zip_code():
         zip_code = input("Enter your zip:")
         while EventValidator.is_valid_zip_code(zip_code) is False:
             print("You no ZIP")
+            zip_code = input("Enter your zip:")
         return zip_code
 
     def get_city():
@@ -93,6 +99,7 @@ class EventInputHelper:
         return address
 
     def get_available_beds():
+        global available_beds
         available_beds = input("Please enter the number of available beds: ")
         while EventValidator.is_valid_available_beds(available_beds) is False:
             print("Wrong format. Try again...")
@@ -100,23 +107,28 @@ class EventInputHelper:
         return available_beds
 
     def get_planned_donor_number():
-        donor_number = input("Please enter the planned donor number: ")
-        while EventValidator.is_valid_planned_donor_number(donor_number) is False:
-            print("Wrong format. Try again...")
-            donor_number = input("Please enter the planned donor number: ")
-        return donor_number
+        global planned_donor_number
+        planned_donor_number = input("Please enter the planned donor number: ")
+        while EventValidator.is_valid_planned_donor_number(planned_donor_number) is False:
+            print("x out of {}".format(max_donor_number))
+            planned_donor_number = input("Please enter the planned donor number: ")
+        return planned_donor_number
 
     def get_succesfull_donations():
+        global succesfull_donation
         succesfull_donation = input("Please enter how many successfull donations\
-    were during donation event (x out of {})".format(EventInputHelper.get_planned_donor_number()))
+    were during donation event (x out of {})".format(max_donor_number))
         while EventValidator.is_valid_success_rate(succesfull_donation) is False:
             print("must be only digits")
+            succesfull_donation = input("Please enter how many successfull donations\
+    were during donation event (x out of {})".format(max_donor_number))
         return succesfull_donation
 
     def calc_max_donor_number():
-        event_duration_in_minutes = datetime.strptime(EventInputHelper.get_end_time(), "%H:%M") \
-                                    - datetime.strptime(EventInputHelper.get_start_time(), "%H:%M")
+        global max_donor_number
+        event_duration_in_minutes = datetime.strptime(end_time, "%H:%M") \
+                                    - datetime.strptime(start_time, "%H:%M")
         event_duration_in_minutes = timedelta.total_seconds(event_duration_in_minutes) // 60
         max_donor_number = ((event_duration_in_minutes - PREPARATION_TIME) \
-                            // DONATION_TIME) * int(EventInputHelper.get_available_beds())
+                            // DONATION_TIME) * int(available_beds)
         return max_donor_number
