@@ -50,7 +50,7 @@ if d_e_s.upper() == "D":
 # EVENT REGISTRATION
 # In case E is entered, calls all the Event definitions.
 elif d_e_s.upper() == "E":
-    EventInputHelper.get_date_of_event()
+    EventInputHelper.get_date_of_event
     EventInputHelper.get_start_time()
     EventInputHelper.get_end_time()
     EventInputHelper.get_zip_code()
