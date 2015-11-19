@@ -3,6 +3,7 @@
 from donor import DonorInputHelper
 from event import EventInputHelper
 from datetime import datetime
+import csv
 
 Event_data = []
 # Welcomes to the program and starts an option.
@@ -18,6 +19,25 @@ while d_e_s not in d_e_s_list:
 # DONOR REGISTRATION
 # In case D is entered, calls all the Donor definitions.
 if d_e_s.upper() == "D":
+    data = []
+
+    with open("donor.csv") as csvfile_read:
+        csvreader = csv.reader(csvfile_read, delimiter=",")
+        for row in csvreader:
+            if row:
+                data.append(row)
+    csvfile_read.close()
+    dicta = {}
+    x = 1
+    for elements in data:
+        dicta[x] = elements
+        x += 1
+    print(dicta)
+
+    delete = input("Whould you like to pop an item?")
+    if delete:
+        if delete.isdigit:
+            dicta.pop(int(delete))
     main_do_name = DonorInputHelper.get_name()
     main_do_gender = DonorInputHelper.get_gender()
     # If the returned number from the def is not greater than 50, the program stops.
@@ -56,6 +76,41 @@ if d_e_s.upper() == "D":
     Donor_data = [main_do_name, main_do_gender, main_do_weight, main_do_birth, main_do_last_don, main_do_sick, main_do_id, main_do_exp_id, main_do_blood, main_do_email, main_do_mobile]
     print(Donor_data)
 
+    data = []
+
+    with open("donor.csv") as csvfile_read:
+        csvreader = csv.reader(csvfile_read, delimiter=",")
+        for row in csvreader:
+            if row:
+                data.append(row)
+    csvfile_read.close()
+    dicta = {}
+    x = 1
+    for elements in data:
+        dicta[x] = elements
+        x += 1
+    print(dicta)
+
+    delete = input("Whould you like to pop an item?")
+    if delete:
+        if delete.isdigit:
+            dicta.pop(int(delete))
+
+    print(dicta)
+    with (open("donor.csv", 'w')) as writer:
+        csvwriter = csv.writer(writer, delimiter=",")
+        for word in dicta:
+            csvwriter.writerow(dicta[word])
+    with open("donor.csv", "a") as csvfile_write:
+        csvwriter = csv.writer(csvfile_write, delimiter=',')
+        csvwriter.writerow(Donor_data)
+        print("New:", Donor_data)
+
+    z = input("Wanna clear your csv? (Y/N)")
+    if z.lower() == "y":
+        open("donor.csv", 'w').close()
+        print("Cleared!")
+
 # EVENT REGISTRATION
 # In case E is entered, calls all the Event definitions.
 elif d_e_s.upper() == "E":
@@ -65,8 +120,8 @@ elif d_e_s.upper() == "E":
     main_ev_zip_code = EventInputHelper.get_zip_code()
     main_ev_city = EventInputHelper.get_city()
     main_ev_address = EventInputHelper.get_address()
-    main_ev_beds =EventInputHelper.get_available_beds()
-    main_ev_don_num =EventInputHelper.calc_max_donor_number()
+    main_ev_beds = EventInputHelper.get_available_beds()
+    main_ev_don_num = EventInputHelper.calc_max_donor_number()
     main_ev_plan_don_num = EventInputHelper.get_planned_donor_number()
     main_ev_succ_don = EventInputHelper.get_succesfull_donations()
     if float(main_ev_succ_don)\
