@@ -17,93 +17,100 @@ main_do_mobile = DonorInputHelper.get_mobile_number()
 
 class AddNewDonor:
 
-    data = []
+    @staticmethod
+    def write_donor_data_infile():
 
-    with open("Data\donors.csv") as csvfile_read:
-        csvreader = csv.reader(csvfile_read, delimiter=",")
-        for row in csvreader:
-            if row:
-                data.append(row)
-    csvfile_read.close()
+        data = []
 
-    dicta = {}
-    x = 1
-    for elements in data:
-        dicta[x] = elements
-        x += 1
-    print(dicta)
+        with open("Data\donors.csv") as csvfile_read:
+            csvreader = csv.reader(csvfile_read, delimiter=",")
+            for row in csvreader:
+                if row:
+                    data.append(row)
+        csvfile_read.close()
 
-    delete = input("Would you like to pop an item?")
-    if delete:
-        if delete.isdigit:
-            dicta.pop(int(delete))
+        dicta = {}
+        x = 1
+        for elements in data:
+            dicta[x] = elements
+            x += 1
+        print(dicta)
 
-    # If the returned number from the def is not greater than 50, the program stops.
-    if int(main_do_weight) <= 50:
-        print("\nDonors are only accepted above 50 kgs.")
-        print("The program has ended because of not suitable donor.")
-        exit()
+        delete = input("Would you like to pop an item?")
+        if delete:
+            if delete.isdigit:
+                dicta.pop(int(delete))
 
-    # If the returned date from the def is within 18 years of the current date, the program stops.
-    if (datetime.now() - datetime.strptime(main_do_birth, "%Y.%m.%d")).days // 365 < 18:
-        print("\nDonors are only accepted above 18 years.")
-        print("The program has ended because of not suitable donor.")
-        exit()
+        # If the returned number from the def is not greater than 50, the program stops.
+        if int(main_do_weight) <= 50:
+            print("\nDonors are only accepted above 50 kgs.")
+            print("The program has ended because of not suitable donor.")
+            exit()
 
-    # If the returned date from the def is within 90 days of the current date, the program stops.
-    if (datetime.now() - datetime.strptime(main_do_last_don, "%Y.%m.%d")).days <= 90:
-        print("\nDonors can only give blood once in every 3 months.")
-        print("The program has ended because of not suitable donor.")
-        exit()
+        # If the returned date from the def is within 18 years of the current date, the program stops.
+        if (datetime.now() - datetime.strptime(main_do_birth, "%Y.%m.%d")).days // 365 < 18:
+            print("\nDonors are only accepted above 18 years.")
+            print("The program has ended because of not suitable donor.")
+            exit()
 
-    if main_do_sick.lower() == "y":
-        print("-----")
-        print("The program has ended because of not suitable donor.")
-        exit()
+        # If the returned date from the def is within 90 days of the current date, the program stops.
+        if (datetime.now() - datetime.strptime(main_do_last_don, "%Y.%m.%d")).days <= 90:
+            print("\nDonors can only give blood once in every 3 months.")
+            print("The program has ended because of not suitable donor.")
+            exit()
 
-    if datetime.strptime(main_do_exp_id, "%Y.%m.%d") < datetime.now():
-        print("The donor's ID is expired! Program is shutting down...")
-        exit()
+        if main_do_sick.lower() == "y":
+            print("-----")
+            print("The program has ended because of not suitable donor.")
+            exit()
 
-    print("The donor's data has been recorded.")
+        if datetime.strptime(main_do_exp_id, "%Y.%m.%d") < datetime.now():
+            print("The donor's ID is expired! Program is shutting down...")
+            exit()
 
-    Donor_data = [main_do_name, main_do_gender, main_do_weight, main_do_birth, main_do_last_don, main_do_sick,
-                  main_do_id, main_do_exp_id, main_do_blood, main_do_email, main_do_mobile]
-    print(Donor_data)
+        print("The donor's data has been recorded.")
 
-    data = []
+    @staticmethod
+    def delete_donor_data_fromfile():
 
-    with open("Data\donors.csv") as csvfile_read:
-        csvreader = csv.reader(csvfile_read, delimiter=",")
-        for row in csvreader:
-            if row:
-                data.append(row)
-    csvfile_read.close()
+        data = []
 
-    dicta = {}
-    x = 1
-    for elements in data:
-        dicta[x] = elements
-        x += 1
-    print(dicta)
+        with open("Data\donors.csv") as csvfile_read:
+            csvreader = csv.reader(csvfile_read, delimiter=",")
+            for row in csvreader:
+                if row:
+                    data.append(row)
+        csvfile_read.close()
 
-    delete = input("Would you like to delete an item?")
-    if delete:
-        if delete.isdigit:
-            dicta.pop(int(delete))
+        dicta = {}
+        x = 1
+        for elements in data:
+            dicta[x] = elements
+            x += 1
+        print(dicta)
 
-    print(dicta)
-    with (open("Data\donors.csv", 'w')) as writer:
-        csvwriter = csv.writer(writer, delimiter=",")
-        for word in dicta:
-            csvwriter.writerow(dicta[word])
+        delete = input("Would you like to delete an item?")
+        if delete:
+            if delete.isdigit:
+                dicta.pop(int(delete))
 
-    with open("Data\donors.csv", "a") as csvfile_write:
-        csvwriter = csv.writer(csvfile_write, delimiter=',')
-        csvwriter.writerow(Donor_data)
-        print("New donor:", Donor_data)
+        print(dicta)
+        with (open("Data\donors.csv", 'w')) as writer:
+            csvwriter = csv.writer(writer, delimiter=",")
+            for word in dicta:
+                csvwriter.writerow(dicta[word])
 
-    z = input("Do you want to clear the donors data file? (Y/N)")
-    if z.lower() == "y":
-        open("Data\donors.csv", 'w').close()
-        print("The donors data file has been cleared!")
+        with open("Data\donors.csv", "a") as csvfile_write:
+            csvwriter = csv.writer(csvfile_write, delimiter=',')
+            csvwriter.writerow(Donor_data)
+            print("New donor:", Donor_data)
+
+        z = input("Do you want to clear the donors data file? (Y/N)")
+        if z.lower() == "y":
+            open("Data\donors.csv", 'w').close()
+            print("The donors data file has been cleared!")
+
+
+Donor_data = [main_do_name, main_do_gender, main_do_weight, main_do_birth, main_do_last_don, main_do_sick, main_do_id,
+              main_do_exp_id, main_do_blood, main_do_email, main_do_mobile]
+print(Donor_data)
