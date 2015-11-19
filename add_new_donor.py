@@ -1,6 +1,6 @@
 from donor_inputs import DonorInputHelper
 from datetime import datetime
-import csv
+from Data import donors
 
 
 class AddNewDonor:
@@ -8,7 +8,7 @@ class AddNewDonor:
     data = []
 
     with open("donor.csv") as csvfile_read:
-        csvreader = csv.reader(csvfile_read, delimiter=",")
+        csvreader = donors.reader(csvfile_read, delimiter=",")
         for row in csvreader:
             if row:
                 data.append(row)
@@ -71,7 +71,7 @@ class AddNewDonor:
     data = []
 
     with open("donor.csv") as csvfile_read:
-        csvreader = csv.reader(csvfile_read, delimiter=",")
+        csvreader = donors.reader(csvfile_read, delimiter=",")
         for row in csvreader:
             if row:
                 data.append(row)
@@ -91,12 +91,12 @@ class AddNewDonor:
 
     print(dicta)
     with (open("donor.csv", 'w')) as writer:
-        csvwriter = csv.writer(writer, delimiter=",")
+        csvwriter = donors.writer(writer, delimiter=",")
         for word in dicta:
             csvwriter.writerow(dicta[word])
 
     with open("donor.csv", "a") as csvfile_write:
-        csvwriter = csv.writer(csvfile_write, delimiter=',')
+        csvwriter = donors.writer(csvfile_write, delimiter=',')
         csvwriter.writerow(Donor_data)
         print("New:", Donor_data)
 
