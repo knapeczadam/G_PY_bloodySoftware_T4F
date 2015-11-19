@@ -59,26 +59,22 @@ if d_e_s.upper() == "D":
 # EVENT REGISTRATION
 # In case E is entered, calls all the Event definitions.
 elif d_e_s.upper() == "E":
-    EventInputHelper.get_date_of_event()
-    EventInputHelper.get_start_time()
-    EventInputHelper.get_end_time()
+    EventInputHelper.get_event_date()
+    EventInputHelper.get_donation_start()
+    EventInputHelper.get_donation_end()
     EventInputHelper.get_zip_code()
     EventInputHelper.get_city()
     EventInputHelper.get_address()
     EventInputHelper.get_available_beds()
-    EventInputHelper.calc_max_donor_number()
+    EventInputHelper.get_max_donor_number()
     EventInputHelper.get_planned_donor_number()
-    if float(EventInputHelper.get_succesfull_donations())\
-            / float(EventInputHelper.get_planned_donor_number()) < 0.2:
+    if float(EventInputHelper.get_succesfull_donations()) / float(EventInputHelper.get_planed_don_num()) < 0.2:
         print("Unsuccessfull, not worths to organise there again")
-    if 0.2 <= float(EventInputHelper.get_succesfull_donations())\
-            / float(EventInputHelper.get_planned_donor_number()) <= 0.75:
+    if 0.2 <= float(EventInputHelper.get_succesfull_donations()) / float(EventInputHelper.get_planed_don_num()) <= 0.75:
         print("Normal event")
-    if 0.75 <= float(EventInputHelper.get_succesfull_donations())\
-            / float(EventInputHelper.get_planned_donor_number()) <= 1.1:
+    if 0.75 <= float(EventInputHelper.get_succesfull_donations()) / float(EventInputHelper.get_planed_don_num()) <= 1.1:
         print("Successfull")
-    if float(EventInputHelper.get_succesfull_donations())\
-            / float(EventInputHelper.get_planned_donor_number()) > 1.1:
+    if float(EventInputHelper.get_succesfull_donations()) / float(EventInputHelper.get_planed_don_num()) > 1.1:
         print("Outstanding")
 
 # In case S is entered, the program stops.
