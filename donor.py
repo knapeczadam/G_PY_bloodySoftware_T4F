@@ -92,7 +92,7 @@ class DonorValidator:
 class DonorInputHelper:
     def Input():
         global Input
-        Input = input(":")
+        Input = input("--->")
         return Input
     # NAME
     def get_name():

@@ -8,57 +8,67 @@ DONATION_TIME = 30
 
 # VALIDATOR CLASS
 class EventValidator:
-	# Date validation imported from donor.py, call it as DonorValidator.is_valid_date()
+    # Date validation imported from donor.py, call it as DonorValidator.is_valid_date()
+    def is_valid_date(event_date):
+        try:
+            date_2 = datetime.strptime(event_date, "%Y.%m.%d")
+            if date_2.isoweekday() == 6 or date_2.isoweekday() == 7:
+                print("Event of date must not be on weekends")
+                return False
+            if (date_2.date() - datetime.now().date()).days < 10:
+                return False
+            return True
+        except:
+            return False
 
-	def is_valid_time(TIME):
-		try:
-			datetime.strptime(TIME, "%H:%M")
-			return True
-		except:
-			return False
+    def is_valid_time(TIME):
+        try:
+            datetime.strptime(TIME, "%H:%M")
+            return True
+        except:
+            return False
 
-	def is_valid_zip_code(ZIP):
-		if str(ZIP).isdigit() and len(ZIP) == 4:
-			if ZIP[0] != "0":
-				return True
-			else:
-				print(ZIP, "is not vaild! 1. number must not be 0!")
-				return False
-		else:
-			print("ZIP must be 4 DIGITS!")
-			return False
+    def is_valid_zip_code(ZIP):
+        if str(ZIP).isdigit() and len(ZIP) == 4:
+            if ZIP[0] != "0":
+                return True
+            else:
+                print(ZIP, "is not vaild! 1. number must not be 0!")
+                return False
+        else:
+            print("ZIP must be 4 DIGITS!")
+            return False
 
-	def is_valid_city(city):
-		cities = ["Miskolc", "Sarospatak", "Szerencs", "Kazincbarcika"]
-		if city in cities:
-			return True
-		return False
+    def is_valid_city(city):
+        cities = ["Miskolc", "Sarospatak", "Szerencs", "Kazincbarcika"]
+        if city in cities:
+            return True
+        return False
 
-	def is_valid_address(address):
-		if 0 < len(address) <= 25:
-			return True
-		return False
+    def is_valid_address(address):
+        if 0 < len(address) <= 25:
+            return True
+        return False
 
-	def is_valid_available_beds(beds):
-		isvalid = str(beds).isdigit()
-		if not isvalid:
-			print("Please enter only numbers!")
-		return isvalid
+    def is_valid_available_beds(beds):
+        isvalid = str(beds).isdigit()
+        if not isvalid:
+            print("Please enter only numbers!")
+        return isvalid
 
-	def is_valid_planned_donor_number(number):
-		return str(number).isdigit() and int(number) <= max_donor_number
+    def is_valid_planned_donor_number(number):
+        return str(number).isdigit() and int(number) <= max_donor_number
 
-	def is_valid_success_rate(number):
-		return str(number).isdigit()
+    def is_valid_success_rate(number):
+        return str(number).isdigit()
 
 
-# INPUT HELPER CLASS
+    # INPUT HELPER CLASS
 class EventInputHelper:
     def get_date_of_event():
         date_of_event = input("Enter your event date:")
-        while DonorValidator.is_valid_date(date_of_event) is False:
-            print("Is NOT a valid date of event")
-            date_of_event = input("Enter your event date:")
+        while EventValidator.is_valid_date(date_of_event) is False:
+            date_of_event = input("is not vaild date! Try again(YYYY.MM.DD): ex: 2010.10.10")
         return date_of_event
 
     def get_start_time():
