@@ -4,20 +4,24 @@ from datetime import datetime
 # VALIDATOR CLASS
 class DonorValidator:
     # NAME
+    # TDD VAN
     def is_valid_name(self):
         split_Name = str(self).split(" ")
         return str(self).replace(" ", "").isalpha() and len(split_Name) > 1
 
     # GENDER
+    # TDD VAN
     def is_valid_gender(self):
         available_genders = ["f", "m"]
         return str(self).lower() in available_genders
 
     # WEIGHT
+    # TDD VAN
     def is_valid_weight(self):
         return str(self).isdigit()
 
     # DATE
+    # TDD VAN
     def is_valid_date(date):
         try:
             datetime.strptime(date, "%Y.%m.%d")
@@ -26,11 +30,13 @@ class DonorValidator:
             return False
 
     # SICKNESS
+    # TDD VAN
     def is_valid_sickness(self):
         yes_or_no = ["y", "n"]
         return str(self).lower() in yes_or_no
 
     # ID NUMBER
+    # TDD VAN
     def is_valid_id_number(self):
 
         if len(str(self)) != 8 or not str(self).isalnum():
@@ -47,11 +53,13 @@ class DonorValidator:
 
 
     # BLOOD TYPE
+    # TDD VAN
     def is_valid_blood_type(self):
         Blood_types = ["a", "b", "ab", "0"]
         return str(self).lower() in Blood_types
 
     # EMAIL ADDRESS
+    # TDD VAN
     def is_valid_email_address(self):
         email_address_string = str(self).replace(" ", "")
 
@@ -67,6 +75,7 @@ class DonorValidator:
         return True
 
     # MOBILE NUMBER
+    # TDD VAN
     def is_valid_mobile_number(self):
         mobile_string = str(self).replace(" ", "")
 
