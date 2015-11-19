@@ -9,6 +9,7 @@ DONATION_TIME = 30
 # VALIDATOR CLASS
 class EventValidator:
     # Date validation imported from donor.py, call it as DonorValidator.is_valid_date()
+    # TDD VAN
     def is_valid_date(event_date):
         try:
             date_2 = datetime.strptime(event_date, "%Y.%m.%d")
@@ -21,6 +22,7 @@ class EventValidator:
         except:
             return False
 
+    # TDD VAN
     def is_valid_time(TIME):
         try:
             datetime.strptime(TIME, "%H:%M")
@@ -28,6 +30,7 @@ class EventValidator:
         except:
             return False
 
+    # TDD VAN
     def is_valid_zip_code(ZIP):
         if str(ZIP).isdigit() and len(ZIP) == 4:
             if ZIP[0] != "0":
@@ -39,26 +42,31 @@ class EventValidator:
             print("ZIP must be 4 DIGITS!")
             return False
 
+    # TDD VAN
     def is_valid_city(city):
-        cities = ["Miskolc", "Sarospatak", "Szerencs", "Kazincbarcika"]
-        if city in cities:
+        cities = ["miskolc", "sarospatak", "szerencs", "kazincbarcika"]
+        if city.lower() in cities:
             return True
         return False
 
+    # TDD VAN
     def is_valid_address(address):
         if 0 < len(address) <= 25:
             return True
         return False
 
+    # TDD VAN
     def is_valid_available_beds(beds):
         isvalid = str(beds).isdigit()
         if not isvalid:
             print("Please enter only numbers!")
         return isvalid
 
+    # TDD NEM LEHET IRNI A MAX_DON MIATT
     def is_valid_planned_donor_number(number):
         return str(number).isdigit() and int(number) <= max_donor_number
 
+    # TDD VAN
     def is_valid_success_rate(number):
         return str(number).isdigit()
 

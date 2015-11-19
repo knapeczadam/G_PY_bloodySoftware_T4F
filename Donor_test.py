@@ -4,6 +4,11 @@ import unittest
 
 
 class MyTestCase(unittest.TestCase):
+    def test_szam_TRUE(self):
+        self.assertTrue(DonorValidator.is_valid_name("k k"))
+
+    def test_szam_False(self):
+        self.assertFalse(DonorValidator.is_valid_name(1))
 
     def test_szam_TRUE(self):
         self.assertTrue(DonorValidator.is_valid_weight(1))
