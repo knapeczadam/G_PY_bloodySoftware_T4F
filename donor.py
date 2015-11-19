@@ -96,23 +96,23 @@ class DonorInputHelper:
         return Input
     # NAME
     def get_name():
-        print("PLS your name:")
+        print("Please enter your name:")
         while DonorValidator.is_valid_name(DonorInputHelper.Input()) is False:
-            print("AGAIN YOUR NAME:")
+            print("Try again!:")
         return Input
 
     # GENDER
     def get_gender():
-        print("PLS YOUR F/M:")
+        print("Please enter an 'F' if your are a Female or an 'M' if you are a Male:")
         while DonorValidator.is_valid_gender(DonorInputHelper.Input()) is False:
-            print("AGAIN YOUR F/M:")
+            print("Try again!:")
         return Input
 
     # WEIGHT
     def get_weight():
-        print("YOUR KILOGRAMMM:")
+        print("Please enter your weight:")
         while DonorValidator.is_valid_weight(DonorInputHelper.Input()) is False:
-            print("AGAIN YOUR GK:")
+            print("Try again!:")
         return Input
 
     # DATE OF BIRTH
@@ -130,42 +130,42 @@ class DonorInputHelper:
 
     # SICKNESS
     def get_sickness():
-        print("YOU WAS SICK? Y/N")
+        print("Were you sick in last month('Y' for yes, 'N' for no)?:")
         while DonorValidator.is_valid_sickness(DonorInputHelper.Input()) is False:
-            print("SICK U KNOW:")
+            print("Try again!:")
         return Input
 
     # ID NUMBER
     def get_id_number():
-        print("YOUR ID PLS(PASS OR ID)")
+        print("Please enter your ID:")
         while DonorValidator.is_valid_id_number(DonorInputHelper.Input()) is False:
-            print("ID is 8 DIGIT!:")
+            print("Try again!:")
         return Input
 
     # ID EXPIRATION DATE
     def get_exp_date():
-        print("Enter your id exp date")
+        print("Please enter your ID experiment date:")
         while DonorValidator.is_valid_date(DonorInputHelper.Input()) is False:
-            print("DATE IS NOT GOOD")
+            print("Try again!:")
         return Input
 
     # BLOOD TYPE
     def get_blood_type():
-        print("PLS ENTER YOUR BLOOD TYPE")
+        print("Please enter your type of blood:")
         while DonorValidator.is_valid_blood_type(DonorInputHelper.Input()) is False:
-            print("YOUR BLOOD I SAID")
+            print("Try again!:")
         return Input
 
     # EMAIL ADDRESS
     def get_email_address():
-        print("YOUR EMAIL PLS")
+        print("Please enter your email:")
         while DonorValidator.is_valid_email_address(DonorInputHelper.Input()) is False:
-            print("Email pls...:")
+            print("Try again!:")
         return Input
 
     # MOBILE NUMBER
     def get_mobile_number():
-        print("YOU PHONE NUMBER PLS:")
+        print("Please enter your mobile number:")
         while DonorValidator.is_valid_mobile_number(DonorInputHelper.Input()) is False:
-            print("M-O-B-I-L-E NUMBER PLS")
+            print("Try again!:")
         return Input
