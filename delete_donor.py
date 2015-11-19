@@ -1,0 +1,2 @@
+class DeleteDonor:
+    pass

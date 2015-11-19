@@ -1,0 +1,2 @@
+class AddNewDonor:
+    pass
