@@ -15,11 +15,12 @@ while action not in actions:
     print("To exit press 7, otherwise enter a number from 1 to 6.")
     action = input("Please choose your action: ")
 if action == "1":
-    from add_new_donor import AddNewDonor
-    AddNewDonor()
+	from add_new_donor import AddNewDonor
+	AddNewDonor()
+	AddNewDonor.write_donor_data_infile()
 elif action == "2":
-    from add_new_event import AddNewEvent
-    AddNewEvent()
+	from add_new_event import AddNewEvent
+	AddNewEvent()
 elif action == "3":
     from delete_donor import DeleteDonor
     DeleteDonor()
