@@ -1,4 +1,4 @@
-import csv 
+import csv
 class DeleteDonor:
     def delete_donor_data_fromfile():
 
@@ -16,7 +16,9 @@ class DeleteDonor:
         for elements in data:
             dicta[x] = elements
             x += 1
-        print(dicta)
+        for h in dicta:
+            print(h, end="")
+            print(dicta[h])
         find_id = 0
         delete = input("Enter an ID what u want to delete: ")
         if delete:
