@@ -16,13 +16,13 @@ while action not in actions:
     action = input("Please choose your action: ")
 if action == "1":
     from add_new_donor import AddNewDonor
-    AddNewDonor()
+    AddNewDonor.write_donor_data_infile()
 elif action == "2":
     from add_new_event import AddNewEvent
     AddNewEvent()
 elif action == "3":
     from delete_donor import DeleteDonor
-    DeleteDonor()
+    DeleteDonor.delete_donor_data_fromfile()
 elif action == "4":
     from delete_event import DeleteEvent
     DeleteEvent()

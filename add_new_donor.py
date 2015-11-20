@@ -2,23 +2,25 @@ from donor_inputs import DonorInputHelper
 from datetime import datetime
 import csv
 
-main_do_name = DonorInputHelper.get_name()
-main_do_gender = DonorInputHelper.get_gender()
-main_do_weight = DonorInputHelper.get_weight()
-main_do_birth = DonorInputHelper.get_date_of_birth()
-main_do_last_don = DonorInputHelper.get_donation_date()
-main_do_sick = DonorInputHelper.get_sickness()
-main_do_id = DonorInputHelper.get_id_number()
-main_do_exp_id = DonorInputHelper.get_exp_date()
-main_do_blood = DonorInputHelper.get_blood_type()
-main_do_email = DonorInputHelper.get_email_address()
-main_do_mobile = DonorInputHelper.get_mobile_number()
+
 
 
 class AddNewDonor:
 
-    @staticmethod
+
+
     def write_donor_data_infile():
+        main_do_name = DonorInputHelper.get_name()
+        main_do_gender = DonorInputHelper.get_gender()
+        main_do_weight = DonorInputHelper.get_weight()
+        main_do_birth = DonorInputHelper.get_date_of_birth()
+        main_do_last_don = DonorInputHelper.get_donation_date()
+        main_do_sick = DonorInputHelper.get_sickness()
+        main_do_id = DonorInputHelper.get_id_number()
+        main_do_exp_id = DonorInputHelper.get_exp_date()
+        main_do_blood = DonorInputHelper.get_blood_type()
+        main_do_email = DonorInputHelper.get_email_address()
+        main_do_mobile = DonorInputHelper.get_mobile_number()
 
         data = []
 
@@ -34,12 +36,7 @@ class AddNewDonor:
         for elements in data:
             dicta[x] = elements
             x += 1
-        print(dicta)
 
-        delete = input("Would you like to pop an item?")
-        if delete:
-            if delete.isdigit:
-                dicta.pop(int(delete))
 
         # If the returned number from the def is not greater than 50, the program stops.
         if int(main_do_weight) <= 50:
@@ -68,49 +65,21 @@ class AddNewDonor:
             print("The donor's ID is expired! Program is shutting down...")
             exit()
 
+        Donor_data = [main_do_name, main_do_gender, main_do_weight, main_do_birth, main_do_last_don, main_do_sick, main_do_id,
+                      main_do_exp_id, main_do_blood, main_do_email, main_do_mobile]
         print("The donor's data has been recorded.")
-
-    @staticmethod
-    def delete_donor_data_fromfile():
-
-        data = []
-
-        with open("Data\donors.csv") as csvfile_read:
-            csvreader = csv.reader(csvfile_read, delimiter=",")
-            for row in csvreader:
-                if row:
-                    data.append(row)
-        csvfile_read.close()
-
-        dicta = {}
-        x = 1
-        for elements in data:
-            dicta[x] = elements
-            x += 1
-        print(dicta)
-
-        delete = input("Would you like to delete an item?")
-        if delete:
-            if delete.isdigit:
-                dicta.pop(int(delete))
-
-        print(dicta)
+        # ujra beleirja az eddigi adatokat.. mert yolo
         with (open("Data\donors.csv", 'w')) as writer:
             csvwriter = csv.writer(writer, delimiter=",")
             for word in dicta:
                 csvwriter.writerow(dicta[word])
-
+        # a legujjabat a vegére irja
         with open("Data\donors.csv", "a") as csvfile_write:
             csvwriter = csv.writer(csvfile_write, delimiter=',')
             csvwriter.writerow(Donor_data)
             print("New donor:", Donor_data)
 
-        z = input("Do you want to clear the donors data file? (Y/N)")
-        if z.lower() == "y":
-            open("Data\donors.csv", 'w').close()
-            print("The donors data file has been cleared!")
 
 
-Donor_data = [main_do_name, main_do_gender, main_do_weight, main_do_birth, main_do_last_don, main_do_sick, main_do_id,
-              main_do_exp_id, main_do_blood, main_do_email, main_do_mobile]
-print(Donor_data)
+
+
