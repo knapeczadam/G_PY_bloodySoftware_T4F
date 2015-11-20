@@ -29,7 +29,7 @@ elif action == "3":
 elif action == "4":
     from delete_event import DeleteEvent
 
-    DeleteEvent()
+    DeleteEvent.delete_donor_data_fromfile()
 elif action == "5":
     from list_data import ListData
 
