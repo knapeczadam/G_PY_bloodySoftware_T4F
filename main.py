@@ -18,8 +18,8 @@ if action == "1":
     from add_new_donor import AddNewDonor
     AddNewDonor.write_donor_data_infile()
 elif action == "2":
-    from add_new_event import AddNewEvent
-    AddNewEvent()
+	from add_new_event import AddNewEvent
+	AddNewEvent()
 elif action == "3":
     from delete_donor import DeleteDonor
     DeleteDonor.delete_donor_data_fromfile()
