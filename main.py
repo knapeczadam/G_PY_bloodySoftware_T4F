@@ -19,7 +19,7 @@ if action == "1":
     AddNewDonor.write_donor_data_infile()
 elif action == "2":
 	from add_new_event import AddNewEvent
-	AddNewEvent()
+	AddNewEvent.write_event_data_infile()
 elif action == "3":
     from delete_donor import DeleteDonor
     DeleteDonor.delete_donor_data_fromfile()

@@ -114,7 +114,7 @@ class EventInputHelper:
         while EventValidator.is_valid_address(address) is False:
             print("Wrong format. The address can be 25 characters long at most. Try again...")
             address = input("Please enter in what address will the event take place: ")
-        return address
+        return "'" + address + "'"
 
     def get_available_beds():
         global available_beds
