@@ -33,7 +33,7 @@ elif action == "4":
 elif action == "5":
     from list_data import ListData
 
-    ListData()
+    ListData.list_data()
 elif action == "6":
     from search_data import SearchData
 
