@@ -60,34 +60,6 @@ class AddNewDonor:
             dicta[x] = elements
             x += 1
 
-
-        # If the returned number from the def is not greater than 50, the program stops.
-        if int(main_do_weight) <= 50:
-            print("\nDonors are only accepted above 50 kgs.")
-            print("The program has ended because of not suitable donor.")
-            exit()
-
-        # If the returned date from the def is within 18 years of the current date, the program stops.
-        if (datetime.now() - datetime.strptime(main_do_birth, "%Y.%m.%d")).days // 365 < 18:
-            print("\nDonors are only accepted above 18 years.")
-            print("The program has ended because of not suitable donor.")
-            exit()
-
-        # If the returned date from the def is within 90 days of the current date, the program stops.
-        if (datetime.now() - datetime.strptime(main_do_last_don, "%Y.%m.%d")).days <= 90:
-            print("\nDonors can only give blood once in every 3 months.")
-            print("The program has ended because of not suitable donor.")
-            exit()
-
-        if main_do_sick.lower() == "y":
-            print("-----")
-            print("The program has ended because of not suitable donor.")
-            exit()
-
-        if datetime.strptime(main_do_exp_id, "%Y.%m.%d") < datetime.now():
-            print("The donor's ID is expired! Program is shutting down...")
-            exit()
-
         Donor_data = [main_do_name, main_do_gender, main_do_weight, main_do_birth, main_do_last_don, main_do_sick, main_do_id,
                       main_do_exp_id, main_do_blood, main_do_email, main_do_mobile]
         print("The donor's data has been recorded.")
