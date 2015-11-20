@@ -96,7 +96,7 @@ class AddNewDonor:
             csvwriter = csv.writer(writer, delimiter=",")
             for word in dicta:
                 csvwriter.writerow(dicta[word])
-        # a legujjabat a vegére irja
+        # a legujjabat a vegére irja ki
         with open("Data\donors.csv", "a") as csvfile_write:
             csvwriter = csv.writer(csvfile_write, delimiter=',')
             csvwriter.writerow(Donor_data)

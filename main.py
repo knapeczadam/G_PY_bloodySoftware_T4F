@@ -13,7 +13,7 @@ actions = ("1", "2", "3", "4", "5", "6", "7")
 action = input("Please choose your action: ")
 while action not in actions:
     print("To exit press 7, otherwise enter a number from 1 to 6.")
-    action = input("Please choose your action: ")
+    action = input("Please choose your action:  ")
 if action == "1":
     from add_new_donor import AddNewDonor
     AddNewDonor.write_donor_data_infile()
