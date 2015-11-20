@@ -3,7 +3,7 @@ import csv
 
 class ListData:
 
-    def list__donor_data():
+    def list_donor_data():
         data = []
 
         with open("Data\donors.csv") as csvfile_read:
@@ -20,13 +20,13 @@ class ListData:
             x += 1
 
         for key in dicta:
-            print("\n%s" % key, end=" ")
+            print("\n%s." % key, end=" ")
             for element in dicta[key]:
                 if element == dicta[key][0]\
                         or element == dicta[key][2]\
                         or element == dicta[key][3]\
                         or element == dicta[key][9]:
-                    print(element)
+                    print("\t %s" % element)
 
     def list_event_data():
         data = []
@@ -45,6 +45,6 @@ class ListData:
             x += 1
 
         for key in dicta:
-            print("\n%s" % key, end=" ")
+            print("\n%s." % key, end=" ")
             for element in dicta[key]:
-                    print(element)
+                    print("\t%s" % element)
