@@ -1,42 +1,160 @@
 from datetime import datetime
 
+GENDERS = ("f", "m")
+ENTER = "Please enter your"
+AGAIN = "Wrong input!"
+SICK = ["y", "n"]
 
-# VALIDATOR CLASS
-class DonorValidator:
-    # NAME
-    # TDD VAN
-    def is_valid_name(self):
-        split_Name = str(self).split(" ")
-        return str(self).replace(" ", "").isalpha() and len(split_Name) > 1
 
-    # GENDER
-    # TDD VAN
-    def is_valid_gender(self):
-        available_genders = ["f", "m"]
-        return str(self).lower() in available_genders
+class Donor:
+    def __init__(self):
+        self.first_name = None
+        self.last_name = None
+        self.gender = None
+        self.weight = None
+        self.date_of_birth = None
+        self.donation_date = None
+        self.sickness = None
+        self.id_number = None
+        self.exp_date = None
+        self.blood_type = None
+        self.email_address = None
+        self.mobile_number = None
 
-    # WEIGHT
-    # TDD VAN
-    def is_valid_weight(self):
-        return str(self).isdigit()
+    def get_first_name(self):
+        """
 
-    # DATE
-    # TDD VAN
+        :return:
+        """
+        self.first_name = input("{} first name: ".format(ENTER))
+        while Donor.is_valid_name(self.first_name) is False:
+            self.first_name = input("{}\nThe first name can contain only letters and has to be at least 2 \
+            characters long!\n{} first name: ".format(AGAIN, ENTER))
+        return self.first_name
+
+    def get_last_name(self):
+        """
+
+        :return:
+        """
+        self.last_name = input("{} last name: ".format(ENTER))
+        while Donor.is_valid_name(self.last_name) is False:
+            self.last_name = input("{}\nThe last name can contain only letters and has to be at least 2 \
+            characters long!\n{} last name: ".format(AGAIN, ENTER))
+        return self.last_name
+
+    def is_valid_name(name):
+        """
+
+        :return:
+        """
+        return name.isalpha() and len(name) > 1
+
+    def get_gender(self):
+        """
+
+        :return:
+        """
+        self.gender = input("Please enter an F if you are a Female or an M if you are a Male: ")
+        while Donor.is_valid_gender(self.gender) is False:
+            self.gender = input("{}\nYou can only choose the letter F or M! \
+            \nPlease enter an F if you are a Female or an M if you are a Male: ".format(AGAIN))
+        return self.gender
+
+    def is_valid_gender(gender):
+        """
+
+        :return:
+        """
+        return gender.lower() in GENDERS
+
+    def get_weight(self):
+        """
+
+        :return:
+        """
+        self.weight = input("{} weight: ".format(ENTER))
+        while Donor.is_valid_weight(self.weight) is False:
+            self.weight = input("{}\nThe weight has to be a positive number\n{} weight: ".format(AGAIN, ENTER))
+        return self.weight
+
+    def is_valid_weight(weight):
+        """
+
+        :return:
+        """
+        return str(weight).isdigit() and int(weight) > 0
+
+    def get_date_of_birth(self):
+        """
+
+        :return:
+        """
+        self.date_of_birth = input("{} date of birth in the following format, 2000.12.31: ".format(ENTER))
+        while Donor.is_valid_date(self.date_of_birth) is False:
+            self.date_of_birth = input(
+                "{}\n{} date of birth in the following format, 2000.12.31: ".format(AGAIN, ENTER))
+        return self.date_of_birth
+
     def is_valid_date(date):
+        """
+
+        :return:
+        """
         try:
             datetime.strptime(date, "%Y.%m.%d")
             return True
         except:
             return False
 
-    # SICKNESS
-    # TDD VAN
-    def is_valid_sickness(self):
-        yes_or_no = ["y", "n"]
-        return str(self).lower() in yes_or_no
+    def get_donation_date(self):
+        """
 
-    # ID NUMBER
-    # TDD VAN
+        :return:
+        """
+        self.donation_date = input("If you have donated blood before, please enter its date \
+        in the following format 2000.12.31 otherwise press ENTER: ")
+        while Donor.is_valid_date(self.donation_date) is False:
+            self.donation_date = input("{}\nIf you have donated blood before, please enter its date \
+        in the following format 2000.12.31 otherwise press Enter: ".format(AGAIN))
+        return self.donation_date
+
+    def is_valid_donation_date(date):
+        """
+
+        :return:
+        """
+        try:
+            if date == "":
+                return True
+            datetime.strptime(date, "%Y.%m.%d")
+            return True
+        except:
+            return False
+
+    def get_sickness(self):
+        """
+
+        :return:
+        """
+        self.sickness = input("Were you sick in the last month? For yes press Y for no press N: ")
+        while Donor.is_valid_sickness(self.sickness) is False:
+            self.sickness = input("{} Press either Y or N: ".format(AGAIN))
+        return self.sickness
+
+    def is_valid_sickness(sickness):
+        """
+
+        :return:
+        """
+        return sickness.lower() in SICK
+
+    def get_exp_date(self):
+        print("Please enter your ID experiment date:")
+        while Donor.is_valid_date() is False:
+            print("Try again!:")
+        return Input
+
     def is_valid_id_number(self):
 
         if len(str(self)) != 8 or not str(self).isalnum():
@@ -50,7 +168,6 @@ class DonorValidator:
         else:
             print("Not ID or Pass, But recorded.")
             return True
-
 
     # BLOOD TYPE
     # TDD VAN
@@ -97,53 +214,6 @@ class DonorValidator:
         return True
 
 
-# INPUT HELPER CLASS
-class DonorInputHelper:
-    def Input():
-        global Input
-        Input = input("--->")
-        return Input
-    # NAME
-    def get_name():
-        print("Please enter your name:")
-        while DonorValidator.is_valid_name(DonorInputHelper.Input()) is False:
-            print("Try again!:")
-        return Input
-
-    # GENDER
-    def get_gender():
-        print("Please enter an 'F' if your are a Female or an 'M' if you are a Male:")
-        while DonorValidator.is_valid_gender(DonorInputHelper.Input()) is False:
-            print("Try again!:")
-        return Input
-
-    # WEIGHT
-    def get_weight():
-        print("Please enter your weight:")
-        while DonorValidator.is_valid_weight(DonorInputHelper.Input()) is False:
-            print("Try again!:")
-        return Input
-
-    # DATE OF BIRTH
-    def get_date_of_birth():
-        print("Please enter the donor's date of birth in the following format, 2000.12.31: ")
-        while DonorValidator.is_valid_date(DonorInputHelper.Input()) is False:
-            print("Wrong format. Try again...")
-        return Input
-
-    def get_donation_date():
-        print("Please enter the donor's last donation date in the following format, 2000.12.31: ")
-        while DonorValidator.is_valid_date(DonorInputHelper.Input()) is False:
-            print("Wrong format. Try again...")
-        return Input
-
-    # SICKNESS
-    def get_sickness():
-        print("Were you sick at last month('Y' for yes, 'N' for no)?:")
-        while DonorValidator.is_valid_sickness(DonorInputHelper.Input()) is False:
-            print("Try again!:")
-        return Input
-
     # ID NUMBER
     def get_id_number():
         print("Please enter your ID:")
@@ -152,11 +222,7 @@ class DonorInputHelper:
         return Input
 
     # ID EXPIRATION DATE
-    def get_exp_date():
-        print("Please enter your ID experiment date:")
-        while DonorValidator.is_valid_date(DonorInputHelper.Input()) is False:
-            print("Try again!:")
-        return Input
+
 
     # BLOOD TYPE
     def get_blood_type():

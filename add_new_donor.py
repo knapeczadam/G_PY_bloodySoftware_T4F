@@ -10,7 +10,7 @@ class AddNewDonor:
 
     def write_donor_data_infile():
 
-        main_do_name = DonorInputHelper.get_name()
+        main_do_name = DonorInputHelper.get_name
         main_do_gender = DonorInputHelper.get_gender()
         main_do_weight = DonorInputHelper.get_weight()
         # If the returned number from the def is not greater than 50, the program stops.
@@ -68,7 +68,7 @@ class AddNewDonor:
             csvwriter = csv.writer(writer, delimiter=",")
             for word in dicta:
                 csvwriter.writerow(dicta[word])
-        # a legujjabat a vegére irja ki
+        # a legujjabat a vegï¿½re irja ki
         with open("Data\donors.csv", "a") as csvfile_write:
             csvwriter = csv.writer(csvfile_write, delimiter=',')
             csvwriter.writerow(Donor_data)
