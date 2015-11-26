@@ -1,152 +1,207 @@
 from datetime import timedelta
 from datetime import datetime
-from donor_inputs import DonorValidator
 
 PREPARATION_TIME = 30
 DONATION_TIME = 30
+ENTER = "Please enter your"
+AGAIN = "Wrong input!"
+CITIES = ("Miskolc", "Sarospatak", "Szerencs", "Kazincbarcika")
 
 
-# VALIDATOR CLASS
-class EventValidator:
-    # Date validation imported from donor_inputs.py, call it as DonorValidator.is_valid_date()
-    # TDD VAN
-    def is_valid_date(event_date):
-        try:
-            date_2 = datetime.strptime(event_date, "%Y.%m.%d")
-            if date_2.isoweekday() == 6 or date_2.isoweekday() == 7:
-                print("Event of date must not be on weekends")
-                return False
-            if (date_2.date() - datetime.now().date()).days < 10:
-                return False
-            return True
-        except:
-            return False
+class Event:
+	def __init__(self):
+		self.date_of_event = None
+		self.start_time = None
+		self.end_time = None
+		self.zip_code = None
+		self.city = None
+		self.address = None
+		self.available_beds = None
+		self.planned_donors = None
+		self.successful_donations = None
 
-    # TDD VAN
-    def is_valid_time(TIME):
-        try:
-            datetime.strptime(TIME, "%H:%M")
-            return True
-        except:
-            return False
+	def get_date_of_event(self):
+		"""
 
-    # TDD VAN
-    def is_valid_zip_code(ZIP):
-        if str(ZIP).isdigit() and len(ZIP) == 4:
-            if ZIP[0] != "0":
-                return True
-            else:
-                print(ZIP, "is not vaild! 1. number must not be 0!")
-                return False
-        else:
-            print("ZIP must be 4 DIGITS!")
-            return False
+		:return:
+		"""
+		self.date_of_event = input("{} event date: ".format(ENTER))
+		while Event.is_valid_date(self.date_of_event) is False:
+			self.date_of_event = input("{} : ".format(AGAIN))
+		return self.date_of_event
 
-    # TDD VAN
-    def is_valid_city(city):
-        cities = ["miskolc", "sarospatak", "szerencs", "kazincbarcika"]
-        if city.lower() in cities:
-            return True
-        return False
+	def is_valid_date_of_event(event_date):
+		"""
 
-    # TDD VAN
-    def is_valid_address(address):
-        if 0 < len(address) <= 25:
-            return True
-        return False
+		:return:
+		"""
+		try:
+			if event_date == "":
+				return True
+			event_date = datetime.strptime(event_date, "%Y.%m.%d")
+			if event_date.isoweekday() == 6 or event_date.isoweekday() == 7:
+				return False
+			if (event_date.date() - datetime.now().date()).days < 10:
+				return False
+			return True
+		except:
+			return False
 
-    # TDD VAN
-    def is_valid_available_beds(beds):
-        isvalid = str(beds).isdigit()
-        if not isvalid:
-            print("Please enter only numbers!")
-        return isvalid
+	def get_start_time(self):
+		"""
 
-    # TDD NEM LEHET IRNI A MAX_DON MIATT
-    def is_valid_planned_donor_number(number):
-        return str(number).isdigit() and int(number) <= max_donor_number
+		:return:
+		"""
+		self.start_time = input("Enter the start of the donation: ")
+		while Event.is_valid_time(self.start_time) is False:
+			self.start_time = input("{} : ".format(AGAIN))
+		return self.start_time
 
-    # TDD VAN
-    def is_valid_success_rate(number):
-        return str(number).isdigit()
+	def is_valid_start_time(start_time):
+		"""
 
+		:return:
+		"""
+		try:
+			datetime.strptime(start_time, "%H:%M")
+			return True
+		except:
+			return False
 
-    # INPUT HELPER CLASS
-class EventInputHelper:
-    def get_date_of_event():
-        date_of_event = input("Enter your event date:")
-        while EventValidator.is_valid_date(date_of_event) is False:
-            date_of_event = input("is not vaild date! Try again(YYYY.MM.DD): ex: 2010.10.10")
-        return date_of_event
+	def get_end_time(self):
+		"""
 
-    def get_start_time():
-        global start_time
-        start_time = input("Enter the start of the donation:")
-        while EventValidator.is_valid_time(start_time) is False:
-            print("Is NOT a valid time.")
-            start_time = input("Enter the start of the donation:")
-        return start_time
+		:return:
+		"""
+		self.end_time = input("Enter your donation end:")
+		while Event.is_valid_time(self.end_time) is False:
+			self.end_time = input("{} : ".format(AGAIN))
+		return self.end_time
 
-    def get_end_time():
-        global end_time
-        end_time = input("Enter your donation end:")
-        while EventValidator.is_valid_time(end_time) is False:
-            print("Is NOT a vaild TIME")
-            end_time = input("Enter your donation end:")
-        return end_time
+	def is_valid_end_time(self):
+		"""
 
-    def get_zip_code():
-        zip_code = input("Enter your zip:")
-        while EventValidator.is_valid_zip_code(zip_code) is False:
-            print("You no ZIP")
-            zip_code = input("Enter your zip:")
-        return zip_code
+		:return:
+		"""
+		try:
+			datetime.strptime(self, "%H:%M")
+			if self.start_time > self.end_time:
+				return False
+			return True
+		except:
+			return False
 
-    def get_city():
-        city = input("Please type in where will the event take place; Miskolc, Sarospatak, Szerencs or Kazincbarcika: ")
-        while EventValidator.is_valid_city(city) is False:
-            print("Wrong format. Try again...")
-            city = input("Please type in where will the event take place; Miskolc, Sarospatak, Szerencs or Kazincbarcika: ")
-        return city
+	def get_zip_code(self):
+		"""
 
-    def get_address():
-        address = input("Please enter in what address will the event take place: ")
-        while EventValidator.is_valid_address(address) is False:
-            print("Wrong format. The address can be 25 characters long at most. Try again...")
-            address = input("Please enter in what address will the event take place: ")
-        return "'" + address + "'"
+		:return:
+		"""
+		self.zip_code = input("{} zip: ".format(ENTER))
+		while Event.is_valid_zip_code(self.zip_code) is False:
+			self.zip_code = input("{} : ".format(AGAIN))
+		return self.zip_code
 
-    def get_available_beds():
-        global available_beds
-        available_beds = input("Please enter the number of available beds: ")
-        while EventValidator.is_valid_available_beds(available_beds) is False:
-            print("Wrong format. Try again...")
-            available_beds = input("Please enter the number of available beds: ")
-        return available_beds
+	def is_valid_zip_code(zip):
+		"""
 
-    def get_planned_donor_number():
-        global planned_donor_number
-        planned_donor_number = input("Please enter the planned donor number: ")
-        while EventValidator.is_valid_planned_donor_number(planned_donor_number) is False:
-            print("x out of {}".format(max_donor_number))
-            planned_donor_number = input("Please enter the planned donor number: ")
-        return planned_donor_number
+		:return:
+		"""
+		return zip.isdigit() and len(zip) == 4 and zip[0] != "0"
 
-    def get_succesfull_donations():
-        global succesfull_donation
-        succesfull_donation = input("Please enter how many successfull donations\
-    were during donation event (x out of {})".format(max_donor_number))
-        while EventValidator.is_valid_success_rate(succesfull_donation) is False:
-            print("must be only digits")
-            succesfull_donation = input("Please enter how many successfull donations\
-    were during donation event (x out of {})".format(max_donor_number))
-        return succesfull_donation
+	def get_city(self):
+		"""
 
-    def calc_max_donor_number():
-        global max_donor_number
-        event_duration_in_minutes = datetime.strptime(end_time, "%H:%M") \
-                                    - datetime.strptime(start_time, "%H:%M")
-        event_duration_in_minutes = timedelta.total_seconds(event_duration_in_minutes) // 60
-        max_donor_number = ((event_duration_in_minutes - PREPARATION_TIME) \
-                            // DONATION_TIME) * int(available_beds)
-        return max_donor_number
+		:return:
+		"""
+		self.city = input("Please type in where will the event take place; {}: ".format(CITIES))
+		while Event.is_valid_city(self.city) is False:
+			self.city = input("{} : ".format(AGAIN))
+		return self.city
+
+	def is_valid_city(city):
+		for cities in CITIES:
+			if cities.lower() == city.lower():
+				return True
+
+	def get_address(self):
+		"""
+
+		:return:
+		"""
+		self.address = input("Please enter in what address will the event take place: ")
+		while Event.is_valid_address(self.address) is False:
+			self.address = input("{} : ".format(AGAIN))
+		return "'" + self.address + "'"
+
+	def is_valid_address(address):
+		"""
+
+		:return:
+		"""
+		return 0 < len(address) <= 25
+
+	def get_available_beds(self):
+		"""
+
+		:return:
+		"""
+		self.available_beds = input("Please enter the number of available beds: ")
+		while Event.is_valid_available_beds(self.available_beds) is False:
+			self.available_beds = input("{} : ".format(AGAIN))
+		return self.available_beds
+
+	def is_valid_available_beds(beds):
+		"""
+
+		:return:
+		"""
+		return beds.isdigit()
+
+	def get_planned_donor_number(self):
+		"""
+
+		:return:
+		"""
+		self.planned_donors = input("Please enter the planned donor number: ")
+		while Event.is_valid_planned_donor_number(self.planned_donors) is False:
+			self.planned_donors = input("{} : ".format(AGAIN))
+		return self.planned_donors
+
+	def is_valid_planned_donor_number(planned_donors):
+		"""
+
+		:return:
+		"""
+		return planned_donors.isdigit() and int(planned_donors) <= max_donor_number
+
+	def get_successful_donations(self):
+		"""
+
+		:return:
+		"""
+		self.successful_donations = input("Please enter how many successfull donations\
+	were during donation event (x out of {})".format(max_donor_number))
+		while Event.is_valid_successful_donations(self.successful_donations) is False:
+			self.successful_donations = input("Please enter how many successfull donations\
+	were during donation event (x out of {})".format(max_donor_number))
+		return self.successful_donations
+
+	def is_valid_successful_donations(successful_donations):
+		"""
+
+		:return:
+		"""
+		return successful_donations.isdigit()
+
+	def calc_max_donor_number(self):
+		"""
+
+		:return:
+		"""
+		global max_donor_number
+		event_duration_in_minutes = datetime.strptime(self.end_time, "%H:%M") \
+									- datetime.strptime(self.start_time, "%H:%M")
+		event_duration_in_minutes = timedelta.total_seconds(event_duration_in_minutes) // 60
+		max_donor_number = ((event_duration_in_minutes - PREPARATION_TIME) \
+							// DONATION_TIME) * int(self.available_beds)
+		return max_donor_number

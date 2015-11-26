@@ -200,3 +200,6 @@ class DonorTests(unittest.TestCase):
 
 	def test_mobile_contains_one_letter_var_two(self):
 		self.assertFalse(Donor.is_valid_mobile_number('+3620I234567'))
+
+if __name__ == '__main__':
+	unittest.main()

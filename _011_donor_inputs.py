@@ -7,6 +7,7 @@ SICK = ["y", "n"]
 BLOOD = ["a+", "a-", "b+", "b-", "ab+", "ab-", "0+", "0-"]
 PI = ("20", "30", "70")
 
+
 class Donor:
 	def __init__(self):
 		self.first_name = None
@@ -255,7 +256,7 @@ class Donor:
 		if not (mobile_number[:12].isdigit() or mobile_number[1:13].isdigit()):
 			print()
 			return False
-		if not (mobile_number.startswith('06') or mobile_number.startswith('+36')):
+		if not mobile_number.startswith(('06', '+36')):
 			return False
 		if not ((mobile_number[3:5] in PI) or (mobile_number[2:4] in PI)):
 			return False
