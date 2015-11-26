@@ -94,7 +94,8 @@ class Donor:
 		"""
 		self.date_of_birth = input("{} date of birth in the following format, 1999.12.31: ".format(ENTER))
 		while Donor.is_valid_date(self.date_of_birth) is False:
-			self.date_of_birth = input("{}\n{} date of birth in the following format, 1999.12.31: ".format(AGAIN, ENTER))
+			self.date_of_birth = input(
+				"{}\n{} date of birth in the following format, 1999.12.31: ".format(AGAIN, ENTER))
 		return self.date_of_birth
 
 	def is_valid_date(date):
@@ -115,9 +116,9 @@ class Donor:
 		"""
 		self.donation_date = input("If you have donated blood before please enter its date\
 									\nin the following format 1999.12.31, if not then press Enter: ")
-		while Donor.is_valid_date(self.donation_date) is False:
+		while Donor.is_valid_donation_date(self.donation_date) is False:
 			self.donation_date = input("{}\nIf you have donated blood before, please enter its date\
-									\nin the following format 1999.12.31 otherwise press Enter: ".format(AGAIN))
+									\nin the following format 1999.12.31, if not then press Enter: ".format(AGAIN))
 		return self.donation_date
 
 	def is_valid_donation_date(date):
@@ -156,7 +157,7 @@ class Donor:
 		:return:
 		"""
 		self.id_number = input("{} unique identifier in the following format 123456AB or AB123456: ".format(ENTER))
-		while Donor.is_valid_date(self.id_number) is False:
+		while Donor.is_valid_id_number(self.id_number) is False:
 			self.id_number = input("{}\n{} unique identifier in the following format 123456AB or AB123456: "\
 			.format(AGAIN, ENTER))
 		return self.id_number
@@ -168,7 +169,7 @@ class Donor:
 		"""
 		if not len(id_number) == 8:
 			return False
-		if not ((id_number[:6].isdigit() and id_number[6:].isalpha()) \
+		if not ((id_number[:6].isdigit() and id_number[6:].isalpha())\
 				or (id_number[:2].isalpha() and id_number[2:].isdigit())):
 			return False
 		return True
@@ -180,7 +181,8 @@ class Donor:
 		"""
 		self.exp_date = input("{} ID expiration date in the following format 1999.12.31: ".format(ENTER))
 		while Donor.is_valid_date(self.exp_date) is False:
-			self.exp_date = input("{}\n {} ID expiration date in the following format 1999.12.31: ".format(AGAIN, ENTER))
+			self.exp_date = input(
+				"{}\n {} ID expiration date in the following format 1999.12.31: ".format(AGAIN, ENTER))
 		return self.exp_date
 
 	def get_blood_type(self):
@@ -188,7 +190,8 @@ class Donor:
 
 		:return:
 		"""
-		self.blood_type = input("{} blood type from the following list A+, A-, B+, B-, AB+, AB-, 0+, 0-: ".format(ENTER))
+		self.blood_type = input(
+			"{} blood type from the following list A+, A-, B+, B-, AB+, AB-, 0+, 0-: ".format(ENTER))
 		while Donor.is_valid_blood_type(self.blood_type) is False:
 			self.blood_type = input("{}\n {} blood type \
 			from the following list A+, A-, B+, B-, AB+, AB-, 0+, 0-: ".format(AGAIN, ENTER))
@@ -227,7 +230,7 @@ class Donor:
 			return False
 		at_sign_index = email_address.index('@')
 		if not (email_address[at_sign_index + 1:len(email_address) - 4].isalpha() or \
-				email_address[at_sign_index + 1:len(email_address) - 3].isalpha()):
+				        email_address[at_sign_index + 1:len(email_address) - 3].isalpha()):
 			return False
 		if not (email_address[0].isalpha() and email_address[at_sign_index - 1].isalpha()):
 			return False
@@ -246,7 +249,7 @@ class Donor:
 		"""
 		self.mobile_number = input("{} mobile number in the following format +36301234567: ".format(ENTER))
 		while Donor.is_valid_mobile_number(self.mobile_number) is False:
-			self.mobile_number = input("{}\n{} mobile number in the following format +36301234567: ".format(AGAIN))
+			self.mobile_number = input("{}\n{} mobile number in the following format +36301234567: ".format(AGAIN, ENTER))
 		return self.mobile_number
 
 	def is_valid_mobile_number(mobile_number):
@@ -261,21 +264,7 @@ class Donor:
 			return False
 		if not ((mobile_number[3:5] in PI) or (mobile_number[2:4] in PI)):
 			return False
-		if not (mobile_number[2:4] in PI and len(mobile_number) == 11 or \
-						mobile_number[3:5] in PI and len(mobile_number) == 12):
+		if not (mobile_number[2:4] in PI and len(mobile_number) == 11 or\
+				mobile_number[3:5] in PI and len(mobile_number) == 12):
 			return False
 		return True
-
-d = Donor()
-# d.get_first_name()
-# d.get_last_name()
-# d.get_weight()
-# d.get_gender()
-# d.get_date_of_birth()
-d.get_donation_date()
-d.get_sickness()
-d.get_id_number()
-d.get_blood_type()
-d.get_exp_date()
-d.get_email_address()
-d.get_mobile_number()
