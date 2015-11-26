@@ -5,6 +5,7 @@ ENTER = "Please enter your"
 AGAIN = "Wrong input!"
 SICK = ["y", "n"]
 BLOOD = ["a+", "a-", "b+", "b-", "ab+", "ab-", "0+", "0-"]
+PI = ("20", "30", "70")
 
 class Donor:
 	def __init__(self):
@@ -65,7 +66,7 @@ class Donor:
 
 		:return:
 		"""
-		return str(weight).isdigit() and int(weight) > 0
+		return weight.isdigit() and int(weight) > 0
 
 	def get_gender(self):
 		"""
@@ -164,17 +165,12 @@ class Donor:
 
 		:return:
 		"""
-		if len(id_number) != 8 or not id_number.isalnum():
+		if not len(id_number) == 8:
 			return False
-		if id_number[:6].isdigit() and id_number[6:].isalpha():
-			print("Your ID number is recorded.")
-			return True
-		elif id_number[:2].isalpha() and id_number[2:].isdigit():
-			print("Your passport number is recorded.")
-			return True
-		else:
-			print("Not ID or passport but recorded.")
-			return True
+		if not ((id_number[:6].isdigit() and id_number[6:9].isalpha()) or \
+				(id_number[:2].isalpha() and id_number[2:9].isdigit())):
+			return False
+		return True
 
 	def get_exp_date(self):
 		"""
@@ -220,18 +216,23 @@ class Donor:
 			:return:
 			"""
 		email_address = email_address.replace(" ", "")
-		if "@" not in email_address and email_address.index("@") > 0:
-			print("Please add an '@' sign in your address!")
+		if not (len(email_address) > 5 or len(email_address) > 6):
 			return False
-		if not email_address.endswith(".hu") or email_address.endswith(".com"):
-			print("Please specify where your email provider is ('.com' or '.hu')!")
+		if "@" not in email_address and email_address.index("@") > 0:
+			return False
+		if not (email_address.endswith((".hu", ".com"))):
+			return False
+		at_sign_index = email_address.index('@')
+		if not (email_address[at_sign_index + 1:len(email_address) - 4].isalpha() or\
+				email_address[at_sign_index + 1:len(email_address) - 3].isalpha()):
+			return False
+		if not (email_address[0].isalpha() and email_address[at_sign_index - 1].isalpha()):
 			return False
 		at_sign_number = 0
 		for letter in email_address:
 			if letter == "@":
 				at_sign_number += 1
 				if at_sign_number > 1:
-					print("Email address contains only 1 at sign!")
 					return False
 		return True
 
@@ -255,12 +256,10 @@ class Donor:
 			print()
 			return False
 		if not (mobile_number.startswith('06') or mobile_number.startswith('+36')):
-			print("Please specify your number and add '36' or '06' at the beginning!")
 			return False
-		if not ((mobile_number[3:5] in ("20", "30", "70")) or (mobile_number[2:4] in ("20", "30", "70"))):
-			print("Please specify your provider: 20/30/70 !")
+		if not ((mobile_number[3:5] in PI) or (mobile_number[2:4] in PI)):
 			return False
-		if not (len(mobile_number) == 11 or len(mobile_number) == 12):
-			print("Please enter a mobile number with a valid (11 number) length!")
+		if not (mobile_number[2:4] in PI and len(mobile_number) == 11 or \
+								mobile_number[3:5] in PI and len(mobile_number) == 12):
 			return False
 		return True
