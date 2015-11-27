@@ -10,6 +10,7 @@ import time
 import os
 
 ACTIONS = ("1", "2", "3", "4", "5", "6", "7")
+ANSWER = ["y", "yes"]
 
 
 def menu():
@@ -33,52 +34,72 @@ Main menu
 		print("To exit press 7, otherwise enter a number from 1 to 6.")
 		action = input("Please choose your action:  ")
 	if action == "1":
-		os.system("CLS")
+		sleep_and_clean()
 		call_get_donor_inputs()
-		time.sleep(3)
-		os.system("CLS")
+		sleep_and_clean()
 		write_donor_data_in_file()
-		time.sleep(3)
-		os.system("CLS")
+		sleep_and_clean()
 		menu()
 	if action == "2":
-		os.system("CLS")
+		sleep_and_clean()
 		call_get_event_inputs()
-		time.sleep(3)
-		os.system("CLS")
+		sleep_and_clean()
 		print_donation_successful()
-		time.sleep(3)
-		os.system("CLS")
+		sleep_and_clean()
 		write_event_data_in_file()
-		time.sleep(3)
-		os.system("CLS")
+		sleep_and_clean()
 		menu()
 	if action == "3":
-		os.system("CLS")
+		sleep_and_clean()
 		delete_donor_data_from_file()
+		sleep_and_clean()
 		menu()
 	if action == "4":
-		os.system("CLS")
+		sleep_and_clean()
 		delete_donor_data_from_file()
+		sleep_and_clean()
 		menu()
 	if action == "5":
-		os.system("CLS")
+		sleep_and_clean()
 		choice = input("Donor (1) or event (2) ?: ")
 		if choice == "1":
 			list_donor_data()
-			main_menu = input("Back to the main menu? (y): ")
-			while main_menu != "y":
-				main_menu = input("Back to the main menu? (y): ")
-				menu()
+			back_to_the_main_menu()
 		if choice == "2":
 			list_event_data()
-			main_menu = input("Back to the main menu? (y): ")
-			while main_menu != "y":
-				main_menu = input("Back to the main menu? (y): ")
-				menu()
+			back_to_the_main_menu()
+		while choice not in ["1", "2"]:
+			choice = input("Donor (1) or event (2) ?: ")
+			if choice == "1":
+				list_donor_data()
+				back_to_the_main_menu()
+			if choice == "2":
+				list_event_data()
+				back_to_the_main_menu()
 	# if action == "6":
 	if action == "7":
+		sleep_and_clean()
 		exit()
+
+
+def back_to_the_main_menu():
+	"""
+
+	:return:
+	"""
+	user_answer = input("Back to the main menu? (y or yes): ")
+	while user_answer.lower() != "y":
+		user_answer = input("Back to the main menu? (y or yes): ")
+	menu()
+
+
+def sleep_and_clean():
+	"""
+
+	:return:
+	"""
+	# time.sleep(2)
+	os.system("CLS")
 
 if __name__ == '__main__':
 	menu()

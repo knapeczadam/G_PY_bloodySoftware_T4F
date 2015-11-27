@@ -6,6 +6,7 @@ AGAIN = "Wrong input!"
 SICK = ["y", "n"]
 BLOOD = ["a+", "a-", "b+", "b-", "ab+", "ab-", "0+", "0-"]
 PI = ("20", "30", "70")
+ESC = ["exit"]
 
 
 class Donor:
@@ -69,7 +70,7 @@ class Donor:
 
 		:return:
 		"""
-		return weight.isdigit() and int(weight) > 0
+		return weight.isdigit() and int(weight) > 0 or weight in ESC
 
 	def get_gender(self):
 		"""
@@ -88,7 +89,7 @@ class Donor:
 
 		:return:
 		"""
-		return gender.lower() in GENDERS
+		return gender.lower() in GENDERS or gender in ESC
 
 	def get_date_of_birth(self):
 		"""
@@ -108,6 +109,8 @@ class Donor:
 		:return:
 		"""
 		try:
+			if date in ESC:
+				return True
 			datetime.strptime(date, "%Y.%m.%d")
 			return True
 		except:
@@ -134,6 +137,8 @@ class Donor:
 		try:
 			if date == "":
 				return True
+			if date in ESC:
+				return True
 			datetime.strptime(date, "%Y.%m.%d")
 			return True
 		except:
@@ -155,7 +160,7 @@ class Donor:
 
 		:return:
 		"""
-		return sickness.lower() in SICK
+		return sickness.lower() in SICK or sickness in ESC
 
 	def get_id_number(self):
 		"""
@@ -165,7 +170,7 @@ class Donor:
 		id_number = input("{} unique identifier in the following format 123456AB or AB123456: ".format(ENTER))
 		while Donor.is_valid_id_number(id_number) is False:
 			id_number = input("{}\n{} unique identifier in the following format 123456AB or AB123456: ".format(AGAIN, ENTER))
-		self.id_number = input()
+		self.id_number = id_number
 
 	@staticmethod
 	def is_valid_id_number(id_number):
@@ -173,6 +178,8 @@ class Donor:
 
 		:return:
 		"""
+		if id_number in ESC:
+			return True
 		if not len(id_number) == 8:
 			return False
 		if not ((id_number[:6].isdigit() and id_number[6:].isalpha())\
@@ -206,7 +213,7 @@ class Donor:
 
 		:return:
 		"""
-		return blood_type.lower() in BLOOD
+		return blood_type.lower() in BLOOD or blood_type in ESC
 
 	def get_email_address(self):
 		"""
@@ -227,6 +234,8 @@ class Donor:
 			:return:
 			"""
 		email_address = email_address.replace(" ", "")
+		if email_address in ESC:
+			return True
 		if not (len(email_address) > 5 or len(email_address) > 6):
 			return False
 		if "@" not in email_address and email_address.index("@") > 0:
@@ -264,6 +273,8 @@ class Donor:
 		:return:
 		"""
 		mobile_number = mobile_number.replace(" ", "")
+		if mobile_number in ESC:
+			return True
 		if not (mobile_number[:12].isdigit() or mobile_number[1:13].isdigit()):
 			return False
 		if not mobile_number.startswith(('06', '+36')):
