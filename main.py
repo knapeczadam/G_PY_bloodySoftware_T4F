@@ -1,43 +1,59 @@
-print("----------------------------------------------------------------------- \
-      \n--- Welcome to the coolest donor and donation event managing system --- \
-      \n-----------------------------------------------------------------------")
-print("Main menu")
-print("\t 1. Add new donor \
-    \n \t 2. Add new donation event \
-    \n \t 3. Delete donor \
-    \n \t 4. Delete donation event \
-    \n \t 5. List donors or donation events \
-    \n \t 6. Search \
-    \n \t 7. Exit")
-actions = ("1", "2", "3", "4", "5", "6", "7")
-action = input("Please choose your action: ")
-while action not in actions:
-    print("To exit press 7, otherwise enter a number from 1 to 6.")
-    action = input("Please choose your action:  ")
-if action == "1":
-    from add_new_donor import AddNewDonor
+from _010_add_new_donor import call_get_donor_inputs
+from _010_add_new_donor import write_donor_data_in_file
+from _020_add_new_event import call_get_event_inputs
+from _020_add_new_event import print_donation_successful
+from _020_add_new_event import write_event_data_in_file
+import time
+import os
 
-    AddNewDonor.write_donor_data_infile()
-elif action == "2":
-    from add_new_event import AddNewEvent
-    AddNewEvent.write_event_data_infile()
+ACTIONS = ("1", "2", "3", "4", "5", "6", "7")
 
-    AddNewEvent()
-elif action == "3":
-    from delete_donor import DeleteDonor
 
-    DeleteDonor.delete_donor_data_fromfile()
-elif action == "4":
-    from delete_event import DeleteEvent
+def menu():
+	print("-" * 71)
+	print("--- Welcome to the coolest donor and donation event managing system ---")
+	print("-" * 71)
+	print("""
+Main menu
 
-    DeleteEvent.delete_donor_data_fromfile()
-elif action == "5":
-    from list_data import ListData
+	1. Add new donor
+	2. Add new donation event
+	3. Delete donor
+	4. Delete donation event
+	5. List donors or donation events
+	6. Search
+	7. Exit
+	""")
+	action = input("Please choose your action: ")
+	while action not in ACTIONS:
+		print("To exit press 7, otherwise enter a number from 1 to 6.")
+		action = input("Please choose your action:  ")
+	if action == "1":
+		os.system("CLS")
+		call_get_donor_inputs()
+		time.sleep(3)
+		write_donor_data_in_file()
+		os.system("CLS")
+		menu()
+	if action == "2":
+		os.system("CLS")
+		call_get_event_inputs()
+		time.sleep(3)
+		os.system("CLS")
+		print_donation_successful()
+		time.sleep(3)
+		os.system("CLS")
+		write_event_data_in_file()
+		time.sleep(3)
+		os.system("CLS")
+		menu()
+	# if action == "3":
+	# if action == "4":
+	# if action == "5":
+	# if action == "6":
+	# if action == "7":
+		exit()
+		pass
 
-    ListData.list_data()
-elif action == "6":
-    from search_data import SearchData
-
-    SearchData()
-elif action == "7":
-    exit()
+if __name__ == '__main__':
+	menu()

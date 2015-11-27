@@ -1,5 +1,6 @@
 from datetime import timedelta
 from datetime import datetime
+import time
 
 PREPARATION_TIME = 30
 DONATION_TIME = 30
@@ -9,6 +10,7 @@ CITIES = ("Miskolc", "Sarospatak", "Szerencs", "Kazincbarcika")
 
 
 class Event:
+
 	def __init__(self):
 		self.date_of_event = None
 		self.start_time = None
@@ -18,6 +20,7 @@ class Event:
 		self.address = None
 		self.available_beds = None
 		self.planned_donors = None
+		self.max_donor_number = None
 		self.successful_donations = None
 
 	def get_date_of_event(self):
@@ -25,19 +28,18 @@ class Event:
 
 		:return:
 		"""
-		self.date_of_event = input("{} event date: ".format(ENTER))
-		while Event.is_valid_date(self.date_of_event) is False:
-			self.date_of_event = input("{} : ".format(AGAIN))
-		return self.date_of_event
+		date_of_event = input("{} event date: ".format(ENTER))
+		while Event.is_valid_date_of_event(date_of_event) is False:
+			date_of_event = input("{} : ".format(AGAIN))
+		self.date_of_event = date_of_event
 
+	@staticmethod
 	def is_valid_date_of_event(event_date):
 		"""
 
 		:return:
 		"""
 		try:
-			if event_date == "":
-				return True
 			event_date = datetime.strptime(event_date, "%Y.%m.%d")
 			if event_date.isoweekday() == 6 or event_date.isoweekday() == 7:
 				return False
@@ -52,11 +54,12 @@ class Event:
 
 		:return:
 		"""
-		self.start_time = input("Enter the start of the donation: ")
-		while Event.is_valid_time(self.start_time) is False:
-			self.start_time = input("{} : ".format(AGAIN))
-		return self.start_time
+		start_time = input("Enter the start of the donation: ")
+		while Event.is_valid_start_time(start_time) is False:
+			start_time = input("{} : ".format(AGAIN))
+		self.start_time = start_time
 
+	@staticmethod
 	def is_valid_start_time(start_time):
 		"""
 
@@ -73,20 +76,19 @@ class Event:
 
 		:return:
 		"""
-		self.end_time = input("Enter your donation end:")
-		while Event.is_valid_time(self.end_time) is False:
-			self.end_time = input("{} : ".format(AGAIN))
-		return self.end_time
+		end_time = input("Enter your donation end:")
+		while self.is_valid_end_time(end_time) is False:
+			end_time = input("{} : ".format(AGAIN))
+		self.end_time = end_time
 
-	def is_valid_end_time(self):
+	def is_valid_end_time(self, end_time):
 		"""
-
 		:return:
 		"""
-		try:
-			datetime.strptime(self, "%H:%M")
-			if self.start_time > self.end_time:
+		if int(str(self.start_time).replace(':', '')) > int(str(end_time).replace(':', '')):
 				return False
+		try:
+			datetime.strptime(end_time, "%H:%M")
 			return True
 		except:
 			return False
@@ -96,11 +98,12 @@ class Event:
 
 		:return:
 		"""
-		self.zip_code = input("{} zip: ".format(ENTER))
-		while Event.is_valid_zip_code(self.zip_code) is False:
-			self.zip_code = input("{} : ".format(AGAIN))
-		return self.zip_code
+		zip_code = input("{} zip: ".format(ENTER))
+		while Event.is_valid_zip_code(zip_code) is False:
+			zip_code = input("{} : ".format(AGAIN))
+		self.zip_code = zip_code
 
+	@staticmethod
 	def is_valid_zip_code(zip):
 		"""
 
@@ -113,11 +116,12 @@ class Event:
 
 		:return:
 		"""
-		self.city = input("Please type in where will the event take place; {}: ".format(CITIES))
-		while Event.is_valid_city(self.city) is False:
-			self.city = input("{} : ".format(AGAIN))
-		return self.city
+		city = input("Please type in where will the event take place; {}: ".format(CITIES))
+		while Event.is_valid_city(city) is False:
+			city = input("{} : ".format(AGAIN))
+		self.city = city
 
+	@staticmethod
 	def is_valid_city(city):
 		for cities in CITIES:
 			if cities.lower() == city.lower():
@@ -128,11 +132,12 @@ class Event:
 
 		:return:
 		"""
-		self.address = input("Please enter in what address will the event take place: ")
-		while Event.is_valid_address(self.address) is False:
-			self.address = input("{} : ".format(AGAIN))
-		return "'" + self.address + "'"
+		address = input("Please enter in what address will the event take place: ")
+		while Event.is_valid_address(address) is False:
+			address = input("{} : ".format(AGAIN))
+		self.address = address
 
+	@staticmethod
 	def is_valid_address(address):
 		"""
 
@@ -145,63 +150,64 @@ class Event:
 
 		:return:
 		"""
-		self.available_beds = input("Please enter the number of available beds: ")
-		while Event.is_valid_available_beds(self.available_beds) is False:
-			self.available_beds = input("{} : ".format(AGAIN))
-		return self.available_beds
+		available_beds = input("Please enter the number of available beds: ")
+		while Event.is_valid_available_beds(available_beds) is False:
+			available_beds = input("{} : ".format(AGAIN))
+		self.available_beds = available_beds
 
+	@staticmethod
 	def is_valid_available_beds(beds):
 		"""
 
 		:return:
 		"""
-		return beds.isdigit()
+		return beds.isdigit() and int(beds) > 0
 
 	def get_planned_donor_number(self):
 		"""
 
 		:return:
 		"""
-		self.planned_donors = input("Please enter the planned donor number: ")
-		while Event.is_valid_planned_donor_number(self.planned_donors) is False:
-			self.planned_donors = input("{} : ".format(AGAIN))
-		return self.planned_donors
+		planned_donors = input("Please enter the planned donor number: ")
+		while self.is_valid_planned_donor_number(planned_donors) is False:
+			planned_donors = input("{} : ".format(AGAIN))
+		self.planned_donors = planned_donors
 
-	def is_valid_planned_donor_number(planned_donors):
+	def is_valid_planned_donor_number(self, planned_donors):
 		"""
 
 		:return:
 		"""
-		return planned_donors.isdigit() and int(planned_donors) <= max_donor_number
-
-	def get_successful_donations(self):
-		"""
-
-		:return:
-		"""
-		self.successful_donations = input("Please enter how many successfull donations\
-	were during donation event (x out of {})".format(max_donor_number))
-		while Event.is_valid_successful_donations(self.successful_donations) is False:
-			self.successful_donations = input("Please enter how many successfull donations\
-	were during donation event (x out of {})".format(max_donor_number))
-		return self.successful_donations
-
-	def is_valid_successful_donations(successful_donations):
-		"""
-
-		:return:
-		"""
-		return successful_donations.isdigit()
+		return planned_donors.isdigit() and int(planned_donors) <= self.max_donor_number
 
 	def calc_max_donor_number(self):
 		"""
 
 		:return:
 		"""
-		global max_donor_number
 		event_duration_in_minutes = datetime.strptime(self.end_time, "%H:%M") \
 									- datetime.strptime(self.start_time, "%H:%M")
 		event_duration_in_minutes = timedelta.total_seconds(event_duration_in_minutes) // 60
 		max_donor_number = ((event_duration_in_minutes - PREPARATION_TIME) \
 							// DONATION_TIME) * int(self.available_beds)
-		return max_donor_number
+		self.max_donor_number = max_donor_number
+
+	def get_successful_donations(self):
+		"""
+
+		:return:
+		"""
+		successful_donations = input("Please enter how many successfull donations\
+	were during donation event (x out of {})".format(self.max_donor_number))
+		while Event.is_valid_successful_donations(successful_donations) is False:
+			self.successful_donations = input("Please enter how many successfull donations\
+	were during donation event (x out of {})".format(self.max_donor_number))
+		self.successful_donations = successful_donations
+
+	@staticmethod
+	def is_valid_successful_donations(successful_donations):
+		"""
+
+		:return:
+		"""
+		return successful_donations.isdigit()

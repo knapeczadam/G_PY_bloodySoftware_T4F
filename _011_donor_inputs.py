@@ -28,23 +28,24 @@ class Donor:
 
 		:return:
 		"""
-		self.first_name = input("{} first name: ".format(ENTER))
-		while Donor.is_valid_name(self.first_name) is False:
-			self.first_name = input("{}\nThe first name can contain only letters and has to be at least 2 \
+		first_name = input("{} first name: ".format(ENTER))
+		while Donor.is_valid_name(first_name) is False:
+			first_name = input("{}\nThe first name can contain only letters and has to be at least 2 \
 			characters long!\n{} first name: ".format(AGAIN, ENTER))
-		return self.first_name
+		self.first_name = first_name
 
 	def get_last_name(self):
 		"""
 
 		:return:
 		"""
-		self.last_name = input("{} last name: ".format(ENTER))
-		while Donor.is_valid_name(self.last_name) is False:
-			self.last_name = input("{}\nThe last name can contain only letters and has to be at least 2 \
+		last_name = input("{} last name: ".format(ENTER))
+		while Donor.is_valid_name(last_name) is False:
+			last_name = input("{}\nThe last name can contain only letters and has to be at least 2 \
 			characters long!\n{} last name: ".format(AGAIN, ENTER))
-		return self.last_name
+		self.last_name = last_name
 
+	@staticmethod
 	def is_valid_name(name):
 		"""
 
@@ -57,11 +58,12 @@ class Donor:
 
 		:return:
 		"""
-		self.weight = input("{} weight: ".format(ENTER))
-		while Donor.is_valid_weight(self.weight) is False:
-			self.weight = input("{}\nThe weight has to be a positive number\n{} weight: ".format(AGAIN, ENTER))
-		return self.weight
+		weight = input("{} weight: ".format(ENTER))
+		while Donor.is_valid_weight(weight) is False:
+			weight = input("{}\nThe weight has to be a positive number\n{} weight: ".format(AGAIN, ENTER))
+		self.weight = weight
 
+	@staticmethod
 	def is_valid_weight(weight):
 		"""
 
@@ -74,12 +76,13 @@ class Donor:
 
 		:return:
 		"""
-		self.gender = input("Please enter an F if you are a Female or an M if you are a Male: ")
-		while Donor.is_valid_gender(self.gender) is False:
-			self.gender = input("{}\nYou can only choose the letter F or M! \
+		gender = input("Please enter an F if you are a Female or an M if you are a Male: ")
+		while Donor.is_valid_gender(gender) is False:
+			gender = input("{}\nYou can only choose the letter F or M! \
 			\nPlease enter an F if you are a Female or an M if you are a Male: ".format(AGAIN))
-		return self.gender
+		self.gender = gender
 
+	@staticmethod
 	def is_valid_gender(gender):
 		"""
 
@@ -92,12 +95,13 @@ class Donor:
 
 		:return:
 		"""
-		self.date_of_birth = input("{} date of birth in the following format, 2000.12.31: ".format(ENTER))
-		while Donor.is_valid_date(self.date_of_birth) is False:
-			self.date_of_birth = input(
+		date_of_birth = input("{} date of birth in the following format, 2000.12.31: ".format(ENTER))
+		while Donor.is_valid_date(date_of_birth) is False:
+			date_of_birth = input(
 				"{}\n{} date of birth in the following format, 2000.12.31: ".format(AGAIN, ENTER))
-		return self.date_of_birth
+		self.date_of_birth = date_of_birth
 
+	@staticmethod
 	def is_valid_date(date):
 		"""
 
@@ -114,13 +118,14 @@ class Donor:
 
 		:return:
 		"""
-		self.donation_date = input("If you have donated blood before, please enter its date \
+		donation_date = input("If you have donated blood before, please enter its date \
 		in the following format 2000.12.31 otherwise press ENTER: ")
-		while Donor.is_valid_date(self.donation_date) is False:
-			self.donation_date = input("{}\nIf you have donated blood before, please enter its date \
+		while Donor.is_valid_donation_date(donation_date) is False:
+			donation_date = input("{}\nIf you have donated blood before, please enter its date \
 		in the following format 2000.12.31 otherwise press Enter: ".format(AGAIN))
-		return self.donation_date
+		self.donation_date = donation_date
 
+	@staticmethod
 	def is_valid_donation_date(date):
 		"""
 
@@ -139,11 +144,12 @@ class Donor:
 
 		:return:
 		"""
-		self.sickness = input("Were you sick in the last month? For yes press Y for no press N: ")
-		while Donor.is_valid_sickness(self.sickness) is False:
-			self.sickness = input("{} Press either Y or N: ".format(AGAIN))
-		return self.sickness
+		sickness = input("Were you sick in the last month? For yes press Y for no press N: ")
+		while Donor.is_valid_sickness(sickness) is False:
+			sickness = input("{} Press either Y or N: ".format(AGAIN))
+		self.sickness = sickness
 
+	@staticmethod
 	def is_valid_sickness(sickness):
 		"""
 
@@ -156,11 +162,12 @@ class Donor:
 
 		:return:
 		"""
-		self.id_number = input("{} ID : ".format(ENTER))
-		while Donor.is_valid_date(self.id_number) is False:
-			self.id_number = input("{}  ".format(AGAIN, ENTER))
-		return self.id_number
+		id_number = input("{} ID : ".format(ENTER))
+		while Donor.is_valid_id_number(id_number) is False:
+			id_number = input("{}  ".format(AGAIN, ENTER))
+		self.id_number = input()
 
+	@staticmethod
 	def is_valid_id_number(id_number):
 		"""
 
@@ -168,8 +175,8 @@ class Donor:
 		"""
 		if not len(id_number) == 8:
 			return False
-		if not ((id_number[:6].isdigit() and id_number[6:9].isalpha()) or \
-				(id_number[:2].isalpha() and id_number[2:9].isdigit())):
+		if not ((id_number[:6].isdigit() and id_number[6:].isalpha()) or \
+				(id_number[:2].isalpha() and id_number[2:].isdigit())):
 			return False
 		return True
 
@@ -178,21 +185,22 @@ class Donor:
 
 		:return:
 		"""
-		self.exp_date = input("{} ID expiration date in the following format 2000.12.31: ".format(ENTER))
-		while Donor.is_valid_date(self.exp_date) is False:
-			self.exp_date = input("{} {} ID expiration date in the following format 2000.12.31: ".format(AGAIN, ENTER))
-		return self.exp_date
+		exp_date = input("{} ID expiration date in the following format 2000.12.31: ".format(ENTER))
+		while Donor.is_valid_date(exp_date) is False:
+			exp_date = input("{} {} ID expiration date in the following format 2000.12.31: ".format(AGAIN, ENTER))
+		self.exp_date = exp_date
 
 	def get_blood_type(self):
 		"""
 
 		:return:
 		"""
-		self.blood_type = input("{} type of blood: ".format(ENTER))
-		while Donor.is_valid_blood_type(self.blood_type) is False:
-			self.blood_type = input("{} {} type of blood: ".format(AGAIN, ENTER))
-		return self.blood_type
+		blood_type = input("{} type of blood: ".format(ENTER))
+		while Donor.is_valid_blood_type(blood_type) is False:
+			blood_type = input("{} {} type of blood: ".format(AGAIN, ENTER))
+		self.blood_type = blood_type
 
+	@staticmethod
 	def is_valid_blood_type(blood_type):
 		"""
 
@@ -205,11 +213,12 @@ class Donor:
 
 		:return:
 		"""
-		self.email_address = input("{} email: ".format(ENTER))
-		while Donor.is_valid_email_address is False:
-			self.email_address = input("{} ".format(AGAIN))
-		return self.email_address
+		email_address = input("{} email: ".format(ENTER))
+		while Donor.is_valid_email_address(email_address) is False:
+			email_address = input("{} ".format(AGAIN))
+		self.email_address = email_address
 
+	@staticmethod
 	def is_valid_email_address(email_address):
 		"""
 
@@ -242,11 +251,12 @@ class Donor:
 
 		:return:
 		"""
-		self.mobile_number = input("{} mobile number: ".format(ENTER))
-		while Donor.is_valid_mobile_number(self.mobile_number) is False:
-			self.mobile_number = input("{} ".format(AGAIN))
-		return self.mobile_number
+		mobile_number = input("{} mobile number: ".format(ENTER))
+		while Donor.is_valid_mobile_number(mobile_number) is False:
+			mobile_number = input("{} ".format(AGAIN))
+		self.mobile_number = mobile_number
 
+	@staticmethod
 	def is_valid_mobile_number(mobile_number):
 		"""
 

@@ -2,7 +2,7 @@ from _021_event_inputs import Event
 import unittest
 
 
-class MyTestCase(unittest.TestCase):
+class EventTests(unittest.TestCase):
     def test_date_of_event_with_valid_string(self):
         self.assertTrue(Event.is_valid_date_of_event("2015.12.24"))
 
@@ -14,9 +14,6 @@ class MyTestCase(unittest.TestCase):
 
     def test_date_of_event_less_then_ten_days(self):
         self.assertFalse(Event.is_valid_date_of_event("2015.1.27"))
-
-    def test_date_of_event_with_empty_string(self):
-        self.assertTrue(Event.is_valid_date_of_event(""))
 
     def test_date_of_event_with_hyphens(self):
         self.assertFalse(Event.is_valid_date_of_event("2015-12-24"))
