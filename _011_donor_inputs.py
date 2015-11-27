@@ -1,10 +1,10 @@
 from datetime import datetime
 
 GENDERS = ("f", "m")
-ENTER = "Please enter your"
+ENTER = "\nPlease enter your"
 AGAIN = "Wrong input!"
 SICK = ["y", "n"]
-BLOOD = ["a+", "a-", "b+", "b-", "ab+", "ab-", "0+", "0-"]
+BLOOD = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', '0+', '0-']
 PI = ("20", "30", "70")
 
 
@@ -30,8 +30,8 @@ class Donor:
 		"""
 		first_name = input("{} first name: ".format(ENTER))
 		while Donor.is_valid_name(first_name) is False:
-			first_name = input("{}\nThe first name can contain only letters and has to be at least 2 \
-			characters long!\n{} first name: ".format(AGAIN, ENTER))
+			first_name = input("{}\nThe first name can contain only letters and has to be at least 2 characters long!\
+			\n{} first name: ".format(AGAIN, ENTER))
 		self.first_name = first_name
 
 	def get_last_name(self):
@@ -41,14 +41,15 @@ class Donor:
 		"""
 		last_name = input("{} last name: ".format(ENTER))
 		while Donor.is_valid_name(last_name) is False:
-			last_name = input("{}\nThe last name can contain only letters and has to be at least 2 \
-			characters long!\n{} last name: ".format(AGAIN, ENTER))
+			last_name = input("{}\nThe last name can contain only letters and has to be at least 2 characters long!\
+			\n{} last name: ".format(AGAIN, ENTER))
 		self.last_name = last_name
 
 	@staticmethod
 	def is_valid_name(name):
 		"""
 
+		:param name:
 		:return:
 		"""
 		return name.isalpha() and len(name) > 1
@@ -67,6 +68,7 @@ class Donor:
 	def is_valid_weight(weight):
 		"""
 
+		:param weight:
 		:return:
 		"""
 		return weight.isdigit() and int(weight) > 0
@@ -76,7 +78,7 @@ class Donor:
 
 		:return:
 		"""
-		gender = input("Please enter an F for female or an M for male donor: ")
+		gender = input("\nPlease enter an F for female or an M for male donor: ")
 		while Donor.is_valid_gender(gender) is False:
 			gender = input("{}\nYou can only choose the letter F or M! \
 			\nPlease enter an F for female or an M for male donor: ".format(AGAIN))
@@ -86,6 +88,7 @@ class Donor:
 	def is_valid_gender(gender):
 		"""
 
+		:param gender:
 		:return:
 		"""
 		return gender.lower() in GENDERS
@@ -105,6 +108,7 @@ class Donor:
 	def is_valid_date(date):
 		"""
 
+		:param date:
 		:return:
 		"""
 		try:
@@ -118,7 +122,7 @@ class Donor:
 
 		:return:
 		"""
-		donation_date = input("If you have donated blood before, please enter its date \
+		donation_date = input("\nIf you have donated blood before, please enter its date \
 									\nin the following format 1999.12.31, if not then press Enter: ")
 		while Donor.is_valid_donation_date(donation_date) is False:
 			donation_date = input("{}\nIf you have donated blood before, please enter its date \
@@ -129,6 +133,7 @@ class Donor:
 	def is_valid_donation_date(date):
 		"""
 
+		:param date:
 		:return:
 		"""
 		try:
@@ -144,7 +149,7 @@ class Donor:
 
 		:return:
 		"""
-		sickness = input("Were you sick in the last month? For yes press Y for no press N: ")
+		sickness = input("\nWere you sick in the last month? For yes press Y for no press N: ")
 		while Donor.is_valid_sickness(sickness) is False:
 			sickness = input("{}\nWere you sick in the last month? Please press either Y or N: ".format(AGAIN))
 		self.sickness = sickness
@@ -153,6 +158,7 @@ class Donor:
 	def is_valid_sickness(sickness):
 		"""
 
+		:param sickness:
 		:return:
 		"""
 		return sickness.lower() in SICK
@@ -164,19 +170,21 @@ class Donor:
 		"""
 		id_number = input("{} unique identifier in the following format 123456AB or AB123456: ".format(ENTER))
 		while Donor.is_valid_id_number(id_number) is False:
-			id_number = input("{}\n{} unique identifier in the following format 123456AB or AB123456: ".format(AGAIN, ENTER))
-		self.id_number = input()
+			id_number = input(
+				"{}\n{} unique identifier in the following format 123456AB or AB123456: ".format(AGAIN, ENTER))
+		self.id_number = id_number
 
 	@staticmethod
 	def is_valid_id_number(id_number):
 		"""
 
+		:param id_number:
 		:return:
 		"""
 		if not len(id_number) == 8:
 			return False
-		if not ((id_number[:6].isdigit() and id_number[6:].isalpha())\
-				or (id_number[:2].isalpha() and id_number[2:].isdigit())):
+		if not ((id_number[:6].isdigit() and id_number[6:].isalpha()) or
+					(id_number[:2].isalpha() and id_number[2:].isdigit())):
 			return False
 		return True
 
@@ -197,16 +205,17 @@ class Donor:
 		"""
 		blood_type = input("{} type of blood from the following list: {}: ".format(ENTER, BLOOD))
 		while Donor.is_valid_blood_type(blood_type) is False:
-			blood_type = input("{} type of blood from the following list: {}: ".format(AGAIN, ENTER, BLOOD))
+			blood_type = input("{}\n{} type of blood from the following list: {}: ".format(AGAIN, ENTER, BLOOD))
 		self.blood_type = blood_type
 
 	@staticmethod
 	def is_valid_blood_type(blood_type):
 		"""
 
+		:param blood_type:
 		:return:
 		"""
-		return blood_type.lower() in BLOOD
+		return blood_type.upper() in BLOOD
 
 	def get_email_address(self):
 		"""
@@ -223,6 +232,7 @@ class Donor:
 	def is_valid_email_address(email_address):
 		"""
 
+			:param email_address:
 			:rtype: object
 			:return:
 			"""
@@ -234,8 +244,8 @@ class Donor:
 		if not (email_address.endswith((".hu", ".com"))):
 			return False
 		at_sign_index = email_address.index('@')
-		if not (email_address[at_sign_index + 1:len(email_address) - 4].isalpha() or \
-				        email_address[at_sign_index + 1:len(email_address) - 3].isalpha()):
+		if not (email_address[at_sign_index + 1:len(email_address) - 4].isalpha() or
+					email_address[at_sign_index + 1:len(email_address) - 3].isalpha()):
 			return False
 		if not (email_address[0].isalpha() and email_address[at_sign_index - 1].isalpha()):
 			return False
@@ -261,6 +271,7 @@ class Donor:
 	def is_valid_mobile_number(mobile_number):
 		"""
 
+		:param mobile_number:
 		:return:
 		"""
 		mobile_number = mobile_number.replace(" ", "")
@@ -270,7 +281,7 @@ class Donor:
 			return False
 		if not ((mobile_number[3:5] in PI) or (mobile_number[2:4] in PI)):
 			return False
-		if not (mobile_number[2:4] in PI and len(mobile_number) == 11 or\
-				mobile_number[3:5] in PI and len(mobile_number) == 12):
+		if not (mobile_number[2:4] in PI and len(mobile_number) == 11 or
+					mobile_number[3:5] in PI and len(mobile_number) == 12):
 			return False
 		return True
