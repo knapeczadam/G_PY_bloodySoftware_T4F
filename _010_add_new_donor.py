@@ -23,7 +23,9 @@ Donors are only accepted above 50 kgs.
 The program has ended because of not suitable donor.\
 		""")
 		time.sleep(3)
-		exit()
+		os.system("CLS")
+		from main import menu
+		menu()
 	user.get_gender()
 	user.get_date_of_birth()
 	if (datetime.now() - datetime.strptime(user.date_of_birth, "%Y.%m.%d")).days // 365 < 18:
@@ -50,6 +52,7 @@ The program has ended because of not suitable donor.
 		time.sleep(3)
 		exit()
 	user.get_id_number()
+	#
 	user.get_exp_date()
 	if datetime.strptime(user.exp_date, "%Y.%m.%d") < datetime.now():
 		os.system("CLS")
