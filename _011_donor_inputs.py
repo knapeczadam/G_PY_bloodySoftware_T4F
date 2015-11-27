@@ -76,10 +76,10 @@ class Donor:
 
 		:return:
 		"""
-		gender = input("Please enter an F if you are a Female or an M if you are a Male: ")
+		gender = input("Please enter an F for female or an M for male donor: ")
 		while Donor.is_valid_gender(gender) is False:
 			gender = input("{}\nYou can only choose the letter F or M! \
-			\nPlease enter an F if you are a Female or an M if you are a Male: ".format(AGAIN))
+			\nPlease enter an F for female or an M for male donor: ".format(AGAIN))
 		self.gender = gender
 
 	@staticmethod
@@ -95,10 +95,10 @@ class Donor:
 
 		:return:
 		"""
-		date_of_birth = input("{} date of birth in the following format, 2000.12.31: ".format(ENTER))
+		date_of_birth = input("{} date of birth in the following format, 1999.12.31: ".format(ENTER))
 		while Donor.is_valid_date(date_of_birth) is False:
 			date_of_birth = input(
-				"{}\n{} date of birth in the following format, 2000.12.31: ".format(AGAIN, ENTER))
+				"{}\n{} date of birth in the following format, 1999.12.31: ".format(AGAIN, ENTER))
 		self.date_of_birth = date_of_birth
 
 	@staticmethod
@@ -119,10 +119,10 @@ class Donor:
 		:return:
 		"""
 		donation_date = input("If you have donated blood before, please enter its date \
-		in the following format 2000.12.31 otherwise press ENTER: ")
+									\nin the following format 1999.12.31, if not then press Enter: ")
 		while Donor.is_valid_donation_date(donation_date) is False:
 			donation_date = input("{}\nIf you have donated blood before, please enter its date \
-		in the following format 2000.12.31 otherwise press Enter: ".format(AGAIN))
+									\nin the following format 1999.12.31, if not then press Enter: ".format(AGAIN))
 		self.donation_date = donation_date
 
 	@staticmethod
@@ -146,7 +146,7 @@ class Donor:
 		"""
 		sickness = input("Were you sick in the last month? For yes press Y for no press N: ")
 		while Donor.is_valid_sickness(sickness) is False:
-			sickness = input("{} Press either Y or N: ".format(AGAIN))
+			sickness = input("{}\nWere you sick in the last month? Please press either Y or N: ".format(AGAIN))
 		self.sickness = sickness
 
 	@staticmethod
@@ -162,9 +162,9 @@ class Donor:
 
 		:return:
 		"""
-		id_number = input("{} ID : ".format(ENTER))
+		id_number = input("{} unique identifier in the following format 123456AB or AB123456: ".format(ENTER))
 		while Donor.is_valid_id_number(id_number) is False:
-			id_number = input("{}  ".format(AGAIN, ENTER))
+			id_number = input("{}\n{} unique identifier in the following format 123456AB or AB123456: ".format(AGAIN, ENTER))
 		self.id_number = input()
 
 	@staticmethod
@@ -175,8 +175,8 @@ class Donor:
 		"""
 		if not len(id_number) == 8:
 			return False
-		if not ((id_number[:6].isdigit() and id_number[6:].isalpha()) or \
-				(id_number[:2].isalpha() and id_number[2:].isdigit())):
+		if not ((id_number[:6].isdigit() and id_number[6:].isalpha())\
+				or (id_number[:2].isalpha() and id_number[2:].isdigit())):
 			return False
 		return True
 
@@ -185,9 +185,9 @@ class Donor:
 
 		:return:
 		"""
-		exp_date = input("{} ID expiration date in the following format 2000.12.31: ".format(ENTER))
+		exp_date = input("{} ID expiration date in the following format 1999.12.31: ".format(ENTER))
 		while Donor.is_valid_date(exp_date) is False:
-			exp_date = input("{} {} ID expiration date in the following format 2000.12.31: ".format(AGAIN, ENTER))
+			exp_date = input("{} {} ID expiration date in the following format 1999.12.31: ".format(AGAIN, ENTER))
 		self.exp_date = exp_date
 
 	def get_blood_type(self):
@@ -195,9 +195,9 @@ class Donor:
 
 		:return:
 		"""
-		blood_type = input("{} type of blood: ".format(ENTER))
+		blood_type = input("{} type of blood from the following list: {}: ".format(ENTER, BLOOD))
 		while Donor.is_valid_blood_type(blood_type) is False:
-			blood_type = input("{} {} type of blood: ".format(AGAIN, ENTER))
+			blood_type = input("{} type of blood from the following list: {}: ".format(AGAIN, ENTER, BLOOD))
 		self.blood_type = blood_type
 
 	@staticmethod
@@ -213,9 +213,10 @@ class Donor:
 
 		:return:
 		"""
-		email_address = input("{} email: ".format(ENTER))
+		email_address = input("{} email address: ".format(ENTER))
 		while Donor.is_valid_email_address(email_address) is False:
-			email_address = input("{} ".format(AGAIN))
+			email_address = input("{}\nThe email has to contain an @ and end with either .hu or .com.\
+			\n{} email address: ".format(AGAIN, ENTER))
 		self.email_address = email_address
 
 	@staticmethod
@@ -233,8 +234,8 @@ class Donor:
 		if not (email_address.endswith((".hu", ".com"))):
 			return False
 		at_sign_index = email_address.index('@')
-		if not (email_address[at_sign_index + 1:len(email_address) - 4].isalpha() or\
-				email_address[at_sign_index + 1:len(email_address) - 3].isalpha()):
+		if not (email_address[at_sign_index + 1:len(email_address) - 4].isalpha() or \
+				        email_address[at_sign_index + 1:len(email_address) - 3].isalpha()):
 			return False
 		if not (email_address[0].isalpha() and email_address[at_sign_index - 1].isalpha()):
 			return False
@@ -251,9 +252,9 @@ class Donor:
 
 		:return:
 		"""
-		mobile_number = input("{} mobile number: ".format(ENTER))
+		mobile_number = input("{} mobile number in the following format +36301234567: ".format(ENTER))
 		while Donor.is_valid_mobile_number(mobile_number) is False:
-			mobile_number = input("{} ".format(AGAIN))
+			mobile_number = input("{}\n{} mobile number in the following format +36301234567: ".format(AGAIN, ENTER))
 		self.mobile_number = mobile_number
 
 	@staticmethod
@@ -264,13 +265,12 @@ class Donor:
 		"""
 		mobile_number = mobile_number.replace(" ", "")
 		if not (mobile_number[:12].isdigit() or mobile_number[1:13].isdigit()):
-			print()
 			return False
 		if not mobile_number.startswith(('06', '+36')):
 			return False
 		if not ((mobile_number[3:5] in PI) or (mobile_number[2:4] in PI)):
 			return False
-		if not (mobile_number[2:4] in PI and len(mobile_number) == 11 or \
-								mobile_number[3:5] in PI and len(mobile_number) == 12):
+		if not (mobile_number[2:4] in PI and len(mobile_number) == 11 or\
+				mobile_number[3:5] in PI and len(mobile_number) == 12):
 			return False
 		return True

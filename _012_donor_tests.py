@@ -154,10 +154,10 @@ class DonorTests(unittest.TestCase):
 		self.assertFalse(Donor.is_valid_email_address('.hu@.hu.hu'))
 
 	def test_email_start_with_dot(self):
-		self.assertFalse(Donor.is_valid_email_address('abc.@kkk.com'))
+		self.assertFalse(Donor.is_valid_email_address('.abc@kkk.com'))
 
 	def test_email_with_dot_before_at_sign(self):
-		self.assertFalse(Donor.is_valid_email_address('.abc@kkk.com'))
+		self.assertFalse(Donor.is_valid_email_address('abc.@kkk.com'))
 
 	def test_mobile_with_06_start_pi_20(self):
 		self.assertTrue(Donor.is_valid_mobile_number('06201234567'))
