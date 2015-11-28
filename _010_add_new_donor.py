@@ -26,7 +26,7 @@ def call_get_donor_inputs():
 	user_requirements()
 	get_data_from_user_or_exit(user.get_sickness(), user.sickness)
 	user_requirements()
-	get_data_from_user_or_exit(user.get_id_number(), user.id_number)
+	get_data_from_user_or_exit(find_existing_id(user.get_id_number()), user.id_number)
 	get_data_from_user_or_exit(user.get_exp_date(), user.exp_date)
 	user_requirements()
 	get_data_from_user_or_exit(user.get_blood_type(), user.blood_type)
@@ -39,42 +39,50 @@ def write_donor_data_in_file():
 
 	:return:
 	"""
-	donor_date = [user.first_name,\
-				  user.last_name,\
-				  user.weight,\
-				  user.gender,\
-				  user.date_of_birth,\
-				  user.donation_date,\
-				  user.sickness,\
-				  user.id_number,\
-				  user.exp_date,\
-				  user.blood_type,\
-				  user.email_address,\
-				  user.mobile_number]
+	donor_data = [
+		user.first_name,
+		user.last_name,
+		user.weight,
+		user.gender,
+		user.date_of_birth,
+		user.donation_date,
+		user.sickness,
+		user.id_number,
+		user.exp_date,
+		user.blood_type,
+		user.email_address,
+		user.mobile_number
+	]
+
 	if not (path.isfile("Data\donors.csv")):
-		f = open("Data\donors.csv", 'w')
-		f.close()
-	data = []
-	with open("Data\donors.csv") as csvfile_read:
-		csvreader = csv.reader(csvfile_read, delimiter=",")
-		for row in csvreader:
-			if row:
-				data.append(row)
-	csvfile_read.close()
-	dicta = {}
-	x = 1
-	for elements in data:
-		dicta[x] = elements
-		x += 1
-	print("The donor's data has been recorded.")
-	with (open("Data\donors.csv", 'w')) as writer:
-		csvwriter = csv.writer(writer, delimiter=",")
-		for word in dicta:
-			csvwriter.writerow(dicta[word])
-	with open("Data\donors.csv", "a") as csvfile_write:
-		csvwriter = csv.writer(csvfile_write, delimiter=',')
-		csvwriter.writerow(donor_date)
-		print("New donor:", donor_date)
+		donors_csv = open("Data\donors.csv", 'w')
+		donors_csv.close()
+
+	# first_row = [
+	# 	"First name",
+	# 	"Last name",
+	# 	"Gender",
+	# 	"Date of birth",
+	# 	"Donation date",
+	# 	"Sickness",
+	# 	"ID number",
+	# 	"Experation date",
+	# 	"Blood type",
+	# 	"Email address",
+	# 	"Mobile number"
+	# ]
+	#
+	#
+	#
+	# with open("Data\donors.csv", "a") as donors_csv:
+	# 	first_row_writer = csv.writer(donors_csv)
+	# 	for row in data_in_donors_csv:
+	# 		if row != first_row:
+	# 			first_row_writer.writerow(first_row)
+
+	with open("Data\donors.csv", "a") as donors_csv:
+		append_donor_data = csv.writer(donors_csv)
+		append_donor_data.writerow(donor_data)
 
 
 def user_requirements():
@@ -96,11 +104,11 @@ def user_requirements():
 			user.date_of_birth = None
 			clean_and_back_to_the_main_menu(age_message)
 	if user.donation_date is not None and user.donation_date != "" and user.donation_date not in ESC:
-			if (datetime.now() - datetime.strptime(user.donation_date, "%Y.%m.%d")).days <= 90:
-				donation_message = "Donors can only give blood once in every 3 months.\
+		if (datetime.now() - datetime.strptime(user.donation_date, "%Y.%m.%d")).days <= 90:
+			donation_message = "Donors can only give blood once in every 3 months.\
 				\nThe program has ended because of not suitable donor."
-				user.donation_date = None
-				clean_and_back_to_the_main_menu(donation_message)
+			user.donation_date = None
+			clean_and_back_to_the_main_menu(donation_message)
 	if user.sickness is not None:
 		if user.sickness.lower() == "y":
 			sickness_message = "The program has ended because of not suitable donor."
@@ -113,30 +121,21 @@ def user_requirements():
 			clean_and_back_to_the_main_menu(expiration_message)
 
 
-# def find_existing_id(id_numer):
-# 	"""
-#
-# 	:param id_numer:
-# 	:return:
-# 	"""
-# 	data = []
-# 	with open("Data\donors.csv") as csvfile_read:
-# 		csvreader = csv.reader(csvfile_read, delimiter=",")
-# 		for row in csvreader:
-# 			if row:
-# 				data.append(row)
-# 	csvfile_read.close()
-# 	dicta = {}
-# 	x = 1
-# 	for elements in data:
-# 		dicta[x] = elements
-# 		x += 1
-# 	find_id = 0
-# 	if id_numer:
-# 		for key in dicta:
-# 			for element in dicta[key]:
-# 				if element == id_numer:
-# 					find_id += key
+def find_existing_id(get_id_number):
+	data_in_donors_csv = []
+	with open("Data\donors.csv", "r") as donors_csv:
+		csv_reader = csv.reader(donors_csv)
+		for row in csv_reader:
+			data_in_donors_csv.append(row)
+	id_is_exist = 0
+	for row in data_in_donors_csv:
+		if len(row) != 0:
+			if row[7] == user.id_number:
+				print("ID is already exist!")
+				id_is_exist += 1
+				find_existing_id(user.get_id_number())
+	if id_is_exist == 0:
+		return True
 
 
 def get_data_from_user_or_exit(get_something, user_string_input):
@@ -146,9 +145,10 @@ def get_data_from_user_or_exit(get_something, user_string_input):
 	:param get_something:
 	:return:
 	"""
-	if user_string_input.lower() in ESC:
-		exit_message = "Bye"
-		clean_and_back_to_the_main_menu(exit_message)
+	if user_string_input is not None:
+		if user_string_input.lower() in ESC:
+			exit_message = "Bye"
+			clean_and_back_to_the_main_menu(exit_message)
 
 
 def clean_and_back_to_the_main_menu(message):
@@ -159,6 +159,6 @@ def clean_and_back_to_the_main_menu(message):
 	"""
 	os.system("CLS")
 	print(message)
-	# time.sleep(3)
+	time.sleep(3)
 	from main import menu
 	menu()

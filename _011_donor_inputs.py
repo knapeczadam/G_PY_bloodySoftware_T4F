@@ -173,7 +173,7 @@ class Donor:
 
 		:return:
 		"""
-		id_number = input("{}\n{} unique identifier in the following format 123456AB or AB123456: ".format(ENTER))
+		id_number = input("\n{} unique identifier in the following format 123456AB or AB123456: ".format(ENTER))
 		while Donor.is_valid_id_number(id_number) is False:
 			id_number = input(
 				"{}\n{} unique identifier in the following format 123456AB or AB123456: ".format(AGAIN, ENTER))

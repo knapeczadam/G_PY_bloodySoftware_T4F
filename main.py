@@ -78,6 +78,8 @@ Main menu
 				back_to_the_main_menu()
 	# if action == "6":
 	if action == "7":
+		# os.system("CLS")
+		print("Bye!")
 		sleep_and_clean()
 		exit()
 
