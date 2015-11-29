@@ -54,27 +54,11 @@ def write_event_data_in_file():
 		user.max_donor_number,
 		user.successful_donations
 	]
+
 	if not (path.isfile("Data\events.csv")):
 		f = open("Data\events.csv", 'w')
 		f.close()
-	data = []
-	with open("Data\events.csv") as csvfile_read:
-		csvreader = csv.reader(csvfile_read, delimiter=",")
-		for row in csvreader:
-			if row:
-				data.append(row)
-	csvfile_read.close()
-	dicta = {}
-	x = 1
-	for elements in data:
-		dicta[x] = elements
-		x += 1
-	print("The event's data has been recorded.")
-	with (open("Data\events.csv", 'w')) as writer:
-		csvwriter = csv.writer(writer, delimiter=",")
-		for word in dicta:
-			csvwriter.writerow(dicta[word])
-	with open("Data\events.csv", "a") as csvfile_write:
-		csvwriter = csv.writer(csvfile_write, delimiter=',')
-		csvwriter.writerow(event_data)
-		print("New event:", event_data)
+
+	with open("Data\events.csv", "a") as donors_csv:
+		append_donor_data = csv.writer(donors_csv)
+		append_donor_data.writerow(event_data)

@@ -1,5 +1,6 @@
 from _010_add_new_donor import call_get_donor_inputs
 from _010_add_new_donor import write_donor_data_in_file
+from _010_add_new_donor import if_csv_is_not_exist
 from _020_add_new_event import call_get_event_inputs
 from _020_add_new_event import print_donation_successful
 from _020_add_new_event import write_event_data_in_file
@@ -35,11 +36,9 @@ Main menu
 		action = input("Please choose your action:  ")
 	if action == "1":
 		sleep_and_clean()
+		if_csv_is_not_exist()
 		call_get_donor_inputs()
-		sleep_and_clean()
 		write_donor_data_in_file()
-		sleep_and_clean()
-		menu()
 	if action == "2":
 		sleep_and_clean()
 		call_get_event_inputs()
@@ -47,18 +46,15 @@ Main menu
 		print_donation_successful()
 		sleep_and_clean()
 		write_event_data_in_file()
-		sleep_and_clean()
-		menu()
 	if action == "3":
 		sleep_and_clean()
+		if_csv_is_not_exist()
 		delete_donor_data_from_file()
 		sleep_and_clean()
-		menu()
 	if action == "4":
 		sleep_and_clean()
 		delete_donor_data_from_file()
 		sleep_and_clean()
-		menu()
 	if action == "5":
 		sleep_and_clean()
 		choice = input("Donor (1) or event (2) ?: ")
@@ -82,6 +78,7 @@ Main menu
 		print("Bye!")
 		sleep_and_clean()
 		exit()
+	menu()
 
 
 def back_to_the_main_menu():
@@ -100,7 +97,7 @@ def sleep_and_clean():
 
 	:return:
 	"""
-	# time.sleep(2)
+	time.sleep(2)
 	os.system("CLS")
 
 if __name__ == '__main__':

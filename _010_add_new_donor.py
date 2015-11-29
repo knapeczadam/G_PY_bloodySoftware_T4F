@@ -54,31 +54,33 @@ def write_donor_data_in_file():
 		user.mobile_number
 	]
 
-	if not (path.isfile("Data\donors.csv")):
-		donors_csv = open("Data\donors.csv", 'w')
-		donors_csv.close()
+	first_row = [
+		"First name",
+		"Last name",
+		"Weight",
+		"Gender",
+		"Date of birth",
+		"Donation date",
+		"Sickness",
+		"ID number",
+		"Experation date",
+		"Blood type",
+		"Email address",
+		"Mobile number"
+	]
 
-	# first_row = [
-	# 	"First name",
-	# 	"Last name",
-	# 	"Gender",
-	# 	"Date of birth",
-	# 	"Donation date",
-	# 	"Sickness",
-	# 	"ID number",
-	# 	"Experation date",
-	# 	"Blood type",
-	# 	"Email address",
-	# 	"Mobile number"
-	# ]
-	#
-	#
-	#
-	# with open("Data\donors.csv", "a") as donors_csv:
-	# 	first_row_writer = csv.writer(donors_csv)
-	# 	for row in data_in_donors_csv:
-	# 		if row != first_row:
-	# 			first_row_writer.writerow(first_row)
+	csv_is_empty = True
+
+	with open("Data\donors.csv", "r") as donors_csv:
+		first_row_reader = csv.reader(donors_csv)
+		for row in first_row_reader:
+			if len(row) > 0:
+				csv_is_empty = False
+
+	if csv_is_empty:
+		with open("Data\donors.csv", "w") as donors_csv:
+			first_row_writer = csv.writer(donors_csv)
+			first_row_writer.writerow(first_row)
 
 	with open("Data\donors.csv", "a") as donors_csv:
 		append_donor_data = csv.writer(donors_csv)
@@ -149,6 +151,16 @@ def get_data_from_user_or_exit(get_something, user_string_input):
 		if user_string_input.lower() in ESC:
 			exit_message = "Bye"
 			clean_and_back_to_the_main_menu(exit_message)
+
+
+def if_csv_is_not_exist():
+	"""
+
+	:return:
+	"""
+	if not (path.isfile("Data\donors.csv")):
+		donors_csv = open("Data\donors.csv", 'w')
+		donors_csv.close()
 
 
 def clean_and_back_to_the_main_menu(message):
