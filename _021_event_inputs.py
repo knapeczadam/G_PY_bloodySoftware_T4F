@@ -3,8 +3,8 @@ from datetime import datetime
 
 PREPARATION_TIME = 30
 DONATION_TIME = 30
-ENTER = "\nPlease enter your"
-AGAIN = "Wrong input!"
+AGAIN = "\nWrong input!"
+ENTER = "\nPlease enter the"
 CITIES = ("Miskolc", "Sarospatak", "Szerencs", "Kazincbarcika")
 
 
@@ -26,9 +26,9 @@ class Event:
 
 		:return:
 		"""
-		date_of_event = input("{} event date: ".format(ENTER))
+		date_of_event = input("{} event date in the following format, 1999.12.31: ".format(ENTER))
 		while Event.is_valid_date_of_event(date_of_event) is False:
-			date_of_event = input("{} : ".format(AGAIN))
+			date_of_event = input("{}{} event date in the given format, 1999.12.31: ".format(AGAIN, ENTER))
 		self.date_of_event = date_of_event
 
 	@staticmethod
@@ -53,9 +53,9 @@ class Event:
 
 		:return:
 		"""
-		start_time = input("Enter the start of the donation: ")
+		start_time = input("{} start time of the donation event in the following format, 09:30: ".format(ENTER))
 		while Event.is_valid_start_time(start_time) is False:
-			start_time = input("{} : ".format(AGAIN))
+			start_time = input("{}{} start time of the donation event in the following format, 09:30: ".format(AGAIN, ENTER))
 		self.start_time = start_time
 
 	@staticmethod
@@ -76,9 +76,10 @@ class Event:
 
 		:return:
 		"""
-		end_time = input("Enter your donation end:")
+		end_time = input("{} end time of the donation event in the following format, 15:30:".format(ENTER))
 		while self.is_valid_end_time(end_time) is False:
-			end_time = input("{} : ".format(AGAIN))
+			end_time = input("{}\nThe end time has to be at least one hour later than the start time\
+			\nand use the following format, 15:30: ".format(AGAIN, ENTER))
 		self.end_time = end_time
 
 	def is_valid_end_time(self, end_time):
@@ -86,7 +87,7 @@ class Event:
 		:param end_time:
 		:return:
 		"""
-		if int(str(self.start_time).replace(':', '')) > int(str(end_time).replace(':', '')):
+		if (int(str(self.start_time).replace(':', '')) + 100) > (int(str(end_time).replace(':', ''))):
 			return False
 		try:
 			datetime.strptime(end_time, "%H:%M")
