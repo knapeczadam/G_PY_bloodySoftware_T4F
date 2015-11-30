@@ -2,7 +2,11 @@ from _021_event_inputs import Event
 from os import path
 import csv
 
+import datetime
 user = Event()
+
+event_id = datetime.datetime.now().strftime("%Y:%m:%d:%H:%M:%S")
+print(event_id)
 
 
 def call_get_event_inputs():
@@ -43,6 +47,7 @@ def write_event_data_in_file():
 	:return:
 	"""
 	event_data = [
+		event_id,
 		user.date_of_event,
 		user.start_time,
 		user.end_time,

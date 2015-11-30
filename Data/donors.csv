@@ -1,1 +1,5 @@
-First name,Last name,Weight,Gender,Date of birth,Donation date,Sickness,ID number,Experation date,Blood type,Email address,Mobile number
+First name,Last name,Weight,Gender,Date of birth,Donation date,Sickness,ID number,Experation date,Blood type,Email address,Mobile number,Hemoglobin level
+asd,asd,61,f,1996.09.25,,n,123456aa,2017.09.09,a+,aaa@ggg.hu,+36202946922,
+asd,asd,61,f,1966.09.09,,n,456789as,2017.10.10,a+,aaa@gg.hu,+36206926922,
+asd,asd,61,f,1996.10.10,,n,123456ff,2017.10.10,a+,aaa@gg.hu,+36203666622,
+asd,asd,55,f,1955.10.10,,n,888888aa,2017.10.10,a+,dd@gg.hu,+36206665544,124
