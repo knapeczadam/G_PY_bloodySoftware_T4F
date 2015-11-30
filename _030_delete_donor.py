@@ -1,5 +1,6 @@
 import csv
 import time
+import os
 
 
 def delete_donor_data_from_file():
@@ -23,7 +24,8 @@ def delete_donor_data_from_file():
 				csv_is_empty = False
 				print("\t" + row[7])
 
-	if csv_is_empty:
+	if csv_is_empty or data_in_donors_csv_len == 1:
+		os.system("CLS")
 		print("The file is empty!")
 		time.sleep(3)
 		return False
@@ -31,7 +33,6 @@ def delete_donor_data_from_file():
 	id_number = input("\nPlease enter the choosen id that you want to delete: ")
 
 	if id_number == "exit":
-		from main import menu
 		return False
 
 	for row in data_in_donors_csv:
@@ -50,7 +51,7 @@ def delete_donor_data_from_file():
 					print("Back to the main menu!")
 					time.sleep(3)
 		else:
-			from main import menu
+			return False
 
 	if appended_list_len == data_in_donors_csv_len:
 		print("\nThe given ID is not exist!")

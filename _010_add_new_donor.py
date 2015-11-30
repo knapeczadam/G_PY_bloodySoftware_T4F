@@ -11,10 +11,6 @@ ESC = ["exit"]
 user = Donor()
 
 
-
-
-
-
 def call_get_donor_inputs():
     """
 
@@ -132,13 +128,16 @@ def user_requirements():
             clean_and_back_to_the_main_menu(expiration_message)
     if user.level is not None and user.level not in ESC:
         if user.level < 110:
-
             Hemo_message = "Your Hemogblobin level is not high enough. Born again!"
             clean_and_back_to_the_main_menu(Hemo_message)
 
 
-
 def find_existing_id(get_id_number):
+    """
+
+    :param get_id_number:
+    :return:
+    """
     data_in_donors_csv = []
     with open("Data\donors.csv", "r") as donors_csv:
         csv_reader = csv.reader(donors_csv)

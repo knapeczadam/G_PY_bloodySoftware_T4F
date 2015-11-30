@@ -10,7 +10,6 @@ PI = ("20", "30", "70")
 ESC = ["exit"]
 
 
-
 class Donor:
     def __init__(self):
         self.first_name = None
@@ -304,5 +303,3 @@ class Donor:
                             mobile_number[3:5] in PI and len(mobile_number) == 12):
             return False
         return True
-
-
