@@ -53,7 +53,7 @@ Main menu
 		sleep_and_clean()
 	if action == "4":
 		sleep_and_clean()
-		delete_donor_data_from_file()
+		delete_event_data_from_file()
 		sleep_and_clean()
 	if action == "5":
 		sleep_and_clean()
