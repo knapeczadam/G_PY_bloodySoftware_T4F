@@ -5,8 +5,7 @@ from datetime import datetime
 
 user = Event()
 
-event_id = datetime.now().strftime("%Y:%m:%d:%H:%M:%S")
-print(event_id)
+event_id = str(datetime.now().strftime("%Y%m%d%H%M%S"))[2:]
 
 
 def call_get_event_inputs():
@@ -17,11 +16,14 @@ def call_get_event_inputs():
 	user.get_date_of_event()
 	while datetime.strptime(user.date_of_event, "%Y.%m.%d").isoweekday() == 6 or\
 			datetime.strptime(user.date_of_event, "%Y.%m.%d").isoweekday() == 7 or\
-			(datetime.strptime(user.date_of_event, "%Y.%m.%d").date - datetime.now().date()).days < 10:
-		print("Wrong input!\nThe event can not be on weekends and has to be at least 10 days later than the current date.")
+			(datetime.strptime(user.date_of_event, "%Y.%m.%d") - datetime.now()).days < 10:
+		print("Wrong input! The event can not be on weekends and has to be at least 10 days later than the current date.")
 		user.get_date_of_event()
 	user.get_start_time()
 	user.get_end_time()
+	while (int(str(user.start_time).replace(':', '')) + 100) > (int(str(user.end_time).replace(':', ''))):
+		print("Wrong input! The end time has to be at least one hour later than the start time.")
+		user.get_end_time()
 	user.get_zip_code()
 	user.get_city()
 	user.get_address()
@@ -37,13 +39,13 @@ def print_donation_successful():
 	:return:
 	"""
 	if float(user.successful_donations) / float(user.planned_donors) < 0.2:
-		print("Unsuccessful, not worth to organise there again")
+		print("\nUnsuccessful, not worth to organise there again")
 	if 0.2 <= float(user.successful_donations) / float(user.planned_donors) <= 0.75:
-		print("Normal event")
+		print("\nNormal event")
 	if 0.75 <= float(user.successful_donations) / float(user.planned_donors) <= 1.1:
-		print("Successful")
+		print("\nSuccessful")
 	if float(user.successful_donations) / float(user.planned_donors) > 1.1:
-		print("Outstanding")
+		print("\nOutstanding")
 
 
 def write_event_data_in_file():

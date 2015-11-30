@@ -39,10 +39,10 @@ Main menu
         if_csv_is_not_exist()
         call_get_donor_inputs()
         write_donor_data_in_file()
+        sleep_and_clean()
     if action == "2":
         sleep_and_clean()
         call_get_event_inputs()
-        sleep_and_clean()
         print_donation_successful()
         sleep_and_clean()
         write_event_data_in_file()
