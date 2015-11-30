@@ -69,20 +69,6 @@ def write_donor_data_in_file():
         "Mobile number"
     ]
 
-    age = (datetime.now() - datetime.strptime(user.date_of_birth, "%Y.%m.%d")).days // 365
-
-    print("\n")
-    print(
-        "New donor has been added: ",
-        "\n%s, %s" % (donor_data[0], donor_data[1]),
-        "\n%skg" % donor_data[2],
-        "\n%s, %s years old" % (donor_data[5], age),
-        "\n%s" % donor_data[11]
-    )
-    print("\n")
-
-    time.sleep(10)
-
     csv_is_empty = True
 
     with open("Data\donors.csv", "r") as donors_csv:
@@ -99,6 +85,27 @@ def write_donor_data_in_file():
     with open("Data\donors.csv", "a") as donors_csv:
         append_donor_data = csv.writer(donors_csv)
         append_donor_data.writerow(donor_data)
+
+    age = (datetime.now() - datetime.strptime(user.date_of_birth, "%Y.%m.%d")).days // 365
+
+    print("\n")
+    print(
+        "New donor has been added: ",
+        "\n%s, %s" % (donor_data[0], donor_data[1]),
+        "\n%skg" % donor_data[2],
+        "\n%s, %s years old" % (donor_data[5], age),
+        "\n%s" % donor_data[11]
+    )
+    print("\n")
+
+    exit_input = input("If you want to exit the program press 'Y',"
+                       "\notherwise press 'Enter' to go back to the the main menu!")
+    exit_lower = exit_input.lower()
+
+    if exit_lower == "y":
+        exit()
+    else:
+        clean_and_back_to_the_main_menu("Going back to the main menu...")
 
 
 def user_requirements():
