@@ -76,6 +76,7 @@ def write_donor_data_in_file():
 		for row in first_row_reader:
 			if len(row) > 0:
 				csv_is_empty = False
+				break
 
 	if csv_is_empty:
 		with open("Data\donors.csv", "w") as donors_csv:

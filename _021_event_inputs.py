@@ -201,10 +201,10 @@ class Event:
 		:return:
 		"""
 		successful_donations = input("Please enter how many successful donations\
-	were during donation event (x out of {})".format(self.max_donor_number))
+	were during donation event (x out of {})".format(self.planned_donors))
 		while Event.is_valid_successful_donations(successful_donations) is False:
 			self.successful_donations = input("Please enter how many successful donations\
-	were during donation event (x out of {})".format(self.max_donor_number))
+	were during donation event (x out of {})".format(self.planned_donors))
 		self.successful_donations = successful_donations
 
 	@staticmethod
