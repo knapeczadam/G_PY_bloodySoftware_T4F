@@ -27,23 +27,19 @@ class Event:
 		:return:
 		"""
 		date_of_event = input("{} event date in the following format, 1999.12.31: ".format(ENTER))
-		while Event.is_valid_date_of_event(date_of_event) is False:
+		while Event.is_valid_date(date_of_event) is False:
 			date_of_event = input("{}{} event date in the given format, 1999.12.31: ".format(AGAIN, ENTER))
 		self.date_of_event = date_of_event
 
 	@staticmethod
-	def is_valid_date_of_event(event_date):
+	def is_valid_date(date_of_event):
 		"""
 
-		:param event_date:
+		:param date_of_event:
 		:return:
 		"""
 		try:
-			event_date = datetime.strptime(event_date, "%Y.%m.%d")
-			if event_date.isoweekday() == 6 or event_date.isoweekday() == 7:
-				return False
-			if (event_date.date() - datetime.now().date()).days < 10:
-				return False
+			date_of_event = datetime.strptime(date_of_event, "%Y.%m.%d")
 			return True
 		except:
 			return False
@@ -55,7 +51,7 @@ class Event:
 		"""
 		start_time = input("{} start time of the donation event in the following format, 09:30: ".format(ENTER))
 		while Event.is_valid_start_time(start_time) is False:
-			start_time = input("{}{} start time of the donation event in the following format, 09:30: ".format(AGAIN, ENTER))
+			start_time = input("{}{} start time of the donation event in the given format, 09:30: ".format(AGAIN, ENTER))
 		self.start_time = start_time
 
 	@staticmethod
@@ -79,7 +75,7 @@ class Event:
 		end_time = input("{} end time of the donation event in the following format, 15:30:".format(ENTER))
 		while self.is_valid_end_time(end_time) is False:
 			end_time = input("{}\nThe end time has to be at least one hour later than the start time\
-			\nand use the following format, 15:30: ".format(AGAIN, ENTER))
+			\nand use the following format, 15:30: ".format(AGAIN))
 		self.end_time = end_time
 
 	def is_valid_end_time(self, end_time):

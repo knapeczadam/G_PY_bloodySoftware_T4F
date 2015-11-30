@@ -79,55 +79,6 @@ Main menu
         sleep_and_clean()
         exit()
     menu()
-    action = input("Please choose your action: ")
-    while action not in ACTIONS:
-        print("To exit press 7, otherwise enter a number from 1 to 6.")
-        action = input("Please choose your action:  ")
-    if action == "1":
-        sleep_and_clean()
-        if_csv_is_not_exist()
-        call_get_donor_inputs()
-        write_donor_data_in_file()
-    if action == "2":
-        sleep_and_clean()
-        call_get_event_inputs()
-        sleep_and_clean()
-        print_donation_successful()
-        sleep_and_clean()
-        write_event_data_in_file()
-    if action == "3":
-        sleep_and_clean()
-        if_csv_is_not_exist()
-        delete_donor_data_from_file()
-        sleep_and_clean()
-    if action == "4":
-        sleep_and_clean()
-        delete_event_data_from_file()
-        sleep_and_clean()
-    if action == "5":
-        sleep_and_clean()
-        choice = input("Donor (1) or event (2) ?: ")
-        if choice == "1":
-            list_donor_data()
-            back_to_the_main_menu()
-        if choice == "2":
-            list_event_data()
-            back_to_the_main_menu()
-        while choice not in ["1", "2"]:
-            choice = input("Donor (1) or event (2) ?: ")
-            if choice == "1":
-                list_donor_data()
-                back_to_the_main_menu()
-            if choice == "2":
-                list_event_data()
-                back_to_the_main_menu()
-    # if action == "6":
-    if action == "7":
-        # os.system("CLS")
-        print("Bye!")
-        sleep_and_clean()
-        exit()
-    menu()
 
 
 def back_to_the_main_menu():

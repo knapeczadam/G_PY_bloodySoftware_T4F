@@ -1,11 +1,11 @@
 from _021_event_inputs import Event
 from os import path
 import csv
+from datetime import datetime
 
-import datetime
 user = Event()
 
-event_id = datetime.datetime.now().strftime("%Y:%m:%d:%H:%M:%S")
+event_id = datetime.now().strftime("%Y:%m:%d:%H:%M:%S")
 print(event_id)
 
 
@@ -15,6 +15,11 @@ def call_get_event_inputs():
 	:return:
 	"""
 	user.get_date_of_event()
+	while datetime.strptime(user.date_of_event, "%Y.%m.%d").isoweekday() == 6 or\
+			datetime.strptime(user.date_of_event, "%Y.%m.%d").isoweekday() == 7 or\
+			(datetime.strptime(user.date_of_event, "%Y.%m.%d").date - datetime.now().date()).days < 10:
+		print("Wrong input!\nThe event can not be on weekends and has to be at least 10 days later than the current date.")
+		user.get_date_of_event()
 	user.get_start_time()
 	user.get_end_time()
 	user.get_zip_code()
