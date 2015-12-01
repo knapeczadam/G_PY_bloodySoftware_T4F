@@ -2,6 +2,7 @@ from _010_add_new_donor import *
 from _020_add_new_event import *
 from delete_helper import delete_data_from_file
 from _050_list_data import list_donor_data, list_event_data
+from _060_search_data import *
 from csv_helper import *
 import time
 import os
@@ -75,7 +76,11 @@ Main menu
 			if choice == "2":
 				list_event_data(list_file_data(EVENTS))
 				back_to_the_main_menu()
-	# if action == "6":
+	if action == "6":
+		sleep_and_clean()
+		search_donors()
+		sleep_and_clean()
+
 	if action == "7":
 		# os.system("CLS")
 		print("Bye!")
