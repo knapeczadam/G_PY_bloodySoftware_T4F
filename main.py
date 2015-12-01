@@ -1,8 +1,8 @@
 from _010_add_new_donor import *
 from _020_add_new_event import *
-from delete_helper import delete_data_from_file
 from _050_list_data import list_donor_data, list_event_data
 from csv_helper import *
+from _060_search_data import *
 import time
 import os
 
@@ -51,31 +51,34 @@ Main menu
 	if action == "3":
 		sleep_and_clean()
 		if_csv_is_not_exist(DONORS)
-		delete_data_from_file(DONORS, DONORS_ID, check_if_file_is_empty(DONORS, DONORS_ID))
+		# delete_data_from_file(DONORS, DONORS_ID, check_if_file_is_empty(DONORS, DONORS_ID))
 		sleep_and_clean()
 	if action == "4":
 		sleep_and_clean()
 		if_csv_is_not_exist(EVENTS)
-		delete_data_from_file(EVENTS, EVENTS_ID, check_if_file_is_empty(EVENTS, EVENTS_ID))
+		# delete_data_from_file(EVENTS, EVENTS_ID, check_if_file_is_empty(EVENTS, EVENTS_ID))
 		sleep_and_clean()
 	if action == "5":
 		sleep_and_clean()
 		choice = input("Donor (1) or event (2) ?: ")
 		if choice == "1":
-			list_donor_data(list_file_data(DONORS))
+			# list_donor_data(list_file_data(DONORS))
 			back_to_the_main_menu()
 		if choice == "2":
-			list_event_data(list_file_data(EVENTS))
+			# list_event_data(list_file_data(EVENTS))
 			back_to_the_main_menu()
 		while choice not in ["1", "2"]:
 			choice = input("Donor (1) or event (2) ?: ")
 			if choice == "1":
-				list_donor_data(list_file_data(DONORS))
+				# list_donor_data(list_file_data(DONORS))
 				back_to_the_main_menu()
 			if choice == "2":
-				list_event_data(list_file_data(EVENTS))
+				# list_event_data(list_file_data(EVENTS))
 				back_to_the_main_menu()
-	# if action == "6":
+	if action == "6":
+		sleep_and_clean()
+		search_donors()
+		sleep_and_clean()
 	if action == "7":
 		# os.system("CLS")
 		print("Bye!")
