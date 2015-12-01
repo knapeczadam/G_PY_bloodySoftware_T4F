@@ -58,8 +58,6 @@ def check_if_file_is_empty(file_name, given_row):
 				new_list_len += 1
 				new_list.append(row)
 				csv_is_empty = False
-				if row[given_row] not in ["Event ID", "ID number"]:
-					pass
 
 	if csv_is_empty or new_list_len == 1:
 		os.system("CLS")

@@ -1,4 +1,6 @@
 from _datetime import datetime
+
+
 def list_donor_data(listed_donor_data):
 	"""
 
@@ -15,10 +17,8 @@ def list_donor_data(listed_donor_data):
 		if key != 1:
 			print("\nKey  ----> ", dicta[key][7])
 			for element in dicta[key]:
-
 				if element == dicta[key][2]:
 					print("\t %skg" % element)
-
 				if element == dicta[key][4]:
 					print("\t %s" % element, end=" - ")
 					year = datetime.strptime(element, "%Y.%m.%d")
@@ -28,13 +28,11 @@ def list_donor_data(listed_donor_data):
 				if element == dicta[key][10]:
 					print("\t %s" % element)
 					print("-" * 40)
-
 				if element == dicta[key][0]:
 					print("-" * 40)
 					print("\t", element, end=", ")
 				if element == dicta[key][1]:
 					print(element, end="\n")
-
 
 
 def list_event_data(listed_event_data):

@@ -134,6 +134,7 @@ def donor_requirements():
 		if user.hemo_level < 110:
 			hemo_message = "Your hemoglobin level is not high enough. Born again!"
 			clean_and_back_to_the_main_menu(hemo_message)
+			user.hemo_level = None
 
 
 def find_existing_id(get_id_number):
