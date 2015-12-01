@@ -48,8 +48,17 @@ def list_event_data(listed_event_data):
 	for elements in listed_event_data:
 		dicta[x] = elements
 		x += 1
+	names = ["Date", "Start time", "End time", "Zip code", "City", "Address", "Available beds", "Planned donors", "Max donor numbers", "Successful donations"]
 
 	for key in dicta:
-		print("\n%s." % key, end=" ")
+		place = 0
 		for element in dicta[key]:
-				print("\t%s" % element)
+			if key != 1:
+				if len(element) == 12:
+					print("\nKey  ---->  ", element, end="\n")
+					print("-" * 40)
+				if len(element) != 12:
+					print(names[place])
+					place += 1
+					print("\t%s" % element)
+	print("-" * 40)
