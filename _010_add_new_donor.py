@@ -88,14 +88,10 @@ def print_after_writing():
 	"""
 	age = (datetime.now() - datetime.strptime(user.date_of_birth, "%Y.%m.%d")).days // 365
 
-	print("\n")
-	print(
-		"New donor has been added: ",
-		"\n%s, %s" % (donor_data_in_file()[0], donor_data_in_file()[1]),
-		"\n%s kg" % donor_data_in_file()[2],
-		"\n%s, %s years old" % (donor_data_in_file()[4], age),
-		"\n%s" % donor_data_in_file()[10]
-	)
+	print("\nNew donor has been added: \n{}, {} \n{} kg \n{}, {} years old \n{}".format\
+		      (donor_data_in_file()[0], donor_data_in_file()[1], donor_data_in_file()[2],\
+		       donor_data_in_file()[4], age, donor_data_in_file()[10]))
+
 	if input("\nTo exit the program press E, to return to the Main menu press Enter: ").upper() == "E":
 		exit()
 
