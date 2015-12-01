@@ -14,6 +14,21 @@ def if_csv_is_not_exist(file_name):
 		donors_csv.close()
 
 
+def list_file_data(file_name):
+	"""
+
+	:param file_name:
+	:return:
+	"""
+	new_list = []
+	with open(file_name, "r") as csv_file:
+		csv_reader = csv.reader(csv_file)
+		for row in csv_reader:
+			if len(row) > 0:
+				new_list.append(row)
+	return new_list
+
+
 def check_first_row_and_write(file_name, file_data, first_row):
 	"""
 

@@ -74,16 +74,18 @@ Main menu
 				back_to_the_main_menu()
 	if action == "6":
 		choice = input("To search in donors press D, to search in events press E, to return to the main menu press Enter: ")
+		sleep_and_clean()
 		while choice.upper() not in ["D", "E", ""]:
 			choice = input("To search in donors press D, to search in events press E, to return to the main menu press Enter: ")
 		if choice.upper() == "D":
 			sleep_and_clean()
 			if_csv_is_not_exist(DONORS)
-			search_donors()
+			search_donors(list_file_data(DONORS), DONORS)
 			back_to_the_main_menu()
 		if choice.upper() == "E":
+			sleep_and_clean()
 			if_csv_is_not_exist(EVENTS)
-			# event search def will come here...
+			search_donors(list_file_data(EVENTS), EVENTS)
 			back_to_the_main_menu()
 	if action == "7":
 		print("Bye!")
@@ -98,7 +100,7 @@ def back_to_the_main_menu():
 
 	:return:
 	"""
-	user_answer = input("Back to the main menu? (y or yes): ")
+	user_answer = input("\nBack to the main menu? (y or yes): ")
 	while user_answer.lower() != "y":
 		user_answer = input("Back to the main menu? (y or yes): ")
 	menu()
