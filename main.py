@@ -5,8 +5,7 @@ from _020_add_new_event import call_get_event_inputs
 from _020_add_new_event import print_donation_successful
 from _020_add_new_event import event_data_in_file
 from _020_add_new_event import event_first_row
-from _030_delete_donor import delete_donor_data_from_file
-from _040_delete_event import delete_event_data_from_file
+from delete_helper import delete_data_from_file
 from _050_list_data import list_donor_data, list_event_data
 from csv_helper import *
 import time
@@ -56,12 +55,12 @@ Main menu
 	if action == "3":
 		sleep_and_clean()
 		if_csv_is_not_exist(DONORS)
-		delete_donor_data_from_file(check_if_file_is_empty(DONORS, DONORS_ID))
+		delete_data_from_file(DONORS, DONORS_ID, check_if_file_is_empty(DONORS, DONORS_ID))
 		sleep_and_clean()
 	if action == "4":
 		sleep_and_clean()
 		if_csv_is_not_exist(EVENTS)
-		delete_event_data_from_file(check_if_file_is_empty(EVENTS, EVENTS_ID))
+		delete_data_from_file(EVENTS, EVENTS_ID, check_if_file_is_empty(EVENTS, EVENTS_ID))
 		sleep_and_clean()
 	if action == "5":
 		sleep_and_clean()
