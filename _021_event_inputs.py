@@ -181,7 +181,7 @@ class Event:
 		event_duration_in_minutes = datetime.strptime(str(self.end_time), "%H:%M") - datetime.strptime(str(self.start_time), "%H:%M")
 		event_duration_in_minutes = timedelta.total_seconds(event_duration_in_minutes) // 60
 		max_donor_number = ((event_duration_in_minutes - PREPARATION_TIME) // DONATION_TIME) * int(self.available_beds)
-		self.max_donor_number = max_donor_number
+		self.max_donor_number = int(max_donor_number)
 
 	def get_planned_donor_number(self):
 		"""

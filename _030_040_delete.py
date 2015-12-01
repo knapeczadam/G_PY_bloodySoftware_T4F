@@ -35,4 +35,4 @@ def delete_data_from_file(file_name, given_row, new_list):
 
 	if appended_list_len == new_list_len:
 		print("\nThe given ID is not exist!")
-		delete_data_from_file(new_list)
+		delete_data_from_file(file_name, given_row, new_list)
