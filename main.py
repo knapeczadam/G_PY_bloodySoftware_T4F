@@ -1,10 +1,5 @@
-from _010_add_new_donor import call_get_donor_inputs
-from _010_add_new_donor import donor_data_in_file
-from _010_add_new_donor import donor_first_row
-from _020_add_new_event import call_get_event_inputs
-from _020_add_new_event import print_donation_successful
-from _020_add_new_event import event_data_in_file
-from _020_add_new_event import event_first_row
+from _010_add_new_donor import *
+from _020_add_new_event import *
 from delete_helper import delete_data_from_file
 from _050_list_data import list_donor_data, list_event_data
 from csv_helper import *
@@ -43,6 +38,7 @@ Main menu
 		sleep_and_clean()
 		if_csv_is_not_exist(DONORS)
 		call_get_donor_inputs()
+		print_after_writing()
 		check_first_row_and_write(DONORS, donor_data_in_file(), donor_first_row())
 	if action == "2":
 		sleep_and_clean()
