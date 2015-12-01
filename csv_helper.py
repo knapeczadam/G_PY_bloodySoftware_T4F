@@ -41,21 +41,6 @@ def check_first_row_and_write(file_name, file_data, first_row):
 		append_donor_data.writerow(file_data)
 
 
-def list_file_data(file_name):
-	"""
-
-	:param file_name:
-	:return:
-	"""
-	new_list = []
-	with open(file_name, "r") as csv_file:
-		csv_reader = csv.reader(csv_file)
-		for row in csv_reader:
-			if len(row) > 0:
-				new_list.append(row)
-	return new_list
-
-
 def check_if_file_is_empty(file_name, given_row):
 	"""
 
@@ -74,7 +59,7 @@ def check_if_file_is_empty(file_name, given_row):
 				new_list.append(row)
 				csv_is_empty = False
 				if row[given_row] not in ["Event ID", "ID number"]:
-					print("\t" + row[given_row])
+					pass
 
 	if csv_is_empty or new_list_len == 1:
 		os.system("CLS")
