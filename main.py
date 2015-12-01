@@ -1,17 +1,23 @@
 from _010_add_new_donor import call_get_donor_inputs
-from _010_add_new_donor import write_donor_data_in_file
-from _010_add_new_donor import if_csv_is_not_exist
+from _010_add_new_donor import donor_data_in_file
+from _010_add_new_donor import donor_first_row
 from _020_add_new_event import call_get_event_inputs
 from _020_add_new_event import print_donation_successful
-from _020_add_new_event import write_event_data_in_file
+from _020_add_new_event import event_data_in_file
+from _020_add_new_event import event_first_row
 from _030_delete_donor import delete_donor_data_from_file
 from _040_delete_event import delete_event_data_from_file
 from _050_list_data import list_donor_data, list_event_data
+from csv_helper import *
 import time
 import os
 
 ACTIONS = ("1", "2", "3", "4", "5", "6", "7")
 ANSWER = ["y", "yes"]
+DONORS = "Data\donors.csv"
+DONORS_ID = 7
+EVENTS = "Data\events.csv"
+EVENTS_ID = 0
 
 
 def menu():
@@ -36,41 +42,43 @@ Main menu
 		action = input("Please choose your action:  ")
 	if action == "1":
 		sleep_and_clean()
-		if_csv_is_not_exist()
+		if_csv_is_not_exist(DONORS)
 		call_get_donor_inputs()
-		write_donor_data_in_file()
+		check_first_row_and_write(DONORS, donor_data_in_file(), donor_first_row())
 	if action == "2":
 		sleep_and_clean()
+		if_csv_is_not_exist(EVENTS)
 		call_get_event_inputs()
 		sleep_and_clean()
 		print_donation_successful()
 		sleep_and_clean()
-		write_event_data_in_file()
+		check_first_row_and_write(EVENTS, event_data_in_file(), event_first_row())
 	if action == "3":
 		sleep_and_clean()
-		if_csv_is_not_exist()
-		delete_donor_data_from_file()
+		if_csv_is_not_exist(DONORS)
+		delete_donor_data_from_file(check_if_file_is_empty(DONORS, DONORS_ID))
 		sleep_and_clean()
 	if action == "4":
 		sleep_and_clean()
-		delete_event_data_from_file()
+		if_csv_is_not_exist(EVENTS)
+		delete_event_data_from_file(check_if_file_is_empty(EVENTS, EVENTS_ID))
 		sleep_and_clean()
 	if action == "5":
 		sleep_and_clean()
 		choice = input("Donor (1) or event (2) ?: ")
 		if choice == "1":
-			list_donor_data()
+			list_donor_data(list_file_data(DONORS))
 			back_to_the_main_menu()
 		if choice == "2":
-			list_event_data()
+			list_event_data(list_file_data(EVENTS))
 			back_to_the_main_menu()
 		while choice not in ["1", "2"]:
 			choice = input("Donor (1) or event (2) ?: ")
 			if choice == "1":
-				list_donor_data()
+				list_donor_data(list_file_data(DONORS))
 				back_to_the_main_menu()
 			if choice == "2":
-				list_event_data()
+				list_event_data(list_file_data(EVENTS))
 				back_to_the_main_menu()
 	# if action == "6":
 	if action == "7":

@@ -1,32 +1,39 @@
+import time
 import csv
 
 
-def delete_event_data_from_file():
+def delete_event_data_from_file(new_list):
+	"""
 
-    data = []
+	:return:
+	"""
+	new_list_len = 0
+	appended_list = []
+	appended_list_len = 0
 
-    with open("Data\events.csv") as csvfile_read:
-        csvreader = csv.reader(csvfile_read, delimiter=",")
-        for row in csvreader:
-            if row:
-                data.append(row)
-    csvfile_read.close()
+	id_number = input("\nPlease enter the choosen id that you want to delete: ")
 
-    dicta = {}
-    x = 1
-    for elements in data:
-        dicta[x] = elements
-        x += 1
-    for h in dicta:
-        print(h, end="")
-        print(dicta[h])
-    delete = input("Enter an ID what u want to delete: ")
-    if delete:
-        if delete.isdigit():
-            dicta.pop(int(delete))
+	if id_number == "exit":
+		return False
 
-    print(dicta)
-    with (open("Data\events.csv", 'w')) as writer:
-        csvwriter = csv.writer(writer, delimiter=",")
-        for word in dicta:
-            csvwriter.writerow(dicta[word])
+	for row in new_list:
+		if len(row) > 0:
+			new_list_len += 1
+			if id_number != row[0]:
+				appended_list_len += 1
+				appended_list.append(row)
+
+	if new_list_len != appended_list_len:
+		are_you_sure = input("Are you sure? If yes, press y otherwise press any key to go back to the main menu: ")
+		if are_you_sure == "y":
+			with open("Data\events.csv", "w") as csv_file:
+				csv_writer = csv.writer(csv_file)
+				for row in appended_list:
+					csv_writer.writerow(row)
+					print("Back to the main menu!")
+		else:
+			return False
+
+	if appended_list_len == new_list_len:
+		print("\nThe given ID is not exist!")
+		delete_event_data_from_file(new_list)
