@@ -1,6 +1,6 @@
 from _010_add_new_donor import *
 from _020_add_new_event import *
-from delete_helper import delete_data_from_file
+from _030_040_delete import *
 from _050_list_data import list_donor_data, list_event_data
 from csv_helper import *
 import time
@@ -60,26 +60,35 @@ Main menu
 		sleep_and_clean()
 	if action == "5":
 		sleep_and_clean()
-		choice = input("Donor (1) or event (2) ?: ")
-		while choice not in ["1", "2"]:
-			if choice == "1":
+		choice = input("To list the donors press D, to list the events press E, to return to the main menu press Enter: ")
+		while choice not in ["D", "E", ""]:
+			if choice.upper() == "D":
 				if_csv_is_not_exist(DONORS)
 				list_donor_data(check_if_file_is_empty(DONORS, DONORS_ID))
 				back_to_the_main_menu()
-			if choice == "2":
+			if choice.upper() == "E":
 				if_csv_is_not_exist(EVENTS)
 				list_event_data(check_if_file_is_empty(EVENTS, EVENTS_ID))
 				back_to_the_main_menu()
-	# if action == "6":
-	if action == "7":
-		# os.system("CLS")
-		print("Bye!")
+	if action == "6":
 		sleep_and_clean()
+		choice = input("To search in donors press D, to search in events press E, to return to the main menu press Enter: ")
+		while choice not in ["D", "E", ""]:
+			if choice.upper() == "D":
+				if_csv_is_not_exist(DONORS)
+				# donor search def will come here...
+				back_to_the_main_menu()
+			if choice.upper() == "E":
+				if_csv_is_not_exist(EVENTS)
+				# event search def will come here...
+				back_to_the_main_menu()
+	if action == "7":
 		exit()
 	menu()
 
 
 def back_to_the_main_menu():
+
 	"""
 
 	:return:
