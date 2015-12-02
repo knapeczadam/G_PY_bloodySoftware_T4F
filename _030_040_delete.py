@@ -1,14 +1,19 @@
 import csv
 
 
-def delete_data_from_file(file_name, given_row, new_list):
+def delete_data_from_file(file_name, given_row, new_list, first_row):
 	"""
-
 	:return:
 	"""
 	new_list_len = 0
 	appended_list = []
-	appended_list_len = 0
+	appended_list_len = -1
+
+	if given_row == 7:
+		appended_list.append(first_row)
+
+	if given_row == 0:
+		appended_list.append(first_row)
 
 	id_number = input("\nPlease enter the choosen id that you want to delete: ")
 
@@ -29,10 +34,10 @@ def delete_data_from_file(file_name, given_row, new_list):
 				csv_writer = csv.writer(csv_file)
 				for row in appended_list:
 					csv_writer.writerow(row)
-					print("Back to the main menu!")
+				print("Back to the main menu!")
 		else:
 			return False
 
 	if appended_list_len == new_list_len:
 		print("\nThe given ID is not exist!")
-		delete_data_from_file(file_name, given_row, new_list)
+		delete_data_from_file(file_name, given_row, new_list, first_row)

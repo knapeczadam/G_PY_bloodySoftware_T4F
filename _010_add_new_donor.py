@@ -27,7 +27,7 @@ def call_get_donor_inputs():
 	donor_requirements()
 	get_data_from_user_or_exit(user.get_sickness(), user.sickness)
 	donor_requirements()
-	get_data_from_user_or_exit(find_existing_id(user.get_id_number()), user.id_number)
+	get_data_from_user_or_exit(find_existing_id(user.get_id_number(), user.id_number), user.id_number)
 	get_data_from_user_or_exit(user.get_exp_date(), user.exp_date)
 	donor_requirements()
 	get_data_from_user_or_exit(user.get_blood_type(), user.blood_type)
@@ -134,7 +134,7 @@ def donor_requirements():
 			clean_and_back_to_the_main_menu(expiration_message)
 
 
-def find_existing_id(get_id_number):
+def find_existing_id(get_id_number, id):
 	"""
 
 	:param get_id_number:
@@ -148,10 +148,10 @@ def find_existing_id(get_id_number):
 	id_is_exist = 0
 	for row in data_in_donors_csv:
 		if len(row) != 0:
-			if row[7] == user.id_number:
+			if row[7] == id:
 				print("ID is already exist!")
 				id_is_exist += 1
-				find_existing_id(user.get_id_number())
+				find_existing_id(user.get_id_number(), id)
 	if id_is_exist == 0:
 		return True
 

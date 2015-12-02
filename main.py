@@ -57,12 +57,12 @@ Main menu
 	if action == "3":
 		sleep_and_clean()
 		if_csv_is_not_exist(DONOR_PATH)
-		delete_data_from_file(DONOR_PATH, DONORS_ID, check_if_file_is_empty(DONOR_PATH))
+		delete_data_from_file(DONOR_PATH, DONORS_ID, check_if_file_is_empty(DONOR_PATH), donor_first_row())
 		sleep_and_clean()
 	if action == "4":
 		sleep_and_clean()
 		if_csv_is_not_exist(EVENTS_PATH)
-		delete_data_from_file(EVENTS_PATH, EVENTS_ID, check_if_file_is_empty(EVENTS_PATH))
+		delete_data_from_file(EVENTS_PATH, EVENTS_ID, check_if_file_is_empty(EVENTS_PATH), event_first_row())
 		sleep_and_clean()
 	if action == "5":
 		sleep_and_clean()
@@ -129,12 +129,12 @@ Main menu
 		if choice.upper() == "1":
 			sleep_and_clean()
 			if_csv_is_not_exist(DONOR_PATH)
-			modify_donors(list_file_data(DONOR_PATH), DONOR_PATH)
+			modify_data(check_if_file_is_empty(DONOR_PATH), DONORS_ID, DONOR_PATH, donor_first_row(), DONOR)
 			back_to_the_main_menu()
 		if choice.upper() == "2":
 			sleep_and_clean()
 			if_csv_is_not_exist(EVENTS_PATH)
-			modify_events(list_file_data(EVENTS_PATH), EVENTS_PATH)
+			# modify_events(check_if_file_is_empty(EVENTS_PATH))
 			back_to_the_main_menu()
 	if action == "8":
 		print("Bye!")
@@ -160,7 +160,7 @@ def sleep_and_clean():
 
 	:return:
 	"""
-	# time.sleep(2)
+	time.sleep(2)
 	os.system("CLS")
 
 if __name__ == '__main__':

@@ -1,51 +1,81 @@
-from _011_donor_inputs import *
 from _010_add_new_donor import *
+from _011_donor_inputs import *
+import time
+import csv
+
 user = Donor()
 
 
-def search_by_id(file):
-
-	if file == "Data\donors.csv":
-
-		with open("Data\donors.csv", "r") as donors:
-			donor_id = input("Please enter the ID of the donor that you want to find: ")
-
-			for row in donors:
-				if donor_id in row:
-					menu = row.split(",")
-
-					print("1.First name: {}".format(menu[0]),
-					      "\n2.Last name: {}".format(menu[1]),
-					      "\n3.Weight: {}kg".format(menu[2]),
-					      "\n4.Gender: {}".format(menu[3]),
-					      "\n5.Date of birth: {}".format(menu[4]),
-					      "\n6.Last donation date: {}".format(menu[5]),
-					      "\n7.Sickness: {}".format(menu[6]),
-					      "\n8.ID number: {}".format(menu[7]),
-					      "\n9.ID exparitation date: {}".format(menu[8]),
-					      "\n10.Blood type: {}".format(menu[9]),
-					      "\n11.Email address: {}".format(menu[10]),
-					      "\n12.Mobile number: {}".format(menu[11]),
-					      "\n13.Hemoglobin level: {}".format(menu[12]))
+def modify_data(file, given_id, file_name, first_row, file_name_string):
 
 
-					# ˇ This probably should be in another function. ˇ
+	donor_id = input("Please enter the ID of the {} that you want to find: ".format(file_name_string))
+	file_datas_without_modified_data = []
+	if file_name_string == "Donor":
+		file_datas_without_modified_data.append(first_row)
 
-					selecetor = input("Please select which data you want to change"
-					                  "\nby entering the corresponding number from the menu here: ")
+	modified_data = []
+	for row in file:
+		if donor_id != row[given_id]:
+			file_datas_without_modified_data.append(row)
 
-					if selecetor == "1":
-						pass
+	for row in file:
+		if donor_id == row[given_id]:
+			for element in row:
+				modified_data.append(element)
+			for index, each_element_in_first_row, each_data_in_file in zip(range(1, 14), donor_first_row(), row):
+				print(index, each_element_in_first_row, ":", each_data_in_file)
+			# print(file_datas_without_modified_data)
+			# print(modified_data)
+			# time.sleep(5)
+
+	selecetor = input("Please select which data you want to change by entering the corresponding number from the menu here (except 7 and 13): ")
+
+	if selecetor == "1":
+		user.get_first_name()
+		modified_data[0] = user.first_name
+	if selecetor == "2":
+		user.get_last_name()
+		modified_data[1] = user.last_name
+	if selecetor == "3":
+		user.get_weight()
+		modified_data[2] = user.weight
+	if selecetor == "4":
+		user.get_gender()
+		modified_data[3] = user.gender
+	if selecetor == "5":
+		user.get_date_of_birth()
+		modified_data[4] = user.date_of_birth
+	if selecetor == "6":
+		user.get_donation_date()
+		modified_data[5] = user.donation_date
+	if selecetor == "8":
+		find_existing_id(user.get_id_number(), user.id_number)
+		modified_data[7] = user.id_number
+	if selecetor == "9":
+		user.get_exp_date()
+		modified_data[8] = user.get_exp_date()
+	if selecetor == "10":
+		user.get_blood_type()
+		modified_data[9] = user.blood_type
+	if selecetor == "11":
+		user.get_email_address()
+		modified_data[10] = user.email_address
+	if selecetor == "12":
+		user.get_mobile_number()
+		modified_data[11] = user.mobile_number
+
+	modification_is_yes = input("write to file? (y): ")
+	while modification_is_yes != "y":
+		modification_is_yes = input("write to file? (y): ")
+	if modification_is_yes == "y":
+		with open(file_name, "w") as csv_file:
+			csv_writer = csv.writer(csv_file)
+			for row in file_datas_without_modified_data:
+				csv_writer.writerow(row)
+
+		with open(file_name, "a") as csv_file:
+			csv_writer = csv.writer(csv_file)
+			csv_writer.writerow(modified_data)
 
 
-search_by_id("Data\donors.csv")
-
-
-# data_to_change = input("Please enter the data that you want to change: ")
-
-def modify_donors(donor_data_list):
-	pass
-
-
-def modify_events(event_list, file):
-	pass
