@@ -68,17 +68,3 @@ def list_event_data(listed_event_data):
 				if answer == 'y':
 					os.system("CLS")
 					row_counter == 0
-	# names = ["Date", "Start time", "End time", "Zip code", "City", "Address", "Available beds", "Planned donors", "Max donor numbers", "Successful donations"]
-	#
-	# for key in dicta:
-	# 	place = 0
-	# 	for element in dicta[key]:
-	# 		if key != 1:
-	# 			if len(element) == 12:
-	# 				print("\nKey  ---->  ", element)
-	# 				print("-" * 40)
-	# 			if len(element) != 12:
-	# 				print(names[place])
-	# 				place += 1
-	# 				print("\t%s" % element)
-	# print("-" * 40)

@@ -9,9 +9,11 @@ import os
 
 ACTIONS = ("1", "2", "3", "4", "5", "6", "7", "8")
 ANSWER = ["y", "yes"]
-DONORS = "Data\donors.csv"
+DONOR = "Donor"
+DONOR_PATH = "Data\donors.csv"
 DONORS_ID = 7
-EVENTS = "Data\events.csv"
+EVENT = "Event"
+EVENTS_PATH = "Data\events.csv"
 EVENTS_ID = 0
 
 
@@ -37,27 +39,27 @@ Main menu
 		action = input("Please choose your action:  ")
 	if action == "1":
 		sleep_and_clean()
-		if_csv_is_not_exist(DONORS)
+		if_csv_is_not_exist(DONOR_PATH)
 		call_get_donor_inputs()
 		# print_after_writing()
-		check_first_row_and_write(DONORS, donor_data_in_file(), donor_first_row())
+		check_first_row_and_write(DONOR_PATH, donor_data_in_file(), donor_first_row())
 	if action == "2":
 		sleep_and_clean()
-		if_csv_is_not_exist(EVENTS)
+		if_csv_is_not_exist(EVENTS_PATH)
 		call_get_event_inputs()
 		sleep_and_clean()
 		print_donation_successful()
 		sleep_and_clean()
-		check_first_row_and_write(EVENTS, event_data_in_file(), event_first_row())
+		check_first_row_and_write(EVENTS_PATH, event_data_in_file(), event_first_row())
 	if action == "3":
 		sleep_and_clean()
-		if_csv_is_not_exist(DONORS)
-		delete_data_from_file(DONORS, DONORS_ID, check_if_file_is_empty(DONORS, DONORS_ID))
+		if_csv_is_not_exist(DONOR_PATH)
+		delete_data_from_file(DONOR_PATH, DONORS_ID, check_if_file_is_empty(DONOR_PATH, DONORS_ID))
 		sleep_and_clean()
 	if action == "4":
 		sleep_and_clean()
-		if_csv_is_not_exist(EVENTS)
-		delete_data_from_file(EVENTS, EVENTS_ID, check_if_file_is_empty(EVENTS, EVENTS_ID))
+		if_csv_is_not_exist(EVENTS_PATH)
+		delete_data_from_file(EVENTS_PATH, EVENTS_ID, check_if_file_is_empty(EVENTS_PATH, EVENTS_ID))
 		sleep_and_clean()
 	if action == "5":
 		sleep_and_clean()
@@ -66,12 +68,12 @@ Main menu
 		while choice not in ["1", "2", "0"]:
 				choice = input("Please choose your action: ")
 		if choice == "1":
-				if_csv_is_not_exist(DONORS)
-				list_donor_data(check_if_file_is_empty(DONORS, DONORS_ID))
+				if_csv_is_not_exist(DONOR_PATH)
+				list_donor_data(check_if_file_is_empty(DONOR_PATH, DONORS_ID))
 				back_to_the_main_menu()
 		if choice == "2":
-				if_csv_is_not_exist(EVENTS)
-				list_event_data(check_if_file_is_empty(EVENTS, EVENTS_ID))
+				if_csv_is_not_exist(EVENTS_PATH)
+				list_event_data(check_if_file_is_empty(EVENTS_PATH, EVENTS_ID))
 				back_to_the_main_menu()
 	if action == "6":
 		sleep_and_clean()
@@ -81,13 +83,13 @@ Main menu
 			choice = input("\nPlease choose your action: ")
 		if choice.upper() == "1":
 			sleep_and_clean()
-			if_csv_is_not_exist(DONORS)
-			search_data(list_file_data(DONORS), DONORS)
+			if_csv_is_not_exist(DONOR_PATH)
+			search_data(list_file_data(DONOR_PATH), DONOR)
 			back_to_the_main_menu()
 		if choice.upper() == "2":
 			sleep_and_clean()
-			if_csv_is_not_exist(EVENTS)
-			search_data(list_file_data(EVENTS), EVENTS)
+			if_csv_is_not_exist(EVENTS_PATH)
+			search_data(list_file_data(EVENTS_PATH), EVENT)
 			back_to_the_main_menu()
 	if action == "7":
 		sleep_and_clean()
@@ -97,13 +99,13 @@ Main menu
 			choice = input("\nPlease choose your action: ")
 		if choice.upper() == "1":
 			sleep_and_clean()
-			if_csv_is_not_exist(DONORS)
-			modify_donors(list_file_data(DONORS), DONORS)
+			if_csv_is_not_exist(DONOR_PATH)
+			modify_donors(list_file_data(DONOR_PATH), DONOR_PATH)
 			back_to_the_main_menu()
 		if choice.upper() == "2":
 			sleep_and_clean()
-			if_csv_is_not_exist(EVENTS)
-			modify_events(list_file_data(EVENTS), EVENTS)
+			if_csv_is_not_exist(EVENTS_PATH)
+			modify_events(list_file_data(EVENTS_PATH), EVENTS_PATH)
 			back_to_the_main_menu()
 	if action == "8":
 		print("Bye!")
