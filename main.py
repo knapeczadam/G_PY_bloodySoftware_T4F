@@ -4,6 +4,7 @@ from _030_040_delete import *
 from _050_list_data import *
 from csv_helper import *
 from _060_search_data import *
+from _070_modify_data import *
 import time
 import os
 
@@ -29,7 +30,8 @@ Main menu
 	4. Delete donation event
 	5. List donors or donation events
 	6. Search
-	7. Exit
+	7. Modify
+	8. Exit
 	""")
 	action = input("Please choose your action: ")
 	while action not in ACTIONS:
@@ -88,6 +90,21 @@ Main menu
 			search_donors(list_file_data(EVENTS), EVENTS)
 			back_to_the_main_menu()
 	if action == "7":
+		choice = input("To modify the donors press D, to modify the events press E, to return to the main menu press Enter: ")
+		sleep_and_clean()
+		while choice.upper() not in ["D", "E", ""]:
+			choice = input("To modify the donors press D, to modify the events press E, to return to the main menu press Enter: ")
+		if choice.upper() == "D":
+			sleep_and_clean()
+			if_csv_is_not_exist(DONORS)
+			modify_donors(list_file_data(DONORS), DONORS)
+			back_to_the_main_menu()
+		if choice.upper() == "E":
+			sleep_and_clean()
+			if_csv_is_not_exist(EVENTS)
+			modify_donors(list_file_data(EVENTS), EVENTS)
+			back_to_the_main_menu()
+	if action == "8":
 		print("Bye!")
 		# os.system("CLS")
 		sleep_and_clean()
