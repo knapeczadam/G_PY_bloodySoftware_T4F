@@ -14,23 +14,22 @@ def search_donors(new_list, file_name):
 	if file_name == "Data\donors.csv":
 		searched_donor_data = input("Please enter the donor's data for search:")
 		for row in new_list:
-			for data in row:
-				if searched_donor_data in data and row != new_list[0]:
+			for element in row:
+				if searched_donor_data in element and row != new_list[0]:
+					found_donor_or_event += 1
 					row_counter += 1
-					if found_donor_or_event != 1:
-					# if found_donor_or_event == 1:
-					# if row_counter % 3 != 0:
+					if row_counter % 3 == 0 and row_counter != 0:
 						print(row[0], row[1], "\n", row[2], "\n", row[4], "\n", row[11])
-						found_donor_or_event += 1
-					if found_donor_or_event == 12:
-						found_donor_or_event = 0
+						answer = input("\nNext page? Press y to continue: ")
+						if answer == 'y':
+							os.system("CLS")
+							row_counter = 0
+							break
+					else:
+						if row_counter != 0:
 
-					# break
-					# else:
-					# 	answer = input("\nNext page? Press y to continue: ")
-					# 	if answer == 'y':
-					# 		os.system("CLS")
-					# 		row_counter == 0
+							print(row[0], row[1], "\n", row[2], "\n", row[4], "\n", row[11])
+							break
 
 	if file_name == "Data\events.csv":
 		searched_event_data = input("Please enter the event's data for search: ")
