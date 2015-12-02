@@ -5,6 +5,7 @@ from _050_list_data import *
 from csv_helper import *
 from _060_search_data import *
 from _070_modify_data import *
+import time
 import os
 
 ACTIONS = ("1", "2", "3", "4", "5", "6", "7", "8")
@@ -12,9 +13,11 @@ ANSWER = ["y", "yes"]
 DONOR = "Donor"
 DONOR_PATH = "Data\donors.csv"
 DONORS_ID = 7
+DONOR_ROW = 4
 EVENT = "Event"
 EVENTS_PATH = "Data\events.csv"
 EVENTS_ID = 0
+EVENT_ROW = 3
 
 
 def menu():
@@ -41,7 +44,7 @@ Main menu
 		sleep_and_clean()
 		if_csv_is_not_exist(DONOR_PATH)
 		call_get_donor_inputs()
-		# print_after_writing()
+		print_after_writing()
 		check_first_row_and_write(DONOR_PATH, donor_data_in_file(), donor_first_row())
 	if action == "2":
 		sleep_and_clean()
@@ -66,15 +69,41 @@ Main menu
 		print("List:\n\t1. Donors\n\t2. Events\n\t0. Return to the Main menu")
 		choice = input("\nPlease choose your action: ")
 		while choice not in ["1", "2", "0"]:
-				choice = input("Please choose your action: ")
+			choice = input("Please choose your action: ")
 		if choice == "1":
-				if_csv_is_not_exist(DONOR_PATH)
-				list_donor_data(check_if_file_is_empty(DONOR_PATH, DONORS_ID))
+			sleep_and_clean()
+			if_csv_is_not_exist(DONOR_PATH)
+			check_if_file_is_empty(DONOR_PATH, DONORS_ID)
+			print("Sorted by:")
+			for name in donor_first_row():
+				print("\t", name)
+			answer = input("which?: ")
+			if answer == "":
+				list_donor_data(list_file_data(DONOR_PATH), 1)
 				back_to_the_main_menu()
+			while answer not in donor_first_row():
+				answer = input("which?: ")
+			for index, element in enumerate(donor_first_row()):
+				if answer == element:
+					list_donor_data(list_file_data(DONOR_PATH), index)
+			back_to_the_main_menu()
 		if choice == "2":
-				if_csv_is_not_exist(EVENTS_PATH)
-				list_event_data(check_if_file_is_empty(EVENTS_PATH, EVENTS_ID))
+			sleep_and_clean()
+			if_csv_is_not_exist(EVENTS_PATH)
+			check_if_file_is_empty(EVENTS_PATH, EVENTS_ID)
+			print("Sorted by:")
+			for name in event_first_row():
+				print("\t", name)
+			answer = input("Which?: ")
+			if answer == "":
+				list_event_data(list_file_data(EVENTS_PATH), 1)
 				back_to_the_main_menu()
+			while answer not in event_first_row() or answer != "":
+				answer = input("which?: ")
+			for index, element in enumerate(event_first_row()):
+				if answer == element:
+					list_event_data(list_file_data(EVENTS_PATH), index)
+			back_to_the_main_menu()
 	if action == "6":
 		sleep_and_clean()
 		print("Search in:\n\t1. Donors\n\t2. Events\n\t0. Return to the Main menu")
@@ -84,12 +113,12 @@ Main menu
 		if choice.upper() == "1":
 			sleep_and_clean()
 			if_csv_is_not_exist(DONOR_PATH)
-			search_data(list_file_data(DONOR_PATH), DONOR)
+			search_data(check_if_file_is_empty(DONOR_PATH, DONORS_ID), DONOR, DONOR_ROW)
 			back_to_the_main_menu()
 		if choice.upper() == "2":
 			sleep_and_clean()
 			if_csv_is_not_exist(EVENTS_PATH)
-			search_data(list_file_data(EVENTS_PATH), EVENT)
+			search_data(check_if_file_is_empty(EVENTS_PATH, EVENTS_ID), EVENT, EVENT_ROW)
 			back_to_the_main_menu()
 	if action == "7":
 		sleep_and_clean()

@@ -1,8 +1,9 @@
 from _datetime import datetime
+from operator import itemgetter
 import os
 
 
-def list_donor_data(listed_donor_data):
+def list_donor_data(listed_donor_data, sorted_by_index):
 	"""
 
 	:param data:
@@ -10,7 +11,7 @@ def list_donor_data(listed_donor_data):
 	"""
 	dicta = {}
 	x = 1
-	for elements in listed_donor_data:
+	for elements in sorted(listed_donor_data,key=itemgetter(sorted_by_index)):
 		dicta[x] = elements
 		x += 1
 
@@ -34,7 +35,7 @@ def list_donor_data(listed_donor_data):
 					row_counter == 0
 
 
-def list_event_data(listed_event_data):
+def list_event_data(listed_event_data, sorted_by_index):
 	"""
 
 	:param data:
@@ -42,7 +43,7 @@ def list_event_data(listed_event_data):
 	"""
 	dicta = {}
 	x = 1
-	for elements in listed_event_data:
+	for elements in sorted(listed_event_data,key=itemgetter(sorted_by_index)):
 		dicta[x] = elements
 		x += 1
 

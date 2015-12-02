@@ -1,7 +1,7 @@
 import os
 
 
-def search_data(new_list, donor_or_event):
+def search_data(new_list, donor_or_event, how_many_row):
 	"""
 
 	:param new_list:
@@ -17,7 +17,7 @@ def search_data(new_list, donor_or_event):
 			if searched_donor_data in element and row != new_list[0]:
 				found_donor_or_event += 1
 				row_counter += 1
-				if row_counter % 3 == 0 and row_counter != 0:
+				if row_counter % how_many_row == 0 and row_counter != 0:
 					if donor_or_event == "Donor":
 						printing_after_donor_search(row)
 					if donor_or_event == "Event":
