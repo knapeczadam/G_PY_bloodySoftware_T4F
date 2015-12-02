@@ -102,7 +102,7 @@ Main menu
 		if choice.upper() == "E":
 			sleep_and_clean()
 			if_csv_is_not_exist(EVENTS)
-			modify_donors(list_file_data(EVENTS), EVENTS)
+			modify_events(list_file_data(EVENTS), EVENTS)
 			back_to_the_main_menu()
 	if action == "8":
 		print("Bye!")
