@@ -24,7 +24,7 @@ class Donor:
 		self.blood_type = None
 		self.email_address = None
 		self.mobile_number = None
-		self.hemo_level = None
+		self.hemoglobin_level = None
 
 	def get_first_name(self):
 		"""
@@ -304,5 +304,5 @@ class Donor:
 
 		:return:
 		"""
-		hemo_level = (random.randrange(80, 200))
-		self.hemo_level = hemo_level
+		hemoglobin_level = (random.randrange(80, 201))
+		self.hemoglobin_level = hemoglobin_level

@@ -41,7 +41,7 @@ Main menu
 		sleep_and_clean()
 		if_csv_is_not_exist(DONORS)
 		call_get_donor_inputs()
-		print_after_writing()
+		# print_after_writing()
 		check_first_row_and_write(DONORS, donor_data_in_file(), donor_first_row())
 	if action == "2":
 		sleep_and_clean()

@@ -14,6 +14,8 @@ def call_get_donor_inputs():
 
 	:return:
 	"""
+	user.get_hemo_level()
+	donor_requirements()
 	get_data_from_user_or_exit(user.get_first_name(), user.first_name)
 	get_data_from_user_or_exit(user.get_last_name(), user.last_name)
 	get_data_from_user_or_exit(user.get_weight(), user.weight)
@@ -31,8 +33,6 @@ def call_get_donor_inputs():
 	get_data_from_user_or_exit(user.get_blood_type(), user.blood_type)
 	get_data_from_user_or_exit(user.get_email_address(), user.email_address)
 	get_data_from_user_or_exit(user.get_mobile_number(), user.mobile_number)
-	user.get_hemo_level()
-	donor_requirements()
 
 
 def donor_data_in_file():
@@ -53,7 +53,7 @@ def donor_data_in_file():
 		user.blood_type,
 		user.email_address,
 		user.mobile_number,
-		user.hemo_level
+		user.hemoglobin_level
 	]
 	return donor_data
 
@@ -102,8 +102,11 @@ def donor_requirements():
 	:param user_input:
 	:return:
 	"""
-	if user.weight is not None:
-		if int(user.weight) <= 50:
+	if user.hemoglobin_level is not None and user.hemoglobin_level < 110:
+		hemoglobin_message = "Your hemoglobin level is not high enough. Born again!"
+		user.hemoglobin_level = None
+		clean_and_back_to_the_main_menu(hemoglobin_message)
+	if user.weight is not None and int(user.weight) <= 50:
 			weight_message = "Donors are only accepted above 50 kgs.\
 			\nThe program has ended because of not suitable donor."
 			user.weight = None
@@ -120,8 +123,7 @@ def donor_requirements():
 				\nThe program has ended because of not suitable donor."
 			user.donation_date = None
 			clean_and_back_to_the_main_menu(donation_message)
-	if user.sickness is not None:
-		if user.sickness.lower() == "y":
+	if user.sickness is not None and user.sickness.lower() == "y":
 			sickness_message = "The program has ended because of not suitable donor."
 			user.sickness = None
 			clean_and_back_to_the_main_menu(sickness_message)
@@ -130,11 +132,6 @@ def donor_requirements():
 			expiration_message = "The donor's ID is expired! Program is shutting down..."
 			user.exp_date = None
 			clean_and_back_to_the_main_menu(expiration_message)
-	if user.hemo_level is not None and user.hemo_level not in ESC:
-		if user.hemo_level < 110:
-			hemo_message = "Your hemoglobin level is not high enough. Born again!"
-			user.hemo_level = 111
-			clean_and_back_to_the_main_menu(hemo_message)
 
 
 def find_existing_id(get_id_number):
