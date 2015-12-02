@@ -8,7 +8,7 @@ from _070_modify_data import *
 import time
 import os
 
-ACTIONS = ("1", "2", "3", "4", "5", "6", "7")
+ACTIONS = ("1", "2", "3", "4", "5", "6", "7", "8")
 ANSWER = ["y", "yes"]
 DONORS = "Data\donors.csv"
 DONORS_ID = 7
