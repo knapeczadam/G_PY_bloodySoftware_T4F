@@ -14,21 +14,6 @@ def if_csv_is_not_exist(file_name):
 		donors_csv.close()
 
 
-def list_file_data(file_name):
-	"""
-
-	:param file_name:
-	:return:
-	"""
-	new_list = []
-	with open(file_name, "r") as csv_file:
-		csv_reader = csv.reader(csv_file)
-		for row in csv_reader:
-			if len(row) > 0:
-				new_list.append(row)
-	return new_list
-
-
 def check_first_row_and_write(file_name, file_data, first_row):
 	"""
 
@@ -56,25 +41,24 @@ def check_first_row_and_write(file_name, file_data, first_row):
 		append_donor_data.writerow(file_data)
 
 
-def check_if_file_is_empty(file_name, given_row):
+def check_if_file_is_empty(file_name):
 	"""
 
 	:param file_name:
 	:return:
 	"""
 	new_list = []
-	new_list_len = 0
 	csv_is_empty = True
 
 	with open(file_name, "r") as csv_file:
 		read_donors_csv = csv.reader(csv_file)
-		for row in read_donors_csv:
+		for index, row in enumerate(read_donors_csv):
 			if len(row) > 0:
-				new_list_len += 1
-				new_list.append(row)
-				csv_is_empty = False
+				if index != 0:
+					new_list.append(row)
+					csv_is_empty = False
 
-	if csv_is_empty or new_list_len == 1:
+	if csv_is_empty:
 		os.system("CLS")
 		print("The file is empty!")
 		time.sleep(3)

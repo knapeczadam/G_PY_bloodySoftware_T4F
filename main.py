@@ -57,12 +57,12 @@ Main menu
 	if action == "3":
 		sleep_and_clean()
 		if_csv_is_not_exist(DONOR_PATH)
-		delete_data_from_file(DONOR_PATH, DONORS_ID, check_if_file_is_empty(DONOR_PATH, DONORS_ID))
+		delete_data_from_file(DONOR_PATH, DONORS_ID, check_if_file_is_empty(DONOR_PATH))
 		sleep_and_clean()
 	if action == "4":
 		sleep_and_clean()
 		if_csv_is_not_exist(EVENTS_PATH)
-		delete_data_from_file(EVENTS_PATH, EVENTS_ID, check_if_file_is_empty(EVENTS_PATH, EVENTS_ID))
+		delete_data_from_file(EVENTS_PATH, EVENTS_ID, check_if_file_is_empty(EVENTS_PATH))
 		sleep_and_clean()
 	if action == "5":
 		sleep_and_clean()
@@ -73,36 +73,36 @@ Main menu
 		if choice == "1":
 			sleep_and_clean()
 			if_csv_is_not_exist(DONOR_PATH)
-			check_if_file_is_empty(DONOR_PATH, DONORS_ID)
+			check_if_file_is_empty(DONOR_PATH)
 			print("Sorted by:")
 			for name in donor_first_row():
 				print("\t", name)
 			answer = input("which?: ")
 			if answer == "":
-				list_donor_data(list_file_data(DONOR_PATH), 1)
+				list_donor_data(check_if_file_is_empty(DONOR_PATH), 1)
 				back_to_the_main_menu()
 			while answer not in donor_first_row():
 				answer = input("which?: ")
 			for index, element in enumerate(donor_first_row()):
 				if answer == element:
-					list_donor_data(list_file_data(DONOR_PATH), index)
+					list_donor_data(check_if_file_is_empty(DONOR_PATH), index)
 			back_to_the_main_menu()
 		if choice == "2":
 			sleep_and_clean()
 			if_csv_is_not_exist(EVENTS_PATH)
-			check_if_file_is_empty(EVENTS_PATH, EVENTS_ID)
+			check_if_file_is_empty(EVENTS_PATH)
 			print("Sorted by:")
 			for name in event_first_row():
 				print("\t", name)
 			answer = input("Which?: ")
 			if answer == "":
-				list_event_data(list_file_data(EVENTS_PATH), 1)
+				list_event_data(check_if_file_is_empty(EVENTS_PATH), 1)
 				back_to_the_main_menu()
-			while answer not in event_first_row() or answer != "":
+			while answer not in event_first_row():
 				answer = input("which?: ")
 			for index, element in enumerate(event_first_row()):
 				if answer == element:
-					list_event_data(list_file_data(EVENTS_PATH), index)
+					list_event_data(check_if_file_is_empty(EVENTS_PATH), index)
 			back_to_the_main_menu()
 	if action == "6":
 		sleep_and_clean()
@@ -113,12 +113,12 @@ Main menu
 		if choice.upper() == "1":
 			sleep_and_clean()
 			if_csv_is_not_exist(DONOR_PATH)
-			search_data(check_if_file_is_empty(DONOR_PATH, DONORS_ID), DONOR, DONOR_ROW)
+			search_data(check_if_file_is_empty(DONOR_PATH), DONOR, DONOR_ROW)
 			back_to_the_main_menu()
 		if choice.upper() == "2":
 			sleep_and_clean()
 			if_csv_is_not_exist(EVENTS_PATH)
-			search_data(check_if_file_is_empty(EVENTS_PATH, EVENTS_ID), EVENT, EVENT_ROW)
+			search_data(check_if_file_is_empty(EVENTS_PATH), EVENT, EVENT_ROW)
 			back_to_the_main_menu()
 	if action == "7":
 		sleep_and_clean()
