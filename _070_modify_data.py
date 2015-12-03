@@ -23,9 +23,10 @@ def modify_data(file, given_id, file_name, first_row, file_name_string):
 	for row in file:
 		if donor_id != row[given_id]:
 			file_datas_without_modified_data.append(row)
-
+	id_not_in_file = 0
 	for row in file:
 		if donor_id == row[given_id]:
+			id_not_in_file += 1
 			for element in row:
 				modified_data.append(element)
 			for index, each_element_in_first_row, each_data_in_file in zip(range(1, len(first_row) + 1), first_row, row):
@@ -33,6 +34,10 @@ def modify_data(file, given_id, file_name, first_row, file_name_string):
 			# print(file_datas_without_modified_data)
 			# print(modified_data)
 			# time.sleep(5)
+	if id_not_in_file == 0:
+		print("Not found! Try again!")
+		time.sleep(1)
+		modify_data(file, given_id, file_name, first_row, file_name_string)
 	if file_name_string == "Donor":
 		donor_seletor(file_name, file_datas_without_modified_data, modified_data)
 	if file_name_string == "Event":
@@ -41,7 +46,10 @@ def modify_data(file, given_id, file_name, first_row, file_name_string):
 
 def donor_seletor(file_name, file_datas_without_modified_data, modified_data):
 	selecetor = input("Please select which data you want to change by entering the corresponding number from the menu here (except 7 and 13): ")
-
+	while selecetor == "":
+		selecetor = input("Please select which data you want to change by entering the corresponding number from the menu here (except 7 and 13): ")
+	while int(selecetor) not in list(range(1, 14)) or int(selecetor) == 7 or int(selecetor) == 13:
+		selecetor = input("Please select which data you want to change by entering the corresponding number from the menu here (except 7 and 13): ")
 	if selecetor == "1":
 		user.get_first_name()
 		modified_data[0] = user.first_name
@@ -84,7 +92,10 @@ def donor_seletor(file_name, file_datas_without_modified_data, modified_data):
 
 def event_selector(file_name, file_datas_without_modified_data, modified_data):
 	selecetor = input("Please select which data you want to change by entering the corresponding number from the menu here ( except10): ")
-
+	while selecetor == "":
+		selecetor = input("Please select which data you want to change by entering the corresponding number from the menu here ( except10): ")
+	while int(selecetor) not in list(range(1, 14)) or int(selecetor) == 10:
+		selecetor = input("Please select which data you want to change by entering the corresponding number from the menu here ( except10): ")
 	if selecetor == "1":
 		event.generate_event_id()
 		modified_data[0] = event.event_id
