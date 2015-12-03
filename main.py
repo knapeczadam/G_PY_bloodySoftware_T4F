@@ -124,7 +124,7 @@ Main menu
 		if choice == 50:
 			sleep_and_clean()
 			if_csv_is_not_exist(EVENTS_PATH)
-			# modify_events(check_if_file_is_empty(EVENTS_PATH))
+			modify_data(check_if_file_is_empty(EVENTS_PATH), EVENTS_ID, EVENTS_PATH, event_first_row(), EVENT)
 			back_to_the_main_menu()
 	elif action == 56:
 		print("Bye!")
