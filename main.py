@@ -9,7 +9,6 @@ import time
 import os
 from msvcrt import getch
 
-ACTIONS = ("1", "2", "3", "4", "5", "6", "7", "8")
 ANSWER = ["y", "yes"]
 DONOR = "Donor"
 DONOR_PATH = "Data\donors.csv"
@@ -151,7 +150,12 @@ def sleep_and_clean():
 
 	:return:
 	"""
-	time.sleep(2)
+	x = "Loading."
+	for dot in range(3):
+
+		print(x)
+		time.sleep(1)
+		x += "."
 	os.system("CLS")
 
 if __name__ == '__main__':
