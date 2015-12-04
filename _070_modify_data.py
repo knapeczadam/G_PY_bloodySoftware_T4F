@@ -68,10 +68,10 @@ def donor_seletor(file_name, file_datas_without_modified_data, modified_data):
 	if selecetor == 54:
 		user.get_donation_date()
 		modified_data[5] = user.donation_date
-	if selecetor == 55:
+	if selecetor == 56:
 		find_existing_id(user.get_id_number(), user.id_number)
 		modified_data[7] = user.id_number
-	if selecetor == 56:
+	if selecetor == 57:
 		user.get_exp_date()
 		modified_data[8] = user.get_exp_date()
 	if selecetor == 148:
@@ -83,14 +83,23 @@ def donor_seletor(file_name, file_datas_without_modified_data, modified_data):
 	if selecetor == 162:
 		user.get_mobile_number()
 		modified_data[11] = user.mobile_number
+	if selecetor == 55:
+		exit_message = "You can not be sick, bye"
+		clean_and_back_to_the_main_menu(exit_message)
 	elif selecetor == 27:
 		exit_message = "Bye"
 		clean_and_back_to_the_main_menu(exit_message)
+	else:
+		exit_message = "No one is chosen, bye"
+		clean_and_back_to_the_main_menu(exit_message)
+
 	modification_is_yes = input("write to file? (y): ")
-	while modification_is_yes != "y":
-		modification_is_yes = input("write to file? (y): ")
+
 	if modification_is_yes == "y":
 		write_modified_data_to_file(file_name, file_datas_without_modified_data, modified_data)
+	else:
+		exit_message = "Bye"
+		clean_and_back_to_the_main_menu(exit_message)
 
 
 def event_selector(file_name, file_datas_without_modified_data, modified_data):

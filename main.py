@@ -97,6 +97,7 @@ def modify_event():
 
 
 def modofy_donor():
+	from _070_modify_data import modify_data
 	if_csv_is_not_exist(DONOR_PATH)
 	modify_data(check_if_file_is_empty(DONOR_PATH), DONORS_ID, DONOR_PATH, donor_first_row(), DONOR)
 	back_to_the_main_menu()
