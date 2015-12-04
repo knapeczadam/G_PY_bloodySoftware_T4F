@@ -3,7 +3,7 @@ from datetime import datetime
 import time
 import csv
 import os
-
+from msvcrt import getch
 ESC = ["exit"]
 
 user = Donor()
@@ -106,7 +106,7 @@ def donor_requirements():
 		hemoglobin_message = "Your hemoglobin level is not high enough. Born again!"
 		user.hemoglobin_level = None
 		clean_and_back_to_the_main_menu(hemoglobin_message)
-	if user.weight is not None and int(user.weight) <= 50:
+	if user.weight is not None and user.weight <= 50:
 			weight_message = "Donors are only accepted above 50 kgs.\
 			\nThe program has ended because of not suitable donor."
 			user.weight = None
@@ -163,10 +163,14 @@ def get_data_from_user_or_exit(get_something, user_string_input):
 	:param get_something:
 	:return:
 	"""
-	if user_string_input is not None:
-		if user_string_input.lower() in ESC:
-			exit_message = "Bye"
-			clean_and_back_to_the_main_menu(exit_message)
+
+	if user_string_input == None:
+		exit_message = "Bye"
+		clean_and_back_to_the_main_menu(exit_message)
+
+	else:
+		pass
+
 
 
 def clean_and_back_to_the_main_menu(message):

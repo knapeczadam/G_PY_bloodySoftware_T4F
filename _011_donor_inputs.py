@@ -1,5 +1,6 @@
 from datetime import datetime
 import random
+from msvcrt import getch
 
 GENDERS = ("f", "m")
 ENTER = "\nPlease enter your"
@@ -31,22 +32,48 @@ class Donor:
 
 		:return:
 		"""
-		first_name = input("{} first name: ".format(ENTER))
-		while Donor.is_valid_name(first_name) is False:
-			first_name = input("{}\nThe first name can contain only letters and has to be at least 2 characters long!\
-			\n{} first name: ".format(AGAIN, ENTER))
-		self.first_name = first_name
+
+		# first_name = input("{} first name: ".format(ENTER))
+
+		print("Please enter your first name: ")
+		first_name = getch()
+		if first_name == b'\x1b':
+			self.first_name = None
+
+		if first_name != b'\x1b':
+				y = str(first_name).replace("b'", "")
+				y2 = y.replace("'", "")
+				print(y2.upper(), end="")
+				first_name2 = input()
+				retu = y2 + str(first_name2)
+				while Donor.is_valid_name(retu) is False:
+					retu = input("{}\nThe first name can contain only letters and has to be at least 2 characters long!\
+				\n{} first name: ".format(AGAIN, ENTER))
+				self.first_name = retu
 
 	def get_last_name(self):
 		"""
 
 		:return:
 		"""
-		last_name = input("{} last name: ".format(ENTER))
-		while Donor.is_valid_name(last_name) is False:
-			last_name = input("{}\nThe last name can contain only letters and has to be at least 2 characters long!\
-			\n{} last name: ".format(AGAIN, ENTER))
-		self.last_name = last_name
+		# last_name = input("{} last name: ".format(ENTER))
+
+		print("Please enter your last name: ")
+		last_name = getch()
+		if last_name == b'\x1b':
+			self.last_name = None
+
+		if last_name != b'\x1b':
+				y = str(last_name).replace("b'", "")
+				y2 = y.replace("'", "")
+				print(y2.upper(), end="")
+				last_name2 = input()
+				retu = y2 + str(last_name2)
+				while Donor.is_valid_name(retu) is False:
+					retu = input("{}\nThe last name can contain only letters and has to be at least 2 characters long!\
+				\n{} last name: ".format(AGAIN, ENTER))
+				self.last_name = retu
+
 
 	@staticmethod
 	def is_valid_name(name):
@@ -62,10 +89,23 @@ class Donor:
 
 		:return:
 		"""
-		weight = input("{} weight: ".format(ENTER))
-		while Donor.is_valid_weight(weight) is False:
-			weight = input("{}\nThe weight has to be a positive number\n{} weight: ".format(AGAIN, ENTER))
-		self.weight = weight
+		# weight = input("{} weight: ".format(ENTER))
+		print("Please enter your Weight: ")
+		weight = getch()
+		if weight == b'\x1b':
+			self.weight = None
+
+		if weight != b'\x1b':
+				y = str(weight).replace("b'", "")
+				y2 = y.replace("'", "")
+				print(y2.upper(), end="")
+				weight2 = input()
+				retu = y2 + str(weight2)
+				while Donor.is_valid_weight(retu) is False:
+					retu = input("{}\nThe weight format is wrong!\
+				\n{} weight: ".format(AGAIN, ENTER))
+				self.weight = int(retu)
+
 
 	@staticmethod
 	def is_valid_weight(weight):
@@ -81,11 +121,22 @@ class Donor:
 
 		:return:
 		"""
-		gender = input("\nPlease enter an F for female or an M for male donor: ")
-		while Donor.is_valid_gender(gender) is False:
-			gender = input("{}\nYou can only choose the letter F or M! \
-			\nPlease enter an F for female or an M for male donor: ".format(AGAIN))
-		self.gender = gender
+		# gender = input("\nPlease enter an F for female or an M for male donor: ")
+		print("Please enter your Gender: ")
+		gender = getch()
+		if gender == b'\x1b':
+			self.gender = None
+
+		if gender != b'\x1b':
+				y = str(gender).replace("b'", "")
+				y2 = y.replace("'", "")
+				print(y2.upper(), end="")
+				gender2 = input()
+				retu = y2 + str(gender2)
+				while Donor.is_valid_gender(retu) is False:
+					retu = input("{}\nThe gender format is wrong!\
+				\n{} gender: ".format(AGAIN, ENTER))
+				self.gender = retu
 
 	@staticmethod
 	def is_valid_gender(gender):
@@ -101,11 +152,23 @@ class Donor:
 
 		:return:
 		"""
-		date_of_birth = input("{} date of birth in the following format, 1999.12.31: ".format(ENTER))
-		while Donor.is_valid_date(date_of_birth) is False:
-			date_of_birth = input(
-				"{}\n{} date of birth in the following format, 1999.12.31: ".format(AGAIN, ENTER))
-		self.date_of_birth = date_of_birth
+		# date_of_birth = input("{} date of birth in the following format, 1999.12.31: ".format(ENTER))
+		print("Please enter your Date of birth: ")
+		date_of_birth = getch()
+		if date_of_birth == b'\x1b':
+			self.date_of_birth = None
+
+		if date_of_birth != b'\x1b':
+				y = str(date_of_birth).replace("b'", "")
+				y2 = y.replace("'", "")
+				print(y2.upper(), end="")
+				date_of_birth2 = input()
+				retu = y2 + str(date_of_birth2)
+				while Donor.is_valid_date(retu) is False:
+					retu = input("{}\nThe date_of_birth format is wrong!\
+				\n{} date_of_birth: ".format(AGAIN, ENTER))
+				self.date_of_birth = retu
+
 
 	@staticmethod
 	def is_valid_date(date):
@@ -127,12 +190,27 @@ class Donor:
 
 		:return:
 		"""
-		donation_date = input("\nIf you have donated blood before, please enter its date \
+		#donation_date = input("\nIf you have donated blood before, please enter its date \
+									#\nin the following format 1999.12.31, if not then press Enter: ")
+		print("\nIf you have donated blood before, please enter its date \
 									\nin the following format 1999.12.31, if not then press Enter: ")
-		while Donor.is_valid_donation_date(donation_date) is False:
-			donation_date = input("{}\nIf you have donated blood before, please enter its date \
-									\nin the following format 1999.12.31, if not then press Enter: ".format(AGAIN))
-		self.donation_date = donation_date
+		donation_date = getch()
+		if donation_date == b'\r':
+			self.donation_date = ""
+		elif donation_date == b'\x1b':
+			self.donation_date = None
+
+		elif donation_date != b'\x1b':
+				y = str(donation_date).replace("b'", "")
+				y2 = y.replace("'", "")
+				print(y2.upper(), end="")
+				donation_date2 = input()
+				retu = y2 + str(donation_date2)
+				while Donor.is_valid_donation_date(retu) is False:
+					retu = input("{}\nThe donation_date format is wrong!\
+				\n{} donation_date: ".format(AGAIN, ENTER))
+				self.donation_date = retu
+
 
 	@staticmethod
 	def is_valid_donation_date(date):
@@ -156,11 +234,22 @@ class Donor:
 
 		:return:
 		"""
-		sickness = input("\nWere you sick in the last month? For yes press Y for no press N: ")
-		while Donor.is_valid_sickness(sickness) is False:
-			sickness = input("{}\nWere you sick in the last month? Please press either Y or N: ".format(AGAIN))
-		self.sickness = sickness
+		# sickness = input("\nWere you sick in the last month? For yes press Y for no press N: ")
+		print("\nWere you sick in the last month? For yes press Y for no press N: ")
+		sickness = getch()
+		if sickness == b'\x1b':
+			self.sickness = None
 
+		if sickness != b'\x1b':
+				y = str(sickness).replace("b'", "")
+				y2 = y.replace("'", "")
+				print(y2.upper(), end="")
+				sickness2 = input()
+				retu = y2 + str(sickness2)
+				while Donor.is_valid_sickness(retu) is False:
+					retu = input("{}\nThe sickness format is wrong!\
+				\n{} sickness: ".format(AGAIN, ENTER))
+				self.sickness = retu
 	@staticmethod
 	def is_valid_sickness(sickness):
 		"""
@@ -175,11 +264,22 @@ class Donor:
 
 		:return:
 		"""
-		id_number = input("{} unique identifier in the following format 123456AB or AB123456: ".format(ENTER))
-		while Donor.is_valid_id_number(id_number) is False:
-			id_number = input(
-				"{}\n{} unique identifier in the following format 123456AB or AB123456: ".format(AGAIN, ENTER))
-		self.id_number = id_number
+		#id_number = input("{} unique identifier in the following format 123456AB or AB123456: ".format(ENTER))
+		print("{} unique identifier in the following format 123456AB or AB123456: ".format(ENTER))
+		id_number = getch()
+		if id_number == b'\x1b':
+			self.id_number = None
+
+		if id_number != b'\x1b':
+				y = str(id_number).replace("b'", "")
+				y2 = y.replace("'", "")
+				print(y2.upper(), end="")
+				id_number2 = input()
+				retu = y2 + str(id_number2)
+				while Donor.is_valid_id_number(retu) is False:
+					retu = input("{}\nThe id_number format is wrong!\
+				\n{} id_number: ".format(AGAIN, ENTER))
+				self.id_number = retu
 
 	@staticmethod
 	def is_valid_id_number(id_number):
@@ -202,20 +302,44 @@ class Donor:
 
 		:return:
 		"""
-		exp_date = input("{} ID expiration date in the following format 1999.12.31: ".format(ENTER))
-		while Donor.is_valid_date(exp_date) is False:
-			exp_date = input("{} {} ID expiration date in the following format 1999.12.31: ".format(AGAIN, ENTER))
-		self.exp_date = exp_date
+		#exp_date = input("{} ID expiration date in the following format 1999.12.31: ".format(ENTER))
+		print("{} ID expiration date in the following format 1999.12.31: ".format(ENTER))
+		exp_date = getch()
+		if exp_date == b'\x1b':
+			self.exp_date = None
+
+		if exp_date != b'\x1b':
+				y = str(exp_date).replace("b'", "")
+				y2 = y.replace("'", "")
+				print(y2.upper(), end="")
+				exp_date2 = input()
+				retu = y2 + str(exp_date2)
+				while Donor.is_valid_date(retu) is False:
+					retu = input("{}\nThe exp_date format is wrong!\
+				\n{} exp_date: ".format(AGAIN, ENTER))
+				self.exp_date = retu
 
 	def get_blood_type(self):
 		"""
 
 		:return:
 		"""
-		blood_type = input("{} type of blood from the following list: {}: ".format(ENTER, BLOOD))
-		while Donor.is_valid_blood_type(blood_type) is False:
-			blood_type = input("{}\n{} type of blood from the following list: {}: ".format(AGAIN, ENTER, BLOOD))
-		self.blood_type = blood_type
+		#blood_type = input("{} type of blood from the following list: {}: ".format(ENTER, BLOOD))
+		print("{} type of blood from the following list: {}: ".format(ENTER, BLOOD))
+		blood_type = getch()
+		if blood_type == b'\x1b':
+			self.blood_type = None
+
+		if blood_type != b'\x1b':
+				y = str(blood_type).replace("b'", "")
+				y2 = y.replace("'", "")
+				print(y2.upper(), end="")
+				blood_type2 = input()
+				retu = y2 + str(blood_type2)
+				while Donor.is_valid_blood_type(retu) is False:
+					retu = input("{}\nThe blood_type format is wrong!\
+				\n{} blood_type: ".format(AGAIN, ENTER))
+				self.blood_type = retu
 
 	@staticmethod
 	def is_valid_blood_type(blood_type):
@@ -231,11 +355,22 @@ class Donor:
 
 		:return:
 		"""
-		email_address = input("{} email address: ".format(ENTER))
-		while Donor.is_valid_email_address(email_address) is False:
-			email_address = input("{}\nThe email has to contain an @ and end with either .hu or .com.\
-			\n{} email address: ".format(AGAIN, ENTER))
-		self.email_address = email_address
+		#email_address = input("{} email address: ".format(ENTER))
+		print("{} email address: ".format(ENTER))
+		email_address = getch()
+		if email_address == b'\x1b':
+			self.email_address = None
+
+		if email_address != b'\x1b':
+				y = str(email_address).replace("b'", "")
+				y2 = y.replace("'", "")
+				print(y2, end="")
+				email_address2 = input()
+				retu = y2 + str(email_address2)
+				while Donor.is_valid_email_address(retu) is False:
+					retu = input("{}\nThe email_address format is wrong!\
+				\n{} email_address: ".format(AGAIN, ENTER))
+				self.email_address = retu
 
 	@staticmethod
 	def is_valid_email_address(email_address):
@@ -273,10 +408,22 @@ class Donor:
 
 		:return:
 		"""
-		mobile_number = input("{} mobile number in the following format +36301234567: ".format(ENTER))
-		while Donor.is_valid_mobile_number(mobile_number) is False:
-			mobile_number = input("{}\n{} mobile number in the following format +36301234567: ".format(AGAIN, ENTER))
-		self.mobile_number = mobile_number
+		#mobile_number = input("{} mobile number in the following format +36301234567: ".format(ENTER))
+		print("{} mobile number in the following format +36301234567: ".format(ENTER))
+		mobile_number = getch()
+		if mobile_number == b'\x1b':
+			self.mobile_number = None
+
+		if mobile_number != b'\x1b':
+				y = str(mobile_number).replace("b'", "")
+				y2 = y.replace("'", "")
+				print(y2.upper(), end="")
+				mobile_number2 = input()
+				retu = y2 + str(mobile_number2)
+				while Donor.is_valid_mobile_number(retu) is False:
+					retu = input("{}\nThe mobile_number format is wrong!\
+				\n{} mobile_number: ".format(AGAIN, ENTER))
+				self.mobile_number = retu
 
 	@staticmethod
 	def is_valid_mobile_number(mobile_number):

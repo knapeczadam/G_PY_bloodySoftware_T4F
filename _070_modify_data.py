@@ -4,6 +4,8 @@ from _020_add_new_event import *
 from _021_event_inputs import *
 import time
 import csv
+from msvcrt import getch
+from main import menu
 
 user = Donor()
 event = Event()
@@ -45,44 +47,45 @@ def modify_data(file, given_id, file_name, first_row, file_name_string):
 
 
 def donor_seletor(file_name, file_datas_without_modified_data, modified_data):
-	selecetor = input("Please select which data you want to change by entering the corresponding number from the menu here (except 7 and 13): ")
-	while selecetor == "":
-		selecetor = input("Please select which data you want to change by entering the corresponding number from the menu here (except 7 and 13): ")
-	while int(selecetor) not in list(range(1, 14)) or int(selecetor) == 7 or int(selecetor) == 13:
-		selecetor = input("Please select which data you want to change by entering the corresponding number from the menu here (except 7 and 13): ")
-	if selecetor == "1":
+
+	print("Please select which data you want to change by entering the corresponding number from the menu here (except 7 and 13): ")
+	selecetor = ord(getch())
+	if selecetor == 49:
 		user.get_first_name()
 		modified_data[0] = user.first_name
-	if selecetor == "2":
+	if selecetor == 50:
 		user.get_last_name()
 		modified_data[1] = user.last_name
-	if selecetor == "3":
+	if selecetor == 51:
 		user.get_weight()
 		modified_data[2] = user.weight
-	if selecetor == "4":
+	if selecetor == 52:
 		user.get_gender()
 		modified_data[3] = user.gender
-	if selecetor == "5":
+	if selecetor == 53:
 		user.get_date_of_birth()
 		modified_data[4] = user.date_of_birth
-	if selecetor == "6":
+	if selecetor == 54:
 		user.get_donation_date()
 		modified_data[5] = user.donation_date
-	if selecetor == "8":
+	if selecetor == 55:
 		find_existing_id(user.get_id_number(), user.id_number)
 		modified_data[7] = user.id_number
-	if selecetor == "9":
+	if selecetor == 56:
 		user.get_exp_date()
 		modified_data[8] = user.get_exp_date()
-	if selecetor == "10":
+	if selecetor == 148:
 		user.get_blood_type()
 		modified_data[9] = user.blood_type
-	if selecetor == "11":
+	if selecetor == 129:
 		user.get_email_address()
 		modified_data[10] = user.email_address
-	if selecetor == "12":
+	if selecetor == 162:
 		user.get_mobile_number()
 		modified_data[11] = user.mobile_number
+	elif selecetor == 27:
+		exit_message = "Bye"
+		clean_and_back_to_the_main_menu(exit_message)
 	modification_is_yes = input("write to file? (y): ")
 	while modification_is_yes != "y":
 		modification_is_yes = input("write to file? (y): ")
