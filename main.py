@@ -193,7 +193,7 @@ def sleep_and_clean():
 	for dot in range(3):
 
 		print(x)
-		time.sleep(1)
+		time.sleep(0.5)
 		x += "."
 	os.system("CLS")
 

@@ -167,7 +167,9 @@ def get_data_from_user_or_exit(get_something, user_string_input):
 	if user_string_input == None:
 		exit_message = "Bye"
 		clean_and_back_to_the_main_menu(exit_message)
-
+	if str(user_string_input).lower() == "exit":
+		exit_message = "Bye"
+		clean_and_back_to_the_main_menu(exit_message)
 	else:
 		pass
 

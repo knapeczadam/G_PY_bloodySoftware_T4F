@@ -33,9 +33,7 @@ class Donor:
 		:return:
 		"""
 
-		# first_name = input("{} first name: ".format(ENTER))
-
-		print("Please enter your first name: ")
+		print("{} first name: ".format(ENTER))
 		first_name = getch()
 		if first_name == b'\x1b':
 			self.first_name = None
@@ -56,9 +54,8 @@ class Donor:
 
 		:return:
 		"""
-		# last_name = input("{} last name: ".format(ENTER))
 
-		print("Please enter your last name: ")
+		print("{} last name: ".format(ENTER))
 		last_name = getch()
 		if last_name == b'\x1b':
 			self.last_name = None
@@ -89,8 +86,7 @@ class Donor:
 
 		:return:
 		"""
-		# weight = input("{} weight: ".format(ENTER))
-		print("Please enter your Weight: ")
+		print("{} weight: ".format(ENTER))
 		weight = getch()
 		if weight == b'\x1b':
 			self.weight = None
@@ -121,8 +117,7 @@ class Donor:
 
 		:return:
 		"""
-		# gender = input("\nPlease enter an F for female or an M for male donor: ")
-		print("Please enter your Gender: ")
+		print("\nPlease enter an F for female or an M for male donor: ")
 		gender = getch()
 		if gender == b'\x1b':
 			self.gender = None
@@ -152,8 +147,8 @@ class Donor:
 
 		:return:
 		"""
-		# date_of_birth = input("{} date of birth in the following format, 1999.12.31: ".format(ENTER))
-		print("Please enter your Date of birth: ")
+
+		print("{} date of birth in the following format, 1999.12.31: ".format(ENTER))
 		date_of_birth = getch()
 		if date_of_birth == b'\x1b':
 			self.date_of_birth = None
@@ -165,8 +160,8 @@ class Donor:
 				date_of_birth2 = input()
 				retu = y2 + str(date_of_birth2)
 				while Donor.is_valid_date(retu) is False:
-					retu = input("{}\nThe date_of_birth format is wrong!\
-				\n{} date_of_birth: ".format(AGAIN, ENTER))
+					retu = input("{}\nThe date of birth format is wrong!\
+				\n{} date of birth: ".format(AGAIN, ENTER))
 				self.date_of_birth = retu
 
 
@@ -190,8 +185,6 @@ class Donor:
 
 		:return:
 		"""
-		#donation_date = input("\nIf you have donated blood before, please enter its date \
-									#\nin the following format 1999.12.31, if not then press Enter: ")
 		print("\nIf you have donated blood before, please enter its date \
 									\nin the following format 1999.12.31, if not then press Enter: ")
 		donation_date = getch()
@@ -207,8 +200,8 @@ class Donor:
 				donation_date2 = input()
 				retu = y2 + str(donation_date2)
 				while Donor.is_valid_donation_date(retu) is False:
-					retu = input("{}\nThe donation_date format is wrong!\
-				\n{} donation_date: ".format(AGAIN, ENTER))
+					retu = input("{}\nThe donation date format is wrong!\
+				\n{} donation date: ".format(AGAIN, ENTER))
 				self.donation_date = retu
 
 
@@ -234,7 +227,6 @@ class Donor:
 
 		:return:
 		"""
-		# sickness = input("\nWere you sick in the last month? For yes press Y for no press N: ")
 		print("\nWere you sick in the last month? For yes press Y for no press N: ")
 		sickness = getch()
 		if sickness == b'\x1b':
@@ -264,7 +256,6 @@ class Donor:
 
 		:return:
 		"""
-		#id_number = input("{} unique identifier in the following format 123456AB or AB123456: ".format(ENTER))
 		print("{} unique identifier in the following format 123456AB or AB123456: ".format(ENTER))
 		id_number = getch()
 		if id_number == b'\x1b':
@@ -277,8 +268,8 @@ class Donor:
 				id_number2 = input()
 				retu = y2 + str(id_number2)
 				while Donor.is_valid_id_number(retu) is False:
-					retu = input("{}\nThe id_number format is wrong!\
-				\n{} id_number: ".format(AGAIN, ENTER))
+					retu = input("{}\nThe id number format is wrong!\
+				\n{} id number: ".format(AGAIN, ENTER))
 				self.id_number = retu
 
 	@staticmethod
@@ -302,7 +293,7 @@ class Donor:
 
 		:return:
 		"""
-		#exp_date = input("{} ID expiration date in the following format 1999.12.31: ".format(ENTER))
+
 		print("{} ID expiration date in the following format 1999.12.31: ".format(ENTER))
 		exp_date = getch()
 		if exp_date == b'\x1b':
@@ -315,8 +306,8 @@ class Donor:
 				exp_date2 = input()
 				retu = y2 + str(exp_date2)
 				while Donor.is_valid_date(retu) is False:
-					retu = input("{}\nThe exp_date format is wrong!\
-				\n{} exp_date: ".format(AGAIN, ENTER))
+					retu = input("{}\nThe expiration date format is wrong!\
+				\n{} expiration date : ".format(AGAIN, ENTER))
 				self.exp_date = retu
 
 	def get_blood_type(self):
@@ -324,7 +315,6 @@ class Donor:
 
 		:return:
 		"""
-		#blood_type = input("{} type of blood from the following list: {}: ".format(ENTER, BLOOD))
 		print("{} type of blood from the following list: {}: ".format(ENTER, BLOOD))
 		blood_type = getch()
 		if blood_type == b'\x1b':
@@ -337,8 +327,8 @@ class Donor:
 				blood_type2 = input()
 				retu = y2 + str(blood_type2)
 				while Donor.is_valid_blood_type(retu) is False:
-					retu = input("{}\nThe blood_type format is wrong!\
-				\n{} blood_type: ".format(AGAIN, ENTER))
+					retu = input("{}\nThe blood type is wrong!\
+				\n{} blood type: ".format(AGAIN, ENTER))
 				self.blood_type = retu
 
 	@staticmethod
@@ -355,7 +345,6 @@ class Donor:
 
 		:return:
 		"""
-		#email_address = input("{} email address: ".format(ENTER))
 		print("{} email address: ".format(ENTER))
 		email_address = getch()
 		if email_address == b'\x1b':
@@ -368,8 +357,8 @@ class Donor:
 				email_address2 = input()
 				retu = y2 + str(email_address2)
 				while Donor.is_valid_email_address(retu) is False:
-					retu = input("{}\nThe email_address format is wrong!\
-				\n{} email_address: ".format(AGAIN, ENTER))
+					retu = input("{}\nThe email address format is wrong!\
+				\n{} email address: ".format(AGAIN, ENTER))
 				self.email_address = retu
 
 	@staticmethod
@@ -408,7 +397,6 @@ class Donor:
 
 		:return:
 		"""
-		#mobile_number = input("{} mobile number in the following format +36301234567: ".format(ENTER))
 		print("{} mobile number in the following format +36301234567: ".format(ENTER))
 		mobile_number = getch()
 		if mobile_number == b'\x1b':
@@ -421,8 +409,8 @@ class Donor:
 				mobile_number2 = input()
 				retu = y2 + str(mobile_number2)
 				while Donor.is_valid_mobile_number(retu) is False:
-					retu = input("{}\nThe mobile_number format is wrong!\
-				\n{} mobile_number: ".format(AGAIN, ENTER))
+					retu = input("{}\nThe mobile number format is wrong!\
+				\n{} mobile number: ".format(AGAIN, ENTER))
 				self.mobile_number = retu
 
 	@staticmethod
