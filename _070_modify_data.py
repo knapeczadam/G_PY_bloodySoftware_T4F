@@ -2,157 +2,141 @@ from _010_add_new_donor import *
 from _011_donor_inputs import *
 from _020_add_new_event import *
 from _021_event_inputs import *
-import time
 import csv
-from msvcrt import getch
-from main import menu
-
-user = Donor()
-event = Event()
 
 
-def modify_data(file, given_id, file_name, first_row, file_name_string):
+modified_donor = Donor()
+modified_event = Event()
 
 
-	donor_id = input("Please enter the ID of the {} that you want to find: ".format(file_name_string))
-	file_datas_without_modified_data = []
-	if file_name_string == "Donor":
-		file_datas_without_modified_data.append(first_row)
-	if file_name_string == "Event":
-		file_datas_without_modified_data.append(first_row)
-
-	modified_data = []
-	for row in file:
-		if donor_id != row[given_id]:
-			file_datas_without_modified_data.append(row)
-	id_not_in_file = 0
-	for row in file:
-		if donor_id == row[given_id]:
-			id_not_in_file += 1
-			for element in row:
-				modified_data.append(element)
-			for index, each_element_in_first_row, each_data_in_file in zip(range(1, len(first_row) + 1), first_row, row):
-				print(index, each_element_in_first_row, ":", each_data_in_file)
-			# print(file_datas_without_modified_data)
-			# print(modified_data)
-			# time.sleep(5)
-	if id_not_in_file == 0:
+def modify_data(file_path, id_index_in_row, pure_data, header, string_name):
+	"""
+	
+	:param file_path: 
+	:param id_index_in_row: 
+	:param pure_data: 
+	:param header: 
+	:param string_name: 
+	:return: 
+	"""
+	id_input = input("Please enter the ID of the {} that you want to find: ".format(string_name))
+	id_in_file = False
+	all_data_without_id_row = []
+	all_data_without_id_row.append(header)
+	modified_row = []
+	for row in pure_data:
+		if id_input != row[id_index_in_row]:
+			all_data_without_id_row.append(row)
+	for row in pure_data:
+		if id_input == row[id_index_in_row]:
+			id_in_file = True
+			for index, each_element_in_header, each_data_in_founded_row in zip(range(1, len(header) + 1), header, row):
+				print(index, each_element_in_header, ":", each_data_in_founded_row)
+				modified_row.append(each_data_in_founded_row)
+	if not id_in_file:
 		print("Not found! Try again!")
-		time.sleep(1)
-		modify_data(file, given_id, file_name, first_row, file_name_string)
-	if file_name_string == "Donor":
-		donor_seletor(file_name, file_datas_without_modified_data, modified_data)
-	if file_name_string == "Event":
-		event_selector(file_name, file_datas_without_modified_data, modified_data)
+		modify_data(file_path, id_index_in_row, pure_data, header, string_name)
+	if string_name == "Donor":
+		donor_seletor(file_path, all_data_without_id_row, modified_row)
+	if string_name == "Event":
+		event_selector(file_path, all_data_without_id_row, modified_row)
 
 
-def donor_seletor(file_name, file_datas_without_modified_data, modified_data):
-
-	print("Please select which data you want to change by entering the corresponding number from the menu here (except 7 and 13): ")
-	selecetor = ord(getch())
-	if selecetor == 49:
-		user.get_first_name()
-		modified_data[0] = user.first_name
-	if selecetor == 50:
-		user.get_last_name()
-		modified_data[1] = user.last_name
-	if selecetor == 51:
-		user.get_weight()
-		modified_data[2] = user.weight
-	if selecetor == 52:
-		user.get_gender()
-		modified_data[3] = user.gender
-	if selecetor == 53:
-		user.get_date_of_birth()
-		modified_data[4] = user.date_of_birth
-	if selecetor == 54:
-		user.get_donation_date()
-		modified_data[5] = user.donation_date
-	if selecetor == 56:
-		find_existing_id(user.get_id_number(), user.id_number)
-		modified_data[7] = user.id_number
-	if selecetor == 57:
-		user.get_exp_date()
-		modified_data[8] = user.get_exp_date()
-	if selecetor == 148:
-		user.get_blood_type()
-		modified_data[9] = user.blood_type
-	if selecetor == 129:
-		user.get_email_address()
-		modified_data[10] = user.email_address
-	if selecetor == 162:
-		user.get_mobile_number()
-		modified_data[11] = user.mobile_number
-	if selecetor == 55:
-		exit_message = "You can not be sick, bye"
-		clean_and_back_to_the_main_menu(exit_message)
-	elif selecetor == 27:
-		exit_message = "Bye"
-		clean_and_back_to_the_main_menu(exit_message)
+def donor_seletor(file_path, all_data_without_id_row, modified_row):
+	selector = input("Please select which data you want to change by entering the corresponding number from the menu here (except 7 and 13): ")
+	while selector not in ['1', '2', '3', '4', '5', '6', '8', '9', '10', '11', '12']:
+		selector = input("Please select which data you want to change by entering the corresponding number from the menu here (except 7 and 13): ")
+	if selector == "1":
+		modified_donor.get_first_name()
+		modified_row[0] = modified_donor.first_name
+	if selector == "2":
+		modified_donor.get_last_name()
+		modified_row[1] = modified_donor.last_name
+	if selector == "3":
+		modified_donor.get_weight()
+		modified_row[2] = modified_donor.weight
+	if selector == "4":
+		modified_donor.get_gender()
+		modified_row[3] = modified_donor.gender
+	if selector == "5":
+		modified_donor.get_date_of_birth()
+		modified_row[4] = modified_donor.date_of_birth
+	if selector == "6":
+		modified_donor.get_donation_date()
+		modified_row[5] = modified_donor.donation_date
+	if selector == "8":
+		modified_donor.get_id_number()
+		while id_is_exist(modified_donor.id_number):
+			modified_donor.get_id_number()
+		modified_row[7] = modified_donor.id_number
+	if selector == "9":
+		modified_donor.get_exp_date()
+		modified_row[8] = modified_donor.get_exp_date()
+	if selector == "10":
+		modified_donor.get_blood_type()
+		modified_row[9] = modified_donor.blood_type
+	if selector == "11":
+		modified_donor.get_email_address()
+		modified_row[10] = modified_donor.email_address
+	if selector == "12":
+		modified_donor.get_mobile_number()
+		modified_row[11] = modified_donor.mobile_number
+	ask_write_to_file = input("Write to file? Press y otherwise press any key to back to the main menu: ")
+	if ask_write_to_file == "y":
+		write_modified_row_to_file(file_path, all_data_without_id_row, modified_row)
 	else:
-		exit_message = "No one is chosen, bye"
-		clean_and_back_to_the_main_menu(exit_message)
+		print("Bye")
+		return False
 
-	modification_is_yes = input("write to file? (y): ")
 
-	if modification_is_yes == "y":
-		write_modified_data_to_file(file_name, file_datas_without_modified_data, modified_data)
+def event_selector(file_path, all_data_without_id_row, modified_row):
+	selector = input("Please select which data you want to change by entering the corresponding number from the menu here (except10): ")
+	while selector not in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '11']:
+		selector = input("Please select which data you want to change by entering the corresponding number from the menu here (except10): ")
+	if selector == "1":
+		modified_event.generate_event_id()
+		modified_row[0] = modified_event.event_id
+	if selector == "2":
+		modified_event.get_date_of_event()
+		modified_row[1] = modified_event.date_of_event
+	if selector == "3":
+		modified_event.get_start_time()
+		modified_row[2] = modified_event.start_time
+	if selector == "4":
+		modified_event.get_end_time()
+		modified_row[3] = modified_event.end_time
+	if selector == "5":
+		modified_event.get_zip_code()
+		modified_row[4] = modified_event.zip_code
+	if selector == "6":
+		modified_event.get_city()
+		modified_row[5] = modified_event.city
+	if selector == "7":
+		modified_event.get_address()
+		modified_row[6] = modified_event.address
+	if selector == "8":
+		modified_event.get_available_beds()
+		modified_row[7] = modified_event.available_beds
+	if selector == "9":
+		modified_event.get_planned_donor_number()
+		modified_row[8] = modified_event.planned_donors
+	if selector == "11":
+		modified_event.get_successful_donations()
+		modified_row[10] = modified_event.successful_donations
+	ask_write_to_file = input("Write to file? Press y otherwise press any key to back to the main menu: ")
+	if ask_write_to_file == "y":
+		write_modified_row_to_file(file_path, all_data_without_id_row, modified_row)
 	else:
-		exit_message = "Bye"
-		clean_and_back_to_the_main_menu(exit_message)
+		print("Bye")
+		return False
 
 
-def event_selector(file_name, file_datas_without_modified_data, modified_data):
-	selecetor = input("Please select which data you want to change by entering the corresponding number from the menu here ( except10): ")
-	while selecetor == "":
-		selecetor = input("Please select which data you want to change by entering the corresponding number from the menu here ( except10): ")
-	while int(selecetor) not in list(range(1, 14)) or int(selecetor) == 10:
-		selecetor = input("Please select which data you want to change by entering the corresponding number from the menu here ( except10): ")
-	if selecetor == "1":
-		event.generate_event_id()
-		modified_data[0] = event.event_id
-	if selecetor == "2":
-		event.get_date_of_event()
-		modified_data[1] = event.date_of_event
-	if selecetor == "3":
-		event.get_start_time()
-		modified_data[2] = event.start_time
-	if selecetor == "4":
-		event.get_end_time()
-		modified_data[3] = event.end_time
-	if selecetor == "5":
-		event.get_zip_code()
-		modified_data[4] = event.zip_code
-	if selecetor == "6":
-		event.get_city()
-		modified_data[5] = event.city
-	if selecetor == "7":
-		event.get_address()
-		modified_data[6] = event.address
-	if selecetor == "8":
-		event.get_available_beds()
-		modified_data[7] = event.available_beds
-	if selecetor == "9":
-		event.get_planned_donor_number()
-		modified_data[8] = event.planned_donors
-	if selecetor == "11":
-		event.get_successful_donations()
-		modified_data[10] = event.successful_donations
-	modification_is_yes = input("write to file? (y): ")
-	while modification_is_yes != "y":
-		modification_is_yes = input("write to file? (y): ")
-	if modification_is_yes == "y":
-		write_modified_data_to_file(file_name, file_datas_without_modified_data, modified_data)
-
-
-def write_modified_data_to_file(file_name, file_datas_without_modified_data, modified_data):
-		with open(file_name, "w") as csv_file:
-			csv_writer = csv.writer(csv_file)
-			for row in file_datas_without_modified_data:
-				csv_writer.writerow(row)
-
-		with open(file_name, "a") as csv_file:
-			csv_writer = csv.writer(csv_file)
-			csv_writer.writerow(modified_data)
-
-
+def write_modified_row_to_file(file_path, all_data_without_id_row, modified_row):
+	with open(file_path, "w") as csv_file:
+		csv_writer = csv.writer(csv_file)
+		for row in all_data_without_id_row:
+			csv_writer.writerow(row)
+	with open(file_path, "a") as csv_file:
+		csv_writer = csv.writer(csv_file)
+		csv_writer.writerow(modified_row)
+	return False

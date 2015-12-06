@@ -1,44 +1,39 @@
 import os
 
 
-def search_data(new_list, donor_or_event, how_many_row):
+def search_data(pure_data, string_name, page_number):
 	"""
 
-	:param new_list:
+	:param pure_data:
 	:return:
 	"""
+	found_donor_or_event = False
+	founded_data = []
 
-	found_donor_or_event = 0
-	row_counter = 0
-
-	searched_donor_data = input("Please enter the {}'s data for search: ".format(donor_or_event))
-	for row in new_list:
+	searched_data = input("Please enter the {}'s data for search: ".format(string_name))
+	for row in pure_data:
 		for element in row:
-			if searched_donor_data in element and row != new_list[0]:
-				found_donor_or_event += 1
-				row_counter += 1
-				if row_counter % how_many_row == 0 and row_counter != 0:
-					if donor_or_event == "Donor":
-						printing_after_donor_search(row)
-					if donor_or_event == "Event":
-						printing_after_event_search(row)
-					answer = input("\nNext page? Press y to continue: ")
-					if answer == 'y':
-						os.system("CLS")
-						row_counter = 0
-						break
-				else:
-					if row_counter != 0:
-						if donor_or_event == "Donor":
-							printing_after_donor_search(row)
-						if donor_or_event == "Event":
-							printing_after_event_search(row)
-							break
-
-	if found_donor_or_event == 0:
+			if searched_data in element:
+				found_donor_or_event = True
+				founded_data.append(row)
+				break
+	row_counter = 1
+	for row in founded_data:
+		if row_counter % page_number == 0:
+			answer = input("\nNext page? Press any key to continue: ")
+			if answer:
+				os.system("CLS")
+				row_counter = 0
+		if string_name == "Donor":
+			row_counter += 1
+			printing_after_donor_search(row)
+		if string_name == "Event":
+			row_counter += 1
+			printing_after_event_search(row)
+	if not found_donor_or_event:
 		print("Given data is not found!")
-
-	if input("\nTo exit the program press E, to return to the Main menu press Enter: ").upper() == "E":
+		search_data(pure_data, string_name, page_number)
+	if input("\nTo exit the program press E, to return to the Main menu press any key: ").upper() == "E":
 		os.system("CLS")
 		exit()
 

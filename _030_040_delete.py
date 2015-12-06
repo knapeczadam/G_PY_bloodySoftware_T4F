@@ -1,43 +1,28 @@
-import csv
+from csv_helper import *
 
 
-def delete_data_from_file(file_name, given_row, new_list, first_row):
+def delete_data_from_file(file_path, id_index_in_row, pure_data, header, string_name):
 	"""
 	:return:
 	"""
-	new_list_len = 0
-	appended_list = []
-	appended_list_len = -1
-
-	if given_row == 7:
-		appended_list.append(first_row)
-
-	if given_row == 0:
-		appended_list.append(first_row)
-
-	id_number = input("\nPlease enter the choosen id that you want to delete: ")
-
-	if id_number == "exit":
-		return False
-
-	for row in new_list:
-		if len(row) > 0:
-			new_list_len += 1
-			if id_number != row[given_row]:
-				appended_list_len += 1
-				appended_list.append(row)
-
-	if new_list_len != appended_list_len:
+	id_input = input("\nPlease enter the {}'s id that you want to delete: ".format(string_name))
+	id_in_file = False
+	all_data_without_id_row = []
+	all_data_without_id_row.append(header)
+	for row in pure_data:
+		if id_input != row[id_index_in_row]:
+			all_data_without_id_row.append(row)
+	for row in pure_data:
+		if id_input == row[id_index_in_row]:
+			id_in_file = True
+	if id_in_file:
 		are_you_sure = input("Are you sure? If yes, press y otherwise press any key to go back to the main menu: ")
 		if are_you_sure == "y":
-			with open(file_name, "w") as csv_file:
+			with open(file_path, "w") as csv_file:
 				csv_writer = csv.writer(csv_file)
-				for row in appended_list:
+				for row in all_data_without_id_row:
 					csv_writer.writerow(row)
-				print("Back to the main menu!")
-		else:
-			return False
-
-	if appended_list_len == new_list_len:
-		print("\nThe given ID is not exist!")
-		delete_data_from_file(file_name, given_row, new_list, first_row)
+				print("Successful delete! Back to the main menu...")
+	if not id_in_file:
+		print("\nID not not found! Please try again!")
+		delete_data_from_file(file_path, id_index_in_row, pure_data, header, string_name)

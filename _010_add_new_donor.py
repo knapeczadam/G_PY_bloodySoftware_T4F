@@ -1,69 +1,160 @@
+from csv_helper import pure_data_from_csv_file
 from _011_donor_inputs import Donor
 from datetime import datetime
 import time
-import csv
-import os
-from msvcrt import getch
-ESC = ["exit"]
 
-user = Donor()
+DONOR_PATH = "Data\donors.csv"
+NOT_SUITABLE = "\nThe program has ended because of not suitable donor."
+
+MIN_HEMO_LEVEL = 110
+MIN_WEIGHT_IN_KG = 50
+MIN_AGE_IN_YEAR = 18
+MIN_NUMB_OF_DAYS_FROM_LAST_DONATION = 90
+ONE_YEAR_IN_DAYS = 365
+
+ESC = "E"
+WAIT_IN_SEC = 1
+
+new_donor = Donor()
 
 
-def call_get_donor_inputs():
+def call_donor_get_functions():
 	"""
 
 	:return:
 	"""
-	user.get_hemo_level()
-	donor_requirements()
-	get_data_from_user_or_exit(user.get_first_name(), user.first_name)
-	get_data_from_user_or_exit(user.get_last_name(), user.last_name)
-	get_data_from_user_or_exit(user.get_weight(), user.weight)
-	donor_requirements()
-	get_data_from_user_or_exit(user.get_gender(), user.gender)
-	get_data_from_user_or_exit(user.get_date_of_birth(), user.date_of_birth)
-	donor_requirements()
-	get_data_from_user_or_exit(user.get_donation_date(), user.donation_date)
-	donor_requirements()
-	get_data_from_user_or_exit(user.get_sickness(), user.sickness)
-	donor_requirements()
-	get_data_from_user_or_exit(find_existing_id(user.get_id_number(), user.id_number), user.id_number)
-	get_data_from_user_or_exit(user.get_exp_date(), user.exp_date)
-	donor_requirements()
-	get_data_from_user_or_exit(user.get_blood_type(), user.blood_type)
-	get_data_from_user_or_exit(user.get_email_address(), user.email_address)
-	get_data_from_user_or_exit(user.get_mobile_number(), user.mobile_number)
+	donor_is_suitable = True
+	pressed_e_key = False
+	write_data_to_csv = None
+
+	while donor_is_suitable and not pressed_e_key:
+		new_donor.get_hemo_level()                                    # 1 - HEMOGLOBIN LEVEL
+		if donor_isnt_suitable():
+			break
+		new_donor.get_weight()                                        # 2 - WEIGHT
+		if donor_pressed_e_key(new_donor.weight):
+			break
+		if donor_isnt_suitable():
+			break
+		new_donor.get_date_of_birth()                                 # 3 - DATE OF BIRTH
+		if donor_pressed_e_key(new_donor.date_of_birth):
+			break
+		if donor_isnt_suitable():
+			break
+		new_donor.get_donation_date()                                  # 4 - DONATION DATE
+		if donor_pressed_e_key(new_donor.donation_date):
+			break
+		if donor_isnt_suitable():
+			break
+		new_donor.get_sickness()                                       # 5 - SICKNESS
+		if donor_pressed_e_key(new_donor.sickness):
+			break
+		if donor_isnt_suitable():
+			break
+		new_donor.get_exp_date()                                       # 6 - EXPIRATION DATE
+		if donor_pressed_e_key(new_donor.exp_date):
+			break                                                      # -------------------------
+		if donor_isnt_suitable():
+			break
+		new_donor.get_first_name()                                     # 7 - FIRST NAME
+		if donor_pressed_e_key(new_donor.first_name):
+			break
+		new_donor.get_last_name()                                      # 8 - LAST NAME
+		if donor_pressed_e_key(new_donor.last_name):
+			break
+		new_donor.get_id_number()                                      # 9 - ID
+		while id_is_exist(new_donor.id_number):
+			new_donor.get_id_number()
+		if donor_pressed_e_key(new_donor.id_number):
+			break
+		new_donor.get_gender()                                         # 10 - GENDER
+		if donor_pressed_e_key(new_donor.gender):
+			break
+		new_donor.get_blood_type()                                     # 11 - BLOOD TYPE
+		if donor_pressed_e_key(new_donor.blood_type):
+			break
+		new_donor.get_email_address()                                  # 12 - EMAIL ADDRESS
+		if donor_pressed_e_key(new_donor.email_address):
+			break
+		new_donor.get_mobile_number()                                  # 13 - MOBILE NUMBER
+		if donor_pressed_e_key(new_donor.mobile_number):
+			break
+		if donor_is_suitable and not pressed_e_key:
+			write_data_to_csv = True
+			break
+	return write_data_to_csv
 
 
-def donor_data_in_file():
+def donor_isnt_suitable():
 	"""
 
+	:param :
 	:return:
 	"""
-	donor_data = [
-		user.first_name,
-		user.last_name,
-		user.weight,
-		user.gender,
-		user.date_of_birth,
-		user.donation_date,
-		user.sickness,
-		user.id_number,
-		user.exp_date,
-		user.blood_type,
-		user.email_address,
-		user.mobile_number,
-		user.hemoglobin_level
-	]
-	return donor_data
+	if new_donor.hemoglobin_level is not None:                                                # 1 - HEMOGLOBIN LEVEL
+		if new_donor.hemoglobin_level < MIN_HEMO_LEVEL:
+			print("Your hemoglobin level is not high enough. Born again!")
+			time.sleep(WAIT_IN_SEC)
+			new_donor.hemoglobin_level = None
+			return True
+	if new_donor.weight is not None and new_donor.weight.upper() != ESC:                      # 2 - WEIGHT
+		if int(new_donor.weight) <= MIN_WEIGHT_IN_KG:
+			print("new_donors are only accepted above 50 kgs." + NOT_SUITABLE)
+			time.sleep(WAIT_IN_SEC)
+			new_donor.weight = None
+			return True
+	if new_donor.date_of_birth is not None and new_donor.date_of_birth.upper() != ESC:        # 3 - DATE OF BIRTH
+		if calc_donor_input_to_days(new_donor.date_of_birth) // ONE_YEAR_IN_DAYS < MIN_AGE_IN_YEAR:
+			print("new_donors are only accepted above 18 years." + NOT_SUITABLE)
+			time.sleep(WAIT_IN_SEC)
+			new_donor.date_of_birth = None
+			return True
+	if new_donor.donation_date is not None and new_donor.donation_date.upper() != ESC:         # 4 - DONATION DATE
+		if new_donor.donation_date != "":
+			if calc_donor_input_to_days(new_donor.donation_date) <= MIN_NUMB_OF_DAYS_FROM_LAST_DONATION:
+				print("Donors can only give blood once in every 3 months." + NOT_SUITABLE)
+				time.sleep(WAIT_IN_SEC)
+				new_donor.donation_date = None
+				return True
+	if new_donor.sickness is not None:                                                         # 5 - SICKNESS
+		if new_donor.sickness.lower() == "y":
+			print(NOT_SUITABLE)
+			time.sleep(WAIT_IN_SEC)
+			new_donor.sickness = None
+			return True
+	if new_donor.exp_date is not None and new_donor.exp_date.upper() != ESC:                    # 6 - EXPIRATION DATE
+		if datetime.strptime(new_donor.exp_date, "%Y.%m.%d") < datetime.now():
+			print("The donor's ID is expired! Program is shutting down...")
+			time.sleep(WAIT_IN_SEC)
+			new_donor.exp_date = None
+			return True
+
+
+def donor_pressed_e_key(donor_input: str):
+	if donor_input.upper() == ESC:
+		return True
+
+
+def id_is_exist(id_input):
+	"""
+
+	:param get_id_number:
+	:return:
+	"""
+	id_index_in_row = 7
+	pure_data = pure_data_from_csv_file(DONOR_PATH)
+	for row in pure_data:
+		if row[id_index_in_row] == id_input:
+			print("ID is already exist!")
+			return True
 
 
 def donor_first_row():
 	"""
 
-	:return:
+	:return: list
 	"""
-	first_row = [
+	donor_header = [
 		"First name",
 		"Last name",
 		"Weight",
@@ -78,111 +169,53 @@ def donor_first_row():
 		"Mobile number",
 		"Hemoglobin level"
 	]
-	return first_row
+	return donor_header
 
 
-def print_after_writing():
+def new_donor_to_list():
+	"""
+
+	:return: list
+	"""
+	new_donor_data = [
+		new_donor.first_name,
+		new_donor.last_name,
+		new_donor.weight,
+		new_donor.gender,
+		new_donor.date_of_birth,
+		new_donor.donation_date,
+		new_donor.sickness,
+		new_donor.id_number,
+		new_donor.exp_date,
+		new_donor.blood_type,
+		new_donor.email_address,
+		new_donor.mobile_number,
+		new_donor.hemoglobin_level
+	]
+	return new_donor_data
+
+
+def print_suitable_donor_data():
 	"""
 
 	:return:
 	"""
-	age = (datetime.now() - datetime.strptime(user.date_of_birth, "%Y.%m.%d")).days // 365
-
-	print("\nNew donor has been added: \n{}, {} \n{} kg \n{}, {} years old \n{}".format\
-		      (donor_data_in_file()[0], donor_data_in_file()[1], donor_data_in_file()[2],\
-		       donor_data_in_file()[4], age, donor_data_in_file()[10]))
-
+	donor_age_in_year = calc_donor_input_to_days(new_donor.date_of_birth) // ONE_YEAR_IN_DAYS
+	donor_first_name_index_in_row = 0
+	donor_last_name_index_in_row = 1
+	donor_weight_index_in_row = 2
+	donor_age_index_in_row = 4
+	donor_email_index_in_row = 10
+	print("\nNew donor has been added: \n{}, {} \n{} kg \n{}, {} years old \n{}".format
+	      (new_donor_to_list()[donor_first_name_index_in_row],
+	       new_donor_to_list()[donor_last_name_index_in_row],
+	       new_donor_to_list()[donor_weight_index_in_row],
+	       new_donor_to_list()[donor_age_index_in_row], donor_age_in_year,
+	       new_donor_to_list()[donor_email_index_in_row]))
 	if input("\nTo exit the program press E, to return to the Main menu press Enter: ").upper() == "E":
 		exit()
 
 
-def donor_requirements():
-	"""
-
-	:param user_input:
-	:return:
-	"""
-	if user.hemoglobin_level is not None and user.hemoglobin_level < 110:
-		hemoglobin_message = "Your hemoglobin level is not high enough. Born again!"
-		user.hemoglobin_level = None
-		clean_and_back_to_the_main_menu(hemoglobin_message)
-	if user.weight is not None and user.weight <= 50:
-			weight_message = "Donors are only accepted above 50 kgs.\
-			\nThe program has ended because of not suitable donor."
-			user.weight = None
-			clean_and_back_to_the_main_menu(weight_message)
-	if user.date_of_birth is not None and user.date_of_birth not in ESC:
-		if (datetime.now() - datetime.strptime(user.date_of_birth, "%Y.%m.%d")).days // 365 < 18:
-			age_message = "Donors are only accepted above 18 years.\
-			\nThe program has ended because of not suitable donor."
-			user.date_of_birth = None
-			clean_and_back_to_the_main_menu(age_message)
-	if user.donation_date is not None and user.donation_date != "" and user.donation_date not in ESC:
-		if (datetime.now() - datetime.strptime(user.donation_date, "%Y.%m.%d")).days <= 90:
-			donation_message = "Donors can only give blood once in every 3 months.\
-				\nThe program has ended because of not suitable donor."
-			user.donation_date = None
-			clean_and_back_to_the_main_menu(donation_message)
-	if user.sickness is not None and user.sickness.lower() == "y":
-			sickness_message = "The program has ended because of not suitable donor."
-			user.sickness = None
-			clean_and_back_to_the_main_menu(sickness_message)
-	if user.exp_date is not None and user.exp_date not in ESC:
-		if datetime.strptime(user.exp_date, "%Y.%m.%d") < datetime.now():
-			expiration_message = "The donor's ID is expired! Program is shutting down..."
-			user.exp_date = None
-			clean_and_back_to_the_main_menu(expiration_message)
-
-
-def find_existing_id(get_id_number, id):
-	"""
-
-	:param get_id_number:
-	:return:
-	"""
-	data_in_donors_csv = []
-	with open("Data\donors.csv", "r") as donors_csv:
-		csv_reader = csv.reader(donors_csv)
-		for row in csv_reader:
-			data_in_donors_csv.append(row)
-	id_is_exist = 0
-	for row in data_in_donors_csv:
-		if len(row) != 0:
-			if row[7] == id:
-				print("ID is already exist!")
-				id_is_exist += 1
-				find_existing_id(user.get_id_number(), id)
-	if id_is_exist == 0:
-		return True
-
-
-def get_data_from_user_or_exit(get_something, user_string_input):
-	"""
-
-	:param user_input:
-	:param get_something:
-	:return:
-	"""
-
-	if user_string_input == None:
-		exit_message = "Bye"
-		clean_and_back_to_the_main_menu(exit_message)
-	if str(user_string_input).lower() == "exit":
-		exit_message = "Bye"
-		clean_and_back_to_the_main_menu(exit_message)
-	else:
-		pass
-
-
-
-def clean_and_back_to_the_main_menu(message):
-	"""
-
-	:param message:
-	:return:
-	"""
-	os.system("CLS")
-	print(message)
-	time.sleep(3)
-	from main import menu
-	menu()
+def calc_donor_input_to_days(donor_input):
+	if donor_input is not None:
+		return (datetime.now() - datetime.strptime((donor_input), "%Y.%m.%d")).days

@@ -1,25 +1,35 @@
 from _021_event_inputs import Event
 from datetime import datetime
 
-user = Event()
+SATURDAY = 6
+SUNDAY = 7
+MIN_EVENT_TIME_IN_HOUR = 100  # 100 / 100 = 1h wrong variable expression
+MIN_DAYS_BEF_NEW_EVENT = 10
+
+UNSUC_EV_IN_PREX_MAX = 0.2  # 20%
+NORM_EV_IN_PREC_MAX = 0.75  # 75 %
+SUCC_EV_IN_PREC_MAX = 1.1  # 110 %
+
+new_event = Event()
 
 
-def call_get_event_inputs():
+def call_event_get_functions():
 	"""
 
 	:return:
 	"""
-	user.generate_event_id()
-	event_requirements(user.get_date_of_event())
-	user.get_start_time()
-	event_requirements(user.get_end_time())
-	user.get_zip_code()
-	user.get_city()
-	user.get_address()
-	user.get_available_beds()
-	user.calc_max_donor_number()
-	user.get_planned_donor_number()
-	user.get_successful_donations()
+	new_event.generate_event_id()
+	event_requirements(new_event.get_date_of_event())
+	new_event.get_start_time()
+	event_requirements(new_event.get_end_time())
+	new_event.get_zip_code()
+	new_event.get_city()
+	new_event.get_address()
+	new_event.get_available_beds()
+	new_event.calc_max_donor_number()
+	new_event.get_planned_donor_number()
+	new_event.get_successful_donations()
+	return True
 
 
 def print_donation_successful():
@@ -27,33 +37,34 @@ def print_donation_successful():
 
 	:return:
 	"""
-	if float(user.successful_donations) / float(user.planned_donors) < 0.2:
+
+	if float(new_event.successful_donations) / float(new_event.planned_donors) < UNSUC_EV_IN_PREX_MAX:
 		print("\nUnsuccessful, not worth to organise there again")
-	if 0.2 <= float(user.successful_donations) / float(user.planned_donors) <= 0.75:
+	if UNSUC_EV_IN_PREX_MAX <= float(new_event.successful_donations) / float(new_event.planned_donors) <= NORM_EV_IN_PREC_MAX:
 		print("\nNormal event")
-	if 0.75 <= float(user.successful_donations) / float(user.planned_donors) <= 1.1:
+	if NORM_EV_IN_PREC_MAX <= float(new_event.successful_donations) / float(new_event.planned_donors) <= SUCC_EV_IN_PREC_MAX:
 		print("\nSuccessful")
-	if float(user.successful_donations) / float(user.planned_donors) > 1.1:
+	if float(new_event.successful_donations) / float(new_event.planned_donors) > SUCC_EV_IN_PREC_MAX:
 		print("\nOutstanding")
 
 
-def event_data_in_file():
+def new_event_to_list():
 	"""
 
 	:return:
 	"""
 	event_data = [
-		user.event_id,
-		user.date_of_event,
-		user.start_time,
-		user.end_time,
-		user.zip_code,
-		user.city,
-		user.address,
-		user.available_beds,
-		user.planned_donors,
-		user.max_donor_number,
-		user.successful_donations
+		new_event.event_id,
+		new_event.date_of_event,
+		new_event.start_time,
+		new_event.end_time,
+		new_event.zip_code,
+		new_event.city,
+		new_event.address,
+		new_event.available_beds,
+		new_event.planned_donors,
+		new_event.max_donor_number,
+		new_event.successful_donations
 	]
 	return event_data
 
@@ -63,7 +74,7 @@ def event_first_row():
 
 	:return:
 	"""
-	first_row = [
+	event_header = [
 		"Event ID",
 		"Date of Event",
 		"Start time",
@@ -76,7 +87,7 @@ def event_first_row():
 		"Max donor numbers",
 		"Successful donations"
 	]
-	return first_row
+	return event_header
 
 
 def event_requirements(get_something):
@@ -84,12 +95,12 @@ def event_requirements(get_something):
 
 	:return:
 	"""
-	if user.date_of_event is not None and datetime.strptime(user.date_of_event, "%Y.%m.%d").isoweekday() == 6 or \
-		datetime.strptime(user.date_of_event, "%Y.%m.%d").isoweekday() == 7 or \
-					(datetime.strptime(user.date_of_event, "%Y.%m.%d") - datetime.now()).days < 10:
+	if new_event.date_of_event is not None and datetime.strptime(new_event.date_of_event, "%Y.%m.%d").isoweekday() == SATURDAY or \
+		datetime.strptime(new_event.date_of_event, "%Y.%m.%d").isoweekday() == SUNDAY or \
+					(datetime.strptime(new_event.date_of_event, "%Y.%m.%d") - datetime.now()).days < MIN_DAYS_BEF_NEW_EVENT:
 		print("Wrong input! The event can not be on weekends and has to be at least 10 days later than the current date.")
-		event_requirements(user.get_date_of_event())
-	if user.start_time is not None and user.end_time is not None and \
-					(int(str(user.start_time).replace(':', '')) + 100) > (int(str(user.end_time).replace(':', ''))):
+		event_requirements(new_event.get_date_of_event())
+	if new_event.start_time is not None and new_event.end_time is not None and \
+					(int(str(new_event.start_time).replace(':', '')) + MIN_EVENT_TIME_IN_HOUR) > (int(str(new_event.end_time).replace(':', ''))):
 		print("Wrong input! The end time has to be at least one hour later than the start time.")
-		event_requirements(user.get_end_time())
+		event_requirements(new_event.get_end_time())
