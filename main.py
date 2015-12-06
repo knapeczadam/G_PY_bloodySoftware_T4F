@@ -1,6 +1,8 @@
 from os import system
 from time import sleep
+from random import choice
 from msvcrt import getch
+import webbrowser
 from _030_040_delete import *
 from _050_list_data import *
 from _060_search_data import *
@@ -37,6 +39,8 @@ ALL_ACTION = {
 	'KEY_FIVE': 53,
 	'KEY_SIX': 54,
 	'KEY_SEVEN': 55,
+	'KEY_EIGHT': 56,
+	'KEY_NINE': 57,
 	'KEY_ESC': 27
 }
 
@@ -65,6 +69,8 @@ Main menu
 	5. List
 	6. Search
 	7. Modify
+	8. Change color
+	9. DO NOT PRESS!!!
 	Esc. Exit
 	""")
 	print("Please choose your action: ")
@@ -88,8 +94,13 @@ def do_action():
 		clear(), submenu(SEARCH)
 	if action == ALL_ACTION['KEY_SEVEN']:
 		clear(), submenu(MODIFY)
+	if action == ALL_ACTION['KEY_EIGHT']:
+		change_color()
+	if action == ALL_ACTION['KEY_NINE']:
+		line = random.choice(open('web.txt').read().splitlines())
+		webbrowser.open(line)  # or http://www.randomwebsite.com/cgi-bin/random.pl
 	if action == ALL_ACTION['KEY_ESC']:
-		print("Bye!"), exit()
+		print("Bye!"), system('COLOR 07'), exit()
 
 
 def submenu(string_name_of_submenu):
@@ -186,6 +197,11 @@ def modify_event():
 		modify_data(EVENT_PATH, EVENT_ID_INDEX_IN_ROW, events_csv(), event_header(), EVENT_STRING)
 
 
+def change_color():
+	colors = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
+	system("COLOR " + choice(colors) + choice(colors))
+
+
 def loading():
 	"""
 
@@ -196,7 +212,7 @@ def loading():
 	for dot in range(3):
 		print(x)
 		x += "."
-		sleep(0.2)
+		sleep(0.1)
 	system("CLS")
 
 
