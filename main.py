@@ -1,8 +1,10 @@
 from os import system
 from time import sleep
 from random import choice
+from random import randrange
 from msvcrt import getch
 import webbrowser
+import winsound
 from _030_040_delete import *
 from _050_list_data import *
 from _060_search_data import *
@@ -31,6 +33,10 @@ events_csv = lambda: pure_data_from_csv_file(EVENT_PATH)
 HOW_MANY_HYPHENS_IN_A_ROW = 71  # Ctrl+ Alt + V
 clear = lambda: system('CLS')
 
+COLORS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
+TEXT_COLOR_INDEX = 7
+BACKGROUND_COLOR_INDEX = 0
+
 ALL_ACTION = {
 	'KEY_ONE': 49,
 	'KEY_TWO': 50,
@@ -41,6 +47,10 @@ ALL_ACTION = {
 	'KEY_SEVEN': 55,
 	'KEY_EIGHT': 56,
 	'KEY_NINE': 57,
+	'KEY_PLUS': 43,
+	'KEY_MINUS': 45,
+	'KEY_ASTERISK': 42,
+	'KEY_M': 109,
 	'KEY_ESC': 27
 }
 
@@ -69,8 +79,12 @@ Main menu
 	5. List
 	6. Search
 	7. Modify
-	8. Change color
+	8. Browse on web
 	9. DO NOT PRESS!!!
+	+ Change text color
+	- Change background color
+	* Change random color
+	M Compose music
 	Esc. Exit
 	""")
 	print("Please choose your action: ")
@@ -95,10 +109,19 @@ def do_action():
 	if action == ALL_ACTION['KEY_SEVEN']:
 		clear(), submenu(MODIFY)
 	if action == ALL_ACTION['KEY_EIGHT']:
-		change_color()
-	if action == ALL_ACTION['KEY_NINE']:
 		line = random.choice(open('web.txt').read().splitlines())
 		webbrowser.open(line)  # or http://www.randomwebsite.com/cgi-bin/random.pl
+	if action == ALL_ACTION['KEY_NINE']:
+		location = (os.path.dirname(os.path.realpath('matrix.bat')))
+		system(location + '\\matrix.bat')
+	if action == ALL_ACTION['KEY_PLUS']:
+		change_text_color()
+	if action == ALL_ACTION['KEY_MINUS']:
+		change_background_color()
+	if action == ALL_ACTION['KEY_ASTERISK']:
+		change_random_color()
+	if action == ALL_ACTION['KEY_M']:
+		create_music()
 	if action == ALL_ACTION['KEY_ESC']:
 		print("Bye!"), system('COLOR 07'), exit()
 
@@ -197,9 +220,35 @@ def modify_event():
 		modify_data(EVENT_PATH, EVENT_ID_INDEX_IN_ROW, events_csv(), event_header(), EVENT_STRING)
 
 
-def change_color():
-	colors = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
-	system("COLOR " + choice(colors) + choice(colors))
+def change_text_color():
+	global TEXT_COLOR_INDEX
+	global BACKGROUND_COLOR_INDEX
+	TEXT_COLOR_INDEX += 1
+	if TEXT_COLOR_INDEX == 15:
+		TEXT_COLOR_INDEX = 0
+	if TEXT_COLOR_INDEX == BACKGROUND_COLOR_INDEX:
+		return False
+	system("COLOR " + COLORS[BACKGROUND_COLOR_INDEX] + COLORS[TEXT_COLOR_INDEX])
+
+
+def change_background_color():
+	global BACKGROUND_COLOR_INDEX
+	global TEXT_COLOR_INDEX
+	BACKGROUND_COLOR_INDEX += 1
+	if BACKGROUND_COLOR_INDEX == 15:
+		BACKGROUND_COLOR_INDEX = 0
+	if TEXT_COLOR_INDEX == BACKGROUND_COLOR_INDEX:
+		return False
+	system('COLOR ' + COLORS[BACKGROUND_COLOR_INDEX] + COLORS[TEXT_COLOR_INDEX])
+
+
+def change_random_color():
+	system("COLOR " + choice(COLORS) + choice(COLORS))
+
+
+def create_music():
+	tune = randrange(100, 500)
+	winsound.Beep(tune, 200)
 
 
 def loading():
@@ -207,12 +256,12 @@ def loading():
 
 	:return:
 	"""
-	system("CLS")
-	x = "Loading."
-	for dot in range(3):
-		print(x)
-		x += "."
-		sleep(0.1)
+	# system("CLS")
+	# x = "Loading."
+	# for dot in range(3):
+	# 	print(x)
+	# 	x += "."
+	# 	sleep(0.1)
 	system("CLS")
 
 
