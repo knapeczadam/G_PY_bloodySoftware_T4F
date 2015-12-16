@@ -10,7 +10,7 @@ from _050_list_data import *
 from _060_search_data import *
 from _070_modify_data import *
 from csv_helper import *
-from setup_database import run_create_sql
+from setup_database import *
 
 ANSWER = ["y", "yes"]
 LIST = "List"
@@ -173,8 +173,10 @@ def add_new_event():
 
 
 def delete_donor():
-	if not file_is_empty(DONOR_PATH):
-		delete_data_from_file(DONOR_PATH, DONOR_ID_INDEX_IN_ROW, donors_csv(), donor_header(), DONOR_STRING)
+	if not table_is_empty(DONOR_STRING):
+		sdelete_data_from_sql_file(DONOR_STRING)
+	# if not file_is_empty(DONOR_PATH):
+	# 	delete_data_from_file(DONOR_PATH, DONOR_ID_INDEX_IN_ROW, donors_csv(), donor_header(), DONOR_STRING)
 
 
 def delete_event():

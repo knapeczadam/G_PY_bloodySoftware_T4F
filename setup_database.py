@@ -1,5 +1,6 @@
 import mysql.connector
 from mysql.connector import errorcode
+from time import sleep
 import configparser
 
 
@@ -23,3 +24,13 @@ def connect_to_server():
 	except mysql.connector.Error as err:
 		if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
 			print("default")
+
+
+def table_is_empty(string_name):
+	database_connector, cursor = connect_to_server()
+	cursor.execute("USE BloodDonationStorage")
+	cursor.execute("SELECT * FROM {}".format(string_name))
+	if len(cursor.fetchall()) == 0:
+		print("File is empty!")
+		sleep(2)
+		return True
