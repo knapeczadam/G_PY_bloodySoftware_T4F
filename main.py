@@ -10,6 +10,7 @@ from _050_list_data import *
 from _060_search_data import *
 from _070_modify_data import *
 from csv_helper import *
+from setup_database import run_create_sql
 
 ANSWER = ["y", "yes"]
 LIST = "List"
@@ -58,6 +59,7 @@ ALL_ACTION = {
 def menu():
 	loading()
 	if_csv_is_not_exist(DONOR_PATH)
+	run_create_sql()
 	check_first_row_and_write(DONOR_PATH, donor_header())
 	if_csv_is_not_exist(EVENT_PATH)
 	check_first_row_and_write(EVENT_PATH, event_header())
@@ -159,6 +161,7 @@ def add_new_donor():
 		print_suitable_donor_data()
 		new_donor_data = new_donor_to_list()
 		append_new_donor_or_event_to_csv(DONOR_PATH, new_donor_data)
+		insert_donor_data_into_table()
 
 
 def add_new_event():

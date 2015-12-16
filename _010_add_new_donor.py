@@ -2,6 +2,8 @@ from csv_helper import pure_data_from_csv_file
 from _011_donor_inputs import Donor
 from datetime import datetime
 import time
+from mysql.connector import MySQLConnection, Error
+from setup_database import connect_to_server
 
 DONOR_PATH = "Data\donors.csv"
 NOT_SUITABLE = "\nThe program has ended because of not suitable donor."
@@ -207,11 +209,11 @@ def print_suitable_donor_data():
 	donor_age_index_in_row = 4
 	donor_email_index_in_row = 10
 	print("\nNew donor has been added: \n{}, {} \n{} kg \n{}, {} years old \n{}".format
-	      (new_donor_to_list()[donor_first_name_index_in_row],
-	       new_donor_to_list()[donor_last_name_index_in_row],
-	       new_donor_to_list()[donor_weight_index_in_row],
-	       new_donor_to_list()[donor_age_index_in_row], donor_age_in_year,
-	       new_donor_to_list()[donor_email_index_in_row]))
+		  (new_donor_to_list()[donor_first_name_index_in_row],
+		   new_donor_to_list()[donor_last_name_index_in_row],
+		   new_donor_to_list()[donor_weight_index_in_row],
+		   new_donor_to_list()[donor_age_index_in_row], donor_age_in_year,
+		   new_donor_to_list()[donor_email_index_in_row]))
 	if input("\nTo exit the program press E, to return to the Main menu press Enter: ").upper() == "E":
 		exit()
 
@@ -219,3 +221,31 @@ def print_suitable_donor_data():
 def calc_donor_input_to_days(donor_input):
 	if donor_input is not None:
 		return (datetime.now() - datetime.strptime((donor_input), "%Y.%m.%d")).days
+
+
+def insert_donor_data_into_table():
+	database_connector, cursor = connect_to_server()
+	cursor.execute("USE BloodDonationStorage")
+	if new_donor.donation_date == "":
+		new_donor.donation_date = '0000-00-00'
+	insert = """INSERT INTO Donors(First_name,Last_name, Weight, Gender, Date_of_birth, Donation_date, Sickness, ID_number,
+			Expiration_date, Blood_type, Email_address, Mobile_number, Hemoglobin_level)
+			VALUES('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')""".format(
+		new_donor.first_name,
+		new_donor.last_name,
+		new_donor.weight,
+		new_donor.gender,
+		new_donor.date_of_birth,
+		new_donor.donation_date,
+		new_donor.sickness,
+		new_donor.id_number,
+		new_donor.exp_date,
+		new_donor.blood_type,
+		new_donor.email_address,
+		new_donor.mobile_number,
+		new_donor.hemoglobin_level
+	)
+	cursor.execute(insert)
+	database_connector.commit()
+	new_donor.donation_date = None
+
