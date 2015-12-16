@@ -1,5 +1,6 @@
 from _021_event_inputs import Event
 from datetime import datetime
+from setup_database import connect_to_server
 
 SATURDAY = 6
 SUNDAY = 7
@@ -104,3 +105,25 @@ def event_requirements(get_something):
 					(int(str(new_event.start_time).replace(':', '')) + MIN_EVENT_TIME_IN_HOUR) > (int(str(new_event.end_time).replace(':', ''))):
 		print("Wrong input! The end time has to be at least one hour later than the start time.")
 		event_requirements(new_event.get_end_time())
+
+
+def insert_event_data_into_table():
+	database_connector, cursor = connect_to_server()
+	cursor.execute("USE BloodDonationStorage")
+	insert = """INSERT INTO Event(ID_number, Date_of_Event,Start_time, End_time, Zip_code, City, Address, Available_beds, Planned_donors, Max_donor_numbers,
+			Successful_donations)
+			VALUES('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')""".format(
+		new_event.event_id,
+		new_event.date_of_event,
+		new_event.start_time,
+		new_event.end_time,
+		new_event.zip_code,
+		new_event.city,
+		new_event.address,
+		new_event.available_beds,
+		new_event.planned_donors,
+		new_event.max_donor_number,
+		new_event.successful_donations
+	)
+	cursor.execute(insert)
+	database_connector.commit()

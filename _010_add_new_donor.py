@@ -228,7 +228,7 @@ def insert_donor_data_into_table():
 	cursor.execute("USE BloodDonationStorage")
 	if new_donor.donation_date == "":
 		new_donor.donation_date = '0000-00-00'
-	insert = """INSERT INTO Donors(First_name,Last_name, Weight, Gender, Date_of_birth, Donation_date, Sickness, ID_number,
+	insert = """INSERT INTO Donor(First_name,Last_name, Weight, Gender, Date_of_birth, Donation_date, Sickness, ID_number,
 			Expiration_date, Blood_type, Email_address, Mobile_number, Hemoglobin_level)
 			VALUES('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')""".format(
 		new_donor.first_name,

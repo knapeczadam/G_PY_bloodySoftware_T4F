@@ -169,6 +169,7 @@ def add_new_event():
 		print_donation_successful()
 		new_event_data = new_event_to_list()
 		append_new_donor_or_event_to_csv(EVENT_PATH, new_event_data)
+		insert_event_data_into_table()
 
 
 def delete_donor():
