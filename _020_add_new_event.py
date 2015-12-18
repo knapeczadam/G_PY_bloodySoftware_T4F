@@ -1,6 +1,6 @@
 from _021_event_inputs import Event
 from datetime import datetime
-from setup_database import connect_to_server
+from sql_helper import connect_to_server
 
 SATURDAY = 6
 SUNDAY = 7

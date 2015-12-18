@@ -3,7 +3,7 @@ from _011_donor_inputs import Donor
 from datetime import datetime
 import time
 from mysql.connector import MySQLConnection, Error
-from setup_database import connect_to_server
+from sql_helper import connect_to_server
 
 DONOR_PATH = "Data\donors.csv"
 NOT_SUITABLE = "\nThe program has ended because of not suitable donor."

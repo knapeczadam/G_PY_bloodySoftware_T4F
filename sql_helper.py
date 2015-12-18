@@ -34,3 +34,12 @@ def table_is_empty(string_name):
 		print("File is empty!")
 		sleep(2)
 		return True
+
+
+def id_in_table(string_name, user_input):
+	database_connector, cursor = connect_to_server()
+	cursor.execute("USE BloodDonationStorage")
+	cursor.execute("SELECT ID_number FROM {}".format(string_name))
+	pure_data = cursor.fetchall()
+	ids = [id[0] for id in pure_data]
+	return user_input in ids
